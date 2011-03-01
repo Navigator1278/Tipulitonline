@@ -1,0 +1,30 @@
+TODO 1:
+   #1 - create database from db-01-03-2011.sql
+     correct work tested in MySQL 5.1.49-community build
+
+   #2 - create registration form which include such steps:
+     1 - saving User information
+       info:
+         - DB table `users`
+         - Zend module 'user' controller 'Registration' action 'firstFormAction'
+         - Zend model 'Users.php' in module 'user'
+     2 - generating email confirmation key
+       info:
+         - in firstFormAction after saving user's info in DB, call createValidationCodeAction in 'EmailFunctions' controller, 'user' module
+           - createValidationCodeAction generates and saving into DB `system__email_validation` table record.
+           - Before inserting record you need
+             - in firstFormAction using model 'SystemEmailValidation' in module 'system' to check - if there already exist record;
+               if YES - show alert and update this record; if No - create record;
+         - use 'sendValidationCodeAction' in user/EmailFunctionsController to send to user's email confirmation link
+           - link = <a href="www.tipulit-online.local/user/registration/validate-email/code/{$code}/email/{$user_email}">validate</a>
+             to send it use Zend_Email class
+     3 - write functional for checking validation code:
+       info:
+         - in user -> registrationController -> validateEmailAction check existing of validation code in database 'system' module,
+           'SystemValidationEmail' model
+             - if validation code & email are correct, then go to subtask 4. else - show error alert
+
+     4 - after validating email, forward user to user->RegistrationController->secondFormAction
+       info:
+         - show form based on fields of table DB `user__health_table`
+         - after user fillout it - save to DB using model 'UserHealthTable' in 'user' module

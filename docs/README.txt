@@ -1,34 +1,11 @@
 README
 ======
 
-CONSTANTS USED IN PROJECT
-=========================
-
-In application/Bootstrap.php:
-    Email sending:
-        # fix for Windows-based local development server
-        # write here your internet IP:
-        define('LOCALHOST', "12.34.56.78");
-
-        # Admin email. Used to recieve notifications
-        define('ADMIN_EMAIL', "skachkov@guns.ru");
-
-    Shell execute:
-        # Define path to programs directory:
-        define('SHELL_PATH', "/home/vlad/nsc2010/public/shell/");
-
-VARIABLES USED IN PROJECT
-=========================
-$_SESSION['logined_user_info'] # contains list of driver status
-
-
-CUSTOM HELPERS USED IN PROJECT
-=========================
-VIEW HELPERS:
-
-    Convert phone/fax nubmer string 1234567890 to (123) 456-7890 format:
-    Custom_View_Helper_Transformation::convertNumber($this->driverInfo['d_Fax']);
-
+This directory should be used to place project specfic documentation including
+but not limited to project notes, generated API/phpdoc documentation, or 
+manual files generated or hand written.  Ideally, this directory would remain
+in your development environment only and should not be deployed with your
+application to it's final production location.
 
 
 Setting Up Your VHOST
@@ -37,13 +14,13 @@ Setting Up Your VHOST
 The following is a sample VHOST you might want to consider for your project.
 
 <VirtualHost *:80>
-   DocumentRoot "C:/AppServ/www/studyzend/tipulitonline/public"
-   ServerName tipulitonline.local
+   DocumentRoot "F:/www/tipulitonline/public"
+   ServerName .local
 
    # This should be omitted in the production environment
    SetEnv APPLICATION_ENV development
     
-   <Directory "C:/AppServ/www/studyzend/tipulitonline/public">
+   <Directory "F:/www/tipulitonline/public">
        Options Indexes MultiViews FollowSymLinks
        AllowOverride All
        Order allow,deny
