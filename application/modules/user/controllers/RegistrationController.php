@@ -1,5 +1,4 @@
 <?php
-
 class User_RegistrationController extends Zend_Controller_Action
 {
 
@@ -15,7 +14,8 @@ class User_RegistrationController extends Zend_Controller_Action
 
     public function firstFormAction()
     {
-        // action body
+       
+        $userFirstForm = new User_Model_Users();
     }
 
     public function secondFormAction()
