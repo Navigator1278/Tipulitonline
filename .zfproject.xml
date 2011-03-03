@@ -57,7 +57,9 @@
               <actionMethod actionName="sendValidationCode"/>
             </controllerFile>
           </controllersDirectory>
-          <formsDirectory enabled="false"/>
+          <formsDirectory>
+            <formFile formName="UserFirstForm"/>
+          </formsDirectory>
           <layoutsDirectory enabled="false"/>
           <modelsDirectory>
             <modelFile modelName="Users"/>
