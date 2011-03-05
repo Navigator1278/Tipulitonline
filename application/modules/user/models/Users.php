@@ -25,6 +25,18 @@ class User_Model_Users extends Zend_Db_Table_Abstract{
           'u_picture' => $data['userimage'],
           'u_registration_stamp' => '3333',
         );
-        return $db->insert($this->_name, $userdata);
+        $db->insert($this->_name, $userdata);
+        $systemEmailValidation = new System_Model_SystemEmailValidation();
+        $userId = $systemEmailValidation->getId($data['email']);
+        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+
+        $userdata2 = array(
+          'uht_user_id' => $userId,
+          'uht_height' =>$data['heigth'],
+          'uht_weight' => $data['weight'],
+          'uht_pregnant' => $data['pregnant'],
+        );
+
+        return $db->insert('user__health_table', $userdata2);
     }
 }

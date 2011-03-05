@@ -10,8 +10,9 @@ class System_Model_SystemEmailValidation extends Zend_Db_Table_Abstract
        $stmp = $db->query("
            SELECT u_id FROM users WHERE u_email='".$email."'");
        $record = $stmp->fetchAll();
-       echo $record[0]['u_id'];
-       return $record[0]['u_id'];
+       if ($record)
+            return $record[0]['u_id'];
+       else return false;
     }
 
     public function getId($email){
