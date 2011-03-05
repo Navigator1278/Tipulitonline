@@ -1,4 +1,4 @@
-TODO 1:
+TODO 1: 01-03-2011
    #1 - create database from db-01-03-2011.sql
      correct work tested in MySQL 5.1.49-community build
 
