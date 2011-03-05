@@ -267,12 +267,11 @@ class User_Form_UserSecondForm extends Zend_Form{
 
 
       $this->addElements(array($sufferinfo,$treatinfo,$medicationsinfo,
-            $walk,$hands,$legs,$backashes,$slippedDisk,
+          $walk,$hands,$legs,$backashes,$slippedDisk,
           $lowerBack,$upperBack,$shoulders,$feet,$knees,$pelvis,$wrists,$ankles,$head,$mental,
           $heart,$diabities,$migren,$babies,$sleep,$digestion,$menopause,$scorosies,$epilepsy,$cancer,
           $asthma,$artrities,$hernia,$dipression,$headaches,$fatigue,$accident,
           $terms,
-
           $submit,
           ));
 
