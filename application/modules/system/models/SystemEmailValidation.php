@@ -53,25 +53,29 @@ class System_Model_SystemEmailValidation extends Zend_Db_Table_Abstract
     }
 
     public function sendMail($email, $code){
-        
+        $body = "";
+        $body = $body."Hello!<br/>";
+        $body = $body."You need validate your email. Press - <a href='";
+        $body = $body."www.tipulit-online.lcl/user/registration/validate-email/code/".$code."/email/".$email."";
+        $body = $body."'>VALIDATE</a>.<br/>";
+        $body = $body."<br/>";
+        $body = $body."Thank you!";
+
+
         $mail = new Zend_Mail();
-        $confirmationUrl = "www.tipulit-online.local/user/registration/
-                        validate-email/code/{$code}/email/{$email}";
-        $confirmationLink = "<a href='".$confirmationUrl."'>validate</a>";
-        echo $confirmationLink;
-        $mail->setBodyText($confirmationLink)
-                ->setFrom("someone@somewhere.com", "Dima")
-                ->addTo("tenhi@mail.ru")
-                ->setSubject("Please confirm your Account at Tipulitonline!
-                ");
+        $mail->setBodyHtml($body)
+                ->setFrom("no-reply@tipulit-online.lcl", "Admin")
+                ->addTo($email)
+                ->setSubject("Please confirm your Account at Tipulitonline!");
         $mail->send();
+         
     }
 
     public function checkValidationCode($code, $email){
        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
-       $stmp1 = $db->query("SELECT * FROM system__email_validation WHERE sev_validation_code='$code'");
+       $stmp1 = $db->query("SELECT * FROM system__email_validation WHERE sev_validation_code='".$code."'");
        $row1 = $stmp1->fetchAll();
-       $stmp2 = $db->query("SELECT * FROM users WHERE u_email='$email'");
+       $stmp2 = $db->query("SELECT * FROM users WHERE u_email='".$email."'");
        $row2 = $stmp2->fetchAll();
        if ($row1&&$row2) return true;
             else return false;

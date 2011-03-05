@@ -5,7 +5,7 @@ class User_EmailFunctionsController extends Zend_Controller_Action
 
     public function init()
     {
-        /* Initialize action controller here */
+
     }
 
     public function indexAction()
@@ -20,14 +20,15 @@ class User_EmailFunctionsController extends Zend_Controller_Action
         $emailValidation = new System_Model_SystemEmailValidation();
         if ($emailValidation->checkIfRecordExists($userData['email'])){
             $emailValidation->updateEmailValidationRecord($userData['email'], $code);
-            $message = "Account already exists, data was updated";
+            $message = "Account already exists, data was updated.<br/>Check you email ".$userData['email']." for validation link.";
         } else{
             $emailValidation->insertEmailValidationRecord($userData['email'],
                                 $userData['password1'], $code);
-            $message = "Account was created!";
+            $message = "Account was created!"."<br/>Check you email ".$userData['email']." for validation link.";
         }
-        $this->_redirect("/user/email-functions/send-validation-code/message/
-                    $message/email/$email/code/$code/");
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->layout()->disableLayout();
+        $this->_redirect("/user/email-functions/send-validation-code/message/".$message."/email/".$userData['email']."/code/$code/");
     }
 
     public function sendValidationCodeAction()
@@ -36,6 +37,7 @@ class User_EmailFunctionsController extends Zend_Controller_Action
         $email = $this->getRequest()->getParam('email');
         $code = $this->getRequest()->getParam('code');
         $emailValidation = new System_Model_SystemEmailValidation();
-        //$emailValidation->sendMail($email, $code);
+
+        $emailValidation->sendMail($email, $code);
     }
 }

@@ -13,7 +13,7 @@ class IndexController extends Zend_Controller_Action
         // Fetch the current instance of Zend_Auth
         $auth = Zend_Auth::getInstance();
 
-        return $this->_redirect('/index/index/index');
+        return $this->_redirect('/user/registration/first-form/');
 
     }
 
