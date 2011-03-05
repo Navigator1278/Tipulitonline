@@ -5,6 +5,11 @@ class User_Model_Users extends Zend_Db_Table_Abstract{
     protected $_name = 'users';
 
     public function addUser($data){
+
+        /*
+         * Adding a new user to the system, userdata will be inserted
+         * to 2 Tables: 'users' and after that some data goes to user__health_table
+         */
         
         $db = Zend_Db_Table_Abstract::getDefaultAdapter();
         $userdata = array(
@@ -39,4 +44,21 @@ class User_Model_Users extends Zend_Db_Table_Abstract{
 
         return $db->insert('user__health_table', $userdata2);
     }
+
+    /*
+     * Proovs email und password submitted.
+     * Returns true or false
+     */
+
+    public function checkAuth($email, $password){
+        
+       $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+       $stmp = $db->query("SELECT * FROM users WHERE u_email='$email' AND u_password='$password'");
+       $row = $stmp->fetchAll();
+       if ($row) return true;
+            else return false;
+    }
+
+
+
 }

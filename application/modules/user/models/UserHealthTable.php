@@ -11,7 +11,6 @@ class User_Model_UserHealthTable extends Zend_Db_Table_Abstract{
          $stmp = $db->query("SELECT uht_user_id FROM user__health_table");
          $row = $stmp->fetchAll();
          if ($row[0]['uht_user_id']==$userId) return;
-        print_r($values);
          $userdata = array(
              'uht_user_id' => $userId,
              'uht_other_pain_body' => $values['sufferinfo'],

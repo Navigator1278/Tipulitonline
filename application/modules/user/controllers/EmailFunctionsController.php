@@ -28,7 +28,8 @@ class User_EmailFunctionsController extends Zend_Controller_Action
         }
         $this->_helper->viewRenderer->setNoRender();
         $this->_helper->layout()->disableLayout();
-        $this->_redirect("/user/email-functions/send-validation-code/message/".$message."/email/".$userData['email']."/code/$code/");
+        $mail = $userData['email'];
+        $this->_redirect("/user/email-functions/send-validation-code/email/$mail/code/$code/message/$message");
     }
 
     public function sendValidationCodeAction()

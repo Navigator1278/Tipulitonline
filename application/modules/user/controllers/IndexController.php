@@ -13,6 +13,17 @@ class User_IndexController extends Zend_Controller_Action
         // action body
     }
 
-
+    public function loginAction(){
+        
+         $email = $this->getRequest()->getParam('email');
+         $password =$this->getRequest()->getParam('password');
+         $user = new User_Model_Users();
+         if ($user->checkAuth($email, $password)){
+             echo "Authentification succesfull";
+         }
+         else {
+             echo "Sorry, no record found in the DB with such email und password";
+         }
+    }
 }
 

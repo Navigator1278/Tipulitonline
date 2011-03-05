@@ -51,6 +51,7 @@ class User_RegistrationController extends Zend_Controller_Action
                    $values = $userSecondForm->getValues();
                    $user = new User_Model_UserHealthTable();
                    $user->addAdditionalData($userId,$values);
+                   $this->view->message = "Data was inserted";
                    // after that we want probably to redirtect somewhere else
                }
            } else{
@@ -71,4 +72,5 @@ class User_RegistrationController extends Zend_Controller_Action
             echo "Invalid validation code!";
         }
     }
+
 }

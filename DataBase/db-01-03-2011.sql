@@ -2,16 +2,16 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
-DROP SCHEMA IF EXISTS `tipulitonline` ;
-CREATE SCHEMA IF NOT EXISTS `tipulitonline` DEFAULT CHARACTER SET utf8 ;
-USE `tipulitonline` ;
+DROP SCHEMA IF EXISTS `tipulito_online` ;
+CREATE SCHEMA IF NOT EXISTS `tipulito_online` DEFAULT CHARACTER SET utf8 ;
+USE `tipulito_online` ;
 
 -- -----------------------------------------------------
--- Table `tipulitonline`.`user__status`
+-- Table `tipulito_online`.`user__status`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `tipulitonline`.`user__status` ;
+DROP TABLE IF EXISTS `tipulito_online`.`user__status` ;
 
-CREATE  TABLE IF NOT EXISTS `tipulitonline`.`user__status` (
+CREATE  TABLE IF NOT EXISTS `tipulito_online`.`user__status` (
   `us_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `us_type` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`us_id`) )
@@ -21,11 +21,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `tipulitonline`.`system__sex`
+-- Table `tipulito_online`.`system__sex`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `tipulitonline`.`system__sex` ;
+DROP TABLE IF EXISTS `tipulito_online`.`system__sex` ;
 
-CREATE  TABLE IF NOT EXISTS `tipulitonline`.`system__sex` (
+CREATE  TABLE IF NOT EXISTS `tipulito_online`.`system__sex` (
   `ss_id` INT NOT NULL AUTO_INCREMENT ,
   `ss_sex` VARCHAR(10) NOT NULL ,
   PRIMARY KEY (`ss_id`) )
@@ -34,11 +34,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `tipulitonline`.`users`
+-- Table `tipulito_online`.`users`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `tipulitonline`.`users` ;
+DROP TABLE IF EXISTS `tipulito_online`.`users` ;
 
-CREATE  TABLE IF NOT EXISTS `tipulitonline`.`users` (
+CREATE  TABLE IF NOT EXISTS `tipulito_online`.`users` (
   `u_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `u_name` VARCHAR(100) NOT NULL ,
   `u_family_name` VARCHAR(100) NOT NULL ,
@@ -63,11 +63,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `tipulitonline`.`system__log`
+-- Table `tipulito_online`.`system__log`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `tipulitonline`.`system__log` ;
+DROP TABLE IF EXISTS `tipulito_online`.`system__log` ;
 
-CREATE  TABLE IF NOT EXISTS `tipulitonline`.`system__log` (
+CREATE  TABLE IF NOT EXISTS `tipulito_online`.`system__log` (
   `sl_id` VARCHAR(200) NOT NULL ,
   `sl_ip` INT(11) NOT NULL ,
   `sl_user_id` INT(11) NOT NULL ,
@@ -81,11 +81,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `tipulitonline`.`user__health_table`
+-- Table `tipulito_online`.`user__health_table`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `tipulitonline`.`user__health_table` ;
+DROP TABLE IF EXISTS `tipulito_online`.`user__health_table` ;
 
-CREATE  TABLE IF NOT EXISTS `tipulitonline`.`user__health_table` (
+CREATE  TABLE IF NOT EXISTS `tipulito_online`.`user__health_table` (
   `uht_id` INT(11) NOT NULL AUTO_INCREMENT ,
   `uht_user_id` INT(11) NOT NULL ,
   `uht_height` DOUBLE NULL DEFAULT NULL ,
@@ -124,11 +124,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `tipulitonline`.`system__language`
+-- Table `tipulito_online`.`system__language`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `tipulitonline`.`system__language` ;
+DROP TABLE IF EXISTS `tipulito_online`.`system__language` ;
 
-CREATE  TABLE IF NOT EXISTS `tipulitonline`.`system__language` (
+CREATE  TABLE IF NOT EXISTS `tipulito_online`.`system__language` (
   `sl_id` INT NOT NULL AUTO_INCREMENT ,
   `sl_language` VARCHAR(60) NOT NULL ,
   PRIMARY KEY (`sl_id`) )
@@ -137,11 +137,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `tipulitonline`.`teachers`
+-- Table `tipulito_online`.`teachers`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `tipulitonline`.`teachers` ;
+DROP TABLE IF EXISTS `tipulito_online`.`teachers` ;
 
-CREATE  TABLE IF NOT EXISTS `tipulitonline`.`teachers` (
+CREATE  TABLE IF NOT EXISTS `tipulito_online`.`teachers` (
   `t_id` INT NOT NULL AUTO_INCREMENT ,
   `t_first_name` VARCHAR(250) NOT NULL ,
   `t_last_name` VARCHAR(250) NOT NULL ,
@@ -162,11 +162,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `tipulitonline`.`system__email_validation`
+-- Table `tipulito_online`.`system__email_validation`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `tipulitonline`.`system__email_validation` ;
+DROP TABLE IF EXISTS `tipulito_online`.`system__email_validation` ;
 
-CREATE  TABLE IF NOT EXISTS `tipulitonline`.`system__email_validation` (
+CREATE  TABLE IF NOT EXISTS `tipulito_online`.`system__email_validation` (
   `sev_id` INT NOT NULL AUTO_INCREMENT ,
   `sev_reg_request_time` TIMESTAMP NOT NULL ,
   `sev_user_id` INT NOT NULL ,
@@ -178,11 +178,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `tipulitonline`.`video__6d`
+-- Table `tipulito_online`.`video__6d`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `tipulitonline`.`video__6d` ;
+DROP TABLE IF EXISTS `tipulito_online`.`video__6d` ;
 
-CREATE  TABLE IF NOT EXISTS `tipulitonline`.`video__6d` (
+CREATE  TABLE IF NOT EXISTS `tipulito_online`.`video__6d` (
   `v6d_id` INT NOT NULL AUTO_INCREMENT ,
   `v6d_code` VARCHAR(100) NOT NULL ,
   PRIMARY KEY (`v6d_id`) )
@@ -191,11 +191,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `tipulitonline`.`video__all_movies`
+-- Table `tipulito_online`.`video__all_movies`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `tipulitonline`.`video__all_movies` ;
+DROP TABLE IF EXISTS `tipulito_online`.`video__all_movies` ;
 
-CREATE  TABLE IF NOT EXISTS `tipulitonline`.`video__all_movies` (
+CREATE  TABLE IF NOT EXISTS `tipulito_online`.`video__all_movies` (
   `vam_id` INT NOT NULL AUTO_INCREMENT ,
   `vam_video_player1` VARCHAR(100) NULL ,
   `vam_video_player2` TEXT NULL ,
@@ -209,11 +209,11 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 -- -----------------------------------------------------
--- Table `tipulitonline`.`system__alerts`
+-- Table `tipulito_online`.`system__alerts`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `tipulitonline`.`system__alerts` ;
+DROP TABLE IF EXISTS `tipulito_online`.`system__alerts` ;
 
-CREATE  TABLE IF NOT EXISTS `tipulitonline`.`system__alerts` (
+CREATE  TABLE IF NOT EXISTS `tipulito_online`.`system__alerts` (
   `sa_id` INT NOT NULL AUTO_INCREMENT ,
   `sa_alert_type_id` TINYINT(3) NOT NULL ,
   `sa_timestamp` TIMESTAMP NOT NULL ,
@@ -223,11 +223,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `tipulitonline`.`system__alert_type`
+-- Table `tipulito_online`.`system__alert_type`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `tipulitonline`.`system__alert_type` ;
+DROP TABLE IF EXISTS `tipulito_online`.`system__alert_type` ;
 
-CREATE  TABLE IF NOT EXISTS `tipulitonline`.`system__alert_type` (
+CREATE  TABLE IF NOT EXISTS `tipulito_online`.`system__alert_type` (
   `sat_id` INT NOT NULL AUTO_INCREMENT ,
   `sat_type` VARCHAR(100) NOT NULL ,
   PRIMARY KEY (`sat_id`) )
@@ -236,11 +236,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `tipulitonline`.`video__6d_status`
+-- Table `tipulito_online`.`video__6d_status`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `tipulitonline`.`video__6d_status` ;
+DROP TABLE IF EXISTS `tipulito_online`.`video__6d_status` ;
 
-CREATE  TABLE IF NOT EXISTS `tipulitonline`.`video__6d_status` (
+CREATE  TABLE IF NOT EXISTS `tipulito_online`.`video__6d_status` (
   `v6ds_id` INT NOT NULL AUTO_INCREMENT ,
   `v6ds_video_id` TINYINT(3) NOT NULL ,
   `v6ds_user_id` INT NOT NULL ,
@@ -253,11 +253,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `tipulitonline`.`system__email_templates`
+-- Table `tipulito_online`.`system__email_templates`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `tipulitonline`.`system__email_templates` ;
+DROP TABLE IF EXISTS `tipulito_online`.`system__email_templates` ;
 
-CREATE  TABLE IF NOT EXISTS `tipulitonline`.`system__email_templates` (
+CREATE  TABLE IF NOT EXISTS `tipulito_online`.`system__email_templates` (
   `set_id` INT NOT NULL AUTO_INCREMENT ,
   `set_subject` VARCHAR(250) NOT NULL ,
   `set_body` TEXT NOT NULL ,
@@ -267,11 +267,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `tipulitonline`.`privat_messages`
+-- Table `tipulito_online`.`privat_messages`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `tipulitonline`.`privat_messages` ;
+DROP TABLE IF EXISTS `tipulito_online`.`privat_messages` ;
 
-CREATE  TABLE IF NOT EXISTS `tipulitonline`.`privat_messages` (
+CREATE  TABLE IF NOT EXISTS `tipulito_online`.`privat_messages` (
   `spm_id` INT NOT NULL AUTO_INCREMENT ,
   `spm_from_user_id` INT NULL ,
   `spm_from_teacher_id` INT NULL ,
@@ -287,11 +287,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `tipulitonline`.`news_status`
+-- Table `tipulito_online`.`news_status`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `tipulitonline`.`news_status` ;
+DROP TABLE IF EXISTS `tipulito_online`.`news_status` ;
 
-CREATE  TABLE IF NOT EXISTS `tipulitonline`.`news_status` (
+CREATE  TABLE IF NOT EXISTS `tipulito_online`.`news_status` (
   `ns_id` INT NOT NULL AUTO_INCREMENT ,
   `ns_status` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`ns_id`) )
@@ -300,11 +300,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `tipulitonline`.`news`
+-- Table `tipulito_online`.`news`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `tipulitonline`.`news` ;
+DROP TABLE IF EXISTS `tipulito_online`.`news` ;
 
-CREATE  TABLE IF NOT EXISTS `tipulitonline`.`news` (
+CREATE  TABLE IF NOT EXISTS `tipulito_online`.`news` (
   `n_id` INT NOT NULL AUTO_INCREMENT ,
   `n_datetime` DATETIME NOT NULL ,
   `n_title` VARCHAR(250) NOT NULL ,
@@ -316,11 +316,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `tipulitonline`.`feedback`
+-- Table `tipulito_online`.`feedback`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `tipulitonline`.`feedback` ;
+DROP TABLE IF EXISTS `tipulito_online`.`feedback` ;
 
-CREATE  TABLE IF NOT EXISTS `tipulitonline`.`feedback` (
+CREATE  TABLE IF NOT EXISTS `tipulito_online`.`feedback` (
   `f_id` INT NOT NULL AUTO_INCREMENT ,
   `f_user_id` INT NOT NULL ,
   `f_video_id` INT NOT NULL ,
@@ -337,74 +337,74 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
--- Data for table `tipulitonline`.`user__status`
+-- Data for table `tipulito_online`.`user__status`
 -- -----------------------------------------------------
 SET AUTOCOMMIT=0;
-USE `tipulitonline`;
-INSERT INTO `tipulitonline`.`user__status` (`us_id`, `us_type`) VALUES ('1', 'Premium');
-INSERT INTO `tipulitonline`.`user__status` (`us_id`, `us_type`) VALUES ('2', 'Subscription');
-INSERT INTO `tipulitonline`.`user__status` (`us_id`, `us_type`) VALUES ('3', 'Free');
-INSERT INTO `tipulitonline`.`user__status` (`us_id`, `us_type`) VALUES ('4', '6D');
-INSERT INTO `tipulitonline`.`user__status` (`us_id`, `us_type`) VALUES ('5', 'Open');
-INSERT INTO `tipulitonline`.`user__status` (`us_id`, `us_type`) VALUES ('6', 'Close');
+USE `tipulito_online`;
+INSERT INTO `tipulito_online`.`user__status` (`us_id`, `us_type`) VALUES ('1', 'Premium');
+INSERT INTO `tipulito_online`.`user__status` (`us_id`, `us_type`) VALUES ('2', 'Subscription');
+INSERT INTO `tipulito_online`.`user__status` (`us_id`, `us_type`) VALUES ('3', 'Free');
+INSERT INTO `tipulito_online`.`user__status` (`us_id`, `us_type`) VALUES ('4', '6D');
+INSERT INTO `tipulito_online`.`user__status` (`us_id`, `us_type`) VALUES ('5', 'Open');
+INSERT INTO `tipulito_online`.`user__status` (`us_id`, `us_type`) VALUES ('6', 'Close');
 
 COMMIT;
 
 -- -----------------------------------------------------
--- Data for table `tipulitonline`.`system__sex`
+-- Data for table `tipulito_online`.`system__sex`
 -- -----------------------------------------------------
 SET AUTOCOMMIT=0;
-USE `tipulitonline`;
-INSERT INTO `tipulitonline`.`system__sex` (`ss_id`, `ss_sex`) VALUES ('1', 'Male');
-INSERT INTO `tipulitonline`.`system__sex` (`ss_id`, `ss_sex`) VALUES ('2', 'Female');
+USE `tipulito_online`;
+INSERT INTO `tipulito_online`.`system__sex` (`ss_id`, `ss_sex`) VALUES ('1', 'Male');
+INSERT INTO `tipulito_online`.`system__sex` (`ss_id`, `ss_sex`) VALUES ('2', 'Female');
 
 COMMIT;
 
 -- -----------------------------------------------------
--- Data for table `tipulitonline`.`system__language`
+-- Data for table `tipulito_online`.`system__language`
 -- -----------------------------------------------------
 SET AUTOCOMMIT=0;
-USE `tipulitonline`;
-INSERT INTO `tipulitonline`.`system__language` (`sl_id`, `sl_language`) VALUES ('1', 'Hebrew');
-INSERT INTO `tipulitonline`.`system__language` (`sl_id`, `sl_language`) VALUES ('2', 'English');
-INSERT INTO `tipulitonline`.`system__language` (`sl_id`, `sl_language`) VALUES ('3', 'Arabic');
+USE `tipulito_online`;
+INSERT INTO `tipulito_online`.`system__language` (`sl_id`, `sl_language`) VALUES ('1', 'Hebrew');
+INSERT INTO `tipulito_online`.`system__language` (`sl_id`, `sl_language`) VALUES ('2', 'English');
+INSERT INTO `tipulito_online`.`system__language` (`sl_id`, `sl_language`) VALUES ('3', 'Arabic');
 
 COMMIT;
 
 -- -----------------------------------------------------
--- Data for table `tipulitonline`.`video__6d`
+-- Data for table `tipulito_online`.`video__6d`
 -- -----------------------------------------------------
 SET AUTOCOMMIT=0;
-USE `tipulitonline`;
-INSERT INTO `tipulitonline`.`video__6d` (`v6d_id`, `v6d_code`) VALUES ('1', 'code1');
-INSERT INTO `tipulitonline`.`video__6d` (`v6d_id`, `v6d_code`) VALUES ('2', 'code2');
-INSERT INTO `tipulitonline`.`video__6d` (`v6d_id`, `v6d_code`) VALUES ('3', 'code3');
-INSERT INTO `tipulitonline`.`video__6d` (`v6d_id`, `v6d_code`) VALUES ('4', 'code4');
-INSERT INTO `tipulitonline`.`video__6d` (`v6d_id`, `v6d_code`) VALUES ('5', 'code5');
-INSERT INTO `tipulitonline`.`video__6d` (`v6d_id`, `v6d_code`) VALUES ('6', 'code6');
-INSERT INTO `tipulitonline`.`video__6d` (`v6d_id`, `v6d_code`) VALUES ('7', 'code7');
+USE `tipulito_online`;
+INSERT INTO `tipulito_online`.`video__6d` (`v6d_id`, `v6d_code`) VALUES ('1', 'code1');
+INSERT INTO `tipulito_online`.`video__6d` (`v6d_id`, `v6d_code`) VALUES ('2', 'code2');
+INSERT INTO `tipulito_online`.`video__6d` (`v6d_id`, `v6d_code`) VALUES ('3', 'code3');
+INSERT INTO `tipulito_online`.`video__6d` (`v6d_id`, `v6d_code`) VALUES ('4', 'code4');
+INSERT INTO `tipulito_online`.`video__6d` (`v6d_id`, `v6d_code`) VALUES ('5', 'code5');
+INSERT INTO `tipulito_online`.`video__6d` (`v6d_id`, `v6d_code`) VALUES ('6', 'code6');
+INSERT INTO `tipulito_online`.`video__6d` (`v6d_id`, `v6d_code`) VALUES ('7', 'code7');
 
 COMMIT;
 
 -- -----------------------------------------------------
--- Data for table `tipulitonline`.`system__alert_type`
+-- Data for table `tipulito_online`.`system__alert_type`
 -- -----------------------------------------------------
 SET AUTOCOMMIT=0;
-USE `tipulitonline`;
-INSERT INTO `tipulitonline`.`system__alert_type` (`sat_id`, `sat_type`) VALUES ('1', 'New User Registration');
-INSERT INTO `tipulitonline`.`system__alert_type` (`sat_id`, `sat_type`) VALUES ('2', 'Update User Information');
+USE `tipulito_online`;
+INSERT INTO `tipulito_online`.`system__alert_type` (`sat_id`, `sat_type`) VALUES ('1', 'New User Registration');
+INSERT INTO `tipulito_online`.`system__alert_type` (`sat_id`, `sat_type`) VALUES ('2', 'Update User Information');
 
 COMMIT;
 
 -- -----------------------------------------------------
--- Data for table `tipulitonline`.`news_status`
+-- Data for table `tipulito_online`.`news_status`
 -- -----------------------------------------------------
 SET AUTOCOMMIT=0;
-USE `tipulitonline`;
-INSERT INTO `tipulitonline`.`news_status` (`ns_id`, `ns_status`) VALUES ('1', 'New');
-INSERT INTO `tipulitonline`.`news_status` (`ns_id`, `ns_status`) VALUES ('2', 'Visible');
-INSERT INTO `tipulitonline`.`news_status` (`ns_id`, `ns_status`) VALUES ('3', 'Hidden');
-INSERT INTO `tipulitonline`.`news_status` (`ns_id`, `ns_status`) VALUES ('4', 'Pending');
-INSERT INTO `tipulitonline`.`news_status` (`ns_id`, `ns_status`) VALUES ('5', 'Deleted');
+USE `tipulito_online`;
+INSERT INTO `tipulito_online`.`news_status` (`ns_id`, `ns_status`) VALUES ('1', 'New');
+INSERT INTO `tipulito_online`.`news_status` (`ns_id`, `ns_status`) VALUES ('2', 'Visible');
+INSERT INTO `tipulito_online`.`news_status` (`ns_id`, `ns_status`) VALUES ('3', 'Hidden');
+INSERT INTO `tipulito_online`.`news_status` (`ns_id`, `ns_status`) VALUES ('4', 'Pending');
+INSERT INTO `tipulito_online`.`news_status` (`ns_id`, `ns_status`) VALUES ('5', 'Deleted');
 
 COMMIT;

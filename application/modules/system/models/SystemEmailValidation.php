@@ -68,7 +68,6 @@ class System_Model_SystemEmailValidation extends Zend_Db_Table_Abstract
                 ->addTo($email)
                 ->setSubject("Please confirm your Account at Tipulitonline!");
         $mail->send();
-         
     }
 
     public function checkValidationCode($code, $email){
