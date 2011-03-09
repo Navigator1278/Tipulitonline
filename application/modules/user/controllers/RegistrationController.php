@@ -33,6 +33,7 @@ class User_RegistrationController extends Zend_Controller_Action
 
     public function secondFormAction()
     {
+        $this->_helper->layout->setLayout('second_form');
        $email = $this->getRequest()->getParam('email');
        $emailValidation = new System_Model_SystemEmailValidation();
        $userId = $emailValidation->getId($email);
