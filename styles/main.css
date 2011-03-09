@@ -403,7 +403,7 @@ a:hover, a:focus {
 .form{
 	z-index: 10;
 	position: relative;
-	width: 345px;
+	width: 340px;
 	/*width: 368px;*/
 	min-height: 300px;
 	background-position: 0 0;
