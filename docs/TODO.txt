@@ -28,3 +28,7 @@ TODO 1: 01-03-2011
        info:
          - show form based on fields of table DB `user__health_table`
          - after user fillout it - save to DB using model 'UserHealthTable' in 'user' module
+
+
+TODO 2: 06-03-2011
+   #1 
