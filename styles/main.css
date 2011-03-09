@@ -384,7 +384,8 @@ a:hover, a:focus {
 }
 
 .form_wrap{
-	padding: 36px 120px 26px 0;
+	/*padding: 36px 120px 26px 0;*/
+	padding: 95px 13px 26px 69px;
 	overflow: hidden;
 }
 
@@ -402,7 +403,8 @@ a:hover, a:focus {
 .form{
 	z-index: 10;
 	position: relative;
-	width: 368px;
+	width: 345px;
+	/*width: 368px;*/
 	min-height: 300px;
 	background-position: 0 0;
 	overflow: hidden;
