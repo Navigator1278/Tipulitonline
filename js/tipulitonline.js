@@ -4,9 +4,7 @@ $(document).ready(function(){
 	
 	$('#showloginform').click(function(){
 		
-		var checked = $(this).attr('check');
-		if (checked=='0') show_login_form();
-		$(this).attr('check','1');
+		show_login_form();
 	});
 });
 function show_login_form(){

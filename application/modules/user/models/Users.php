@@ -53,10 +53,30 @@ class User_Model_Users extends Zend_Db_Table_Abstract{
     public function checkAuth($email, $password){
         
        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
-       $stmp = $db->query("SELECT * FROM users WHERE u_email='$email' AND u_password='$password'");
-       $row = $stmp->fetchAll();
-       if ($row) return true;
-            else return false;
+       $authAdapter = new Zend_Auth_Adapter_DbTable($db);
+       $authAdapter->setTableName('users');
+       $authAdapter->setIdentityColumn('u_email');
+       $authAdapter->setCredentialColumn('u_password');
+       $authAdapter->setIdentity($email);
+       $authAdapter->setCredential($password);
+       $auth = Zend_Auth::getInstance();
+       $result = $auth->authenticate($authAdapter);
+       if ($result->isValid()){
+           $data = $authAdapter->getResultRowObject(null, 'u_password');
+           $auth->getStorage()->write($data);
+           return true;
+       }
+       else {
+           return false;
+       }
+
+
+
+
+//       $stmp = $db->query("SELECT * FROM users WHERE u_email='$email' AND u_password='$password'");
+ //      $row = $stmp->fetchAll();
+   //    if ($row) return true;
+     //       else return false;
     }
 
 
