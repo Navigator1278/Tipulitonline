@@ -56,15 +56,18 @@ class System_Model_SystemEmailValidation extends Zend_Db_Table_Abstract
         $body = "";
         $body = $body."Hello!<br/>";
         $body = $body."You need validate your email. Press - <a href='";
-        $body = $body."www.tipulit-online.lcl/user/registration/validate-email/code/".$code."/email/".$email."";
+        $body = $body."http://www.tipulitonline.co.il/user/registration/validate-email/email/".$email."/code/".$code."";
         $body = $body."'>VALIDATE</a>.<br/>";
         $body = $body."<br/>";
+        $body = $body."If you could not see the link please open the following string:<br/>";
+        $body = $body."www.tipulitonline.co.il/user/registration/validate-email/email/".$email."/code/".$code."";
+        $body = $body."<br/>in your favorite browser:<br/>";
         $body = $body."Thank you!";
 
 
         $mail = new Zend_Mail();
         $mail->setBodyHtml($body)
-                ->setFrom("no-reply@tipulit-online.lcl", "Admin")
+                ->setFrom("no-reply@tipulitonline.co.il", "Admin")
                 ->addTo($email)
                 ->setSubject("Please confirm your Account at Tipulitonline!");
         $mail->send();

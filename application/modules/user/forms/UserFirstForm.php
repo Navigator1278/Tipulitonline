@@ -67,23 +67,22 @@ class User_Form_UserFirstForm extends Zend_Form{
         //birthday field: validation for yyyy-mm-dd input
         $birthday = new Zend_Form_Element_Text('datepicker', array(
             'required' => true,
-            'label' => 'שנת לידה:'
+            'label' => 'שנת לידה:',
+            'size' => 10,
         ));
         $birthday->setDecorators($this->elementDecorators);
         $birthday->addValidator(new Zend_Validate_Date());
 
         $weight = new Zend_Form_Element_Select('weight', array(
             'label' => 'שקל',
-            'id' => 'selectweight',
-        ));
+          ));
         for ($i=20;$i<=300;$i++) $weight->addMultiOption($i,$i);
         $weight->setDecorators($this->elementDecorators);
 
 
         $heigth = new Zend_Form_Element_Select('heigth', array(
             'label' => 'גובה:',
-            'id' => 'selectheigth',
-        ));
+         ));
         for ($i=120;$i<=300;$i++) $heigth->addMultiOption($i,$i);
         $heigth->setDecorators($this->elementDecorators);
 

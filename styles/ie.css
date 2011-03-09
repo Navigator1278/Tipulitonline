@@ -1,0 +1,88 @@
+@import "main.css";
+
+.content_row_before, .content_row_after{
+	position: absolute;
+	width: 743px;
+	left: 0;
+}
+
+.content_row_before, .side_block_before{
+	top: 0;
+	height: 30px;
+	background-image: url(../i/c_block_top.png);
+	background-repeat: no-repeat;
+}
+
+.content_row_before{
+	background-position: 0 0;
+}
+
+.content_row_after{
+	height: 34px;
+	bottom: 0;
+	background: url(../i/c_block_bott.png) 0 0 no-repeat;
+}
+
+.side_block_before, .side_block_after{
+	position: absolute;
+	width: 280px;
+}
+
+.side_block_before{
+	right: 2px;
+	background-position: 100% 0;
+}
+.side_block_after{
+	height: 46px;
+	right: 2px;
+	bottom: 0;
+	background: url(../i/right_block_bott.png) 100% 0 no-repeat;
+}
+
+.form_before, .form_after, .form_before_after{
+	background-image: url(../i/form_block.png);
+	background-repeat: no-repeat;
+}
+
+.form_before{
+	z-index: 3;
+	position: absolute;
+	width: 15px;
+	top: 0;
+	right: 0;
+	bottom: 15px;
+	background-position: 100% 0;
+}
+
+.form_after{
+	z-index: 4;
+	position: absolute;
+	height: 15px;
+	left: 0;
+	right: 15px;
+	bottom: 0;
+	background-position: 0 100%;
+}
+
+.form_before_after{
+	z-index: 5;
+	position: absolute;
+	height: 15px;
+	width: 15px;
+	right: 0;
+	bottom: 0;
+	background-position: 100% 100%;
+}
+
+
+.form_list label, .form_list p{
+	display: inline;
+}
+
+.form_list li{
+	zoom: 1;
+}
+
+#search{
+	width: 130px;
+}
