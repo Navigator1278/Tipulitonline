@@ -9,7 +9,7 @@ class Student_IndexController extends Zend_Controller_Action
         $this->_helper->layout->setLayout('student');
 
         $auth = Zend_Auth::getInstance();
-        #if (!$auth->hasIdentity()) $this->_redirect ('/');
+        if (!$auth->hasIdentity()) $this->_redirect ('/');
     }
 
     public function init()

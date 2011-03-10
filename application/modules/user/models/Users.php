@@ -51,7 +51,10 @@ class User_Model_Users extends Zend_Db_Table_Abstract{
      */
 
     public function checkAuth($email, $password){
-        
+
+        if (!$email){
+            $email = 'notvalid'; $password='notvalid';
+        }
        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
        $authAdapter = new Zend_Auth_Adapter_DbTable($db);
        $authAdapter->setTableName('users');

@@ -22,7 +22,7 @@ class User_Form_UserFirstForm extends Zend_Form{
 
     public function init(){
         //setting  method and action of the form
-        $this->setAction('')
+        $this->setAction('/user/registration/first-form/')
                 ->setAttrib('enctype','multipart/form-data')
                 ->setDecorators($this->formDecorators)
                 ->setMethod('post');

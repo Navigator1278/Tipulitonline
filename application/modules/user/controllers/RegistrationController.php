@@ -51,7 +51,8 @@ class User_RegistrationController extends Zend_Controller_Action
                    $values = $userSecondForm->getValues();
                    $user = new User_Model_UserHealthTable();
                    $user->addAdditionalData($userId,$values);
-                   $this->view->message = "Data was inserted";
+                   $auth = Zend_Auth::getInstance();
+                   $auth->getStorage()->write(array('u_email'=>$email));
                    $this->_redirect("/student/index/index/");
                }
            } else{
