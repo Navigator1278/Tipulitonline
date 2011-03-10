@@ -18,6 +18,7 @@
 }
 
 .content_row_after{
+    z-index:1;
 	height: 34px;
 	bottom: 0;
 	background: url(../i/c_block_bott.png) 0 0 no-repeat;
@@ -85,4 +86,8 @@
 
 #search{
 	width: 130px;
+}
+
+#f_14{
+	height: 110px;
 }

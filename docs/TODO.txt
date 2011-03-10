@@ -30,5 +30,10 @@ TODO 1: 01-03-2011
          - after user fillout it - save to DB using model 'UserHealthTable' in 'user' module
 
 
-TODO 2: 06-03-2011
-   #1 
+TODO 2: 10-03-2011
+   #1 - after user fillout second registration form, OR after login, student must be forwarded to /student/profile/my-profile/
+     1 - at controller profileController in init() must be checkup for login data in session:
+        if student logined - he can view pages. if not - forward to login page or to main page
+   #2 edit student profile - /student/profile/my-profile-edit/
+     1 - updated date submited by ajax to /student/profile/ajax-validate-profile-edit/
+        if all data correct - forward to veiw students page. if some data wrong - usr dialog() function to show errors.

@@ -1,0 +1,98 @@
+@import "main.css";
+
+.base{
+    padding-top:200px !important;
+}
+.sub-block-border3 .sub-bottom-border {
+    background: url("../../img/vertical-right-bottom-border.png") repeat-y scroll 19% 0 transparent !important;
+    height: 50% !important;
+    position:relative;
+    left:-43px;
+}
+
+.content_row {
+    background: url("../../img/main-body.png") repeat-y scroll 17% 100% transparent !important;
+}
+
+.for_ie {
+
+    left: 621px;
+    bottom: -22px;
+    width: 120px;
+    z-index: 1;
+}
+
+body{
+   /* display:none;*/
+}
+
+.mail-content-wrap .mail-block {
+    top: 13px;
+   left: 40px;
+}
+
+.mail-content-wrap {
+    height: 550px !important;
+}
+
+.mwplayer_interface {
+    left: 120px;
+}
+
+.video_link {
+ left: -26px;
+}
+
+.side_block {
+     background: url("../../img/right-main-border.png") repeat-y scroll 130% 0 transparent;
+    right: 0;
+    top: 0;
+
+}
+
+.sub-block-border1 {
+    left: 21px;
+}
+
+.sub-block1 {
+      height: 252px;
+       left: 31px;
+}
+
+.sub-block-border2 {
+
+    left:21px;
+}
+
+.sub-block2 {
+
+    left: 26px;
+}
+
+.sub-block-border3 {
+    left:-44px;
+}
+
+.sub-block-border3 .sub-bottom-border .sub-bottom-border-block {
+   left: 10px;
+}
+
+.sub-block-border3 .sub-bottom-border .sub-view-image {
+    position:relative;
+    left:35px;
+}
+.bottom-shape {
+    left: -180px;
+}
+.bottom-shape-like {
+    left: 10px;
+}
+
+.sub-view-image .input-title {
+    height:10px;
+    z-index:1;
+     
+top:115px;
+    left: 30px;
+
+}
