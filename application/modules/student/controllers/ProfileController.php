@@ -1,6 +1,4 @@
 <?php
-require_once 'application/modules/student/forms/StudentEditDataForm.php';
-require_once 'application/modules/student/models/Students.php';
 class Student_ProfileController extends Zend_Controller_Action
 {
 
