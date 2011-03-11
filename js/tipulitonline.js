@@ -9,7 +9,7 @@ $(document).ready(function(){
 });
 function show_login_form(){
                var data = "";
-               data = data + "<form method='post' action='/user/index/login/'>Login(email)<input type='text' name='email' value='' /><br/>Password<input type='password' name='password' /><br/><input type='submit' value='Login' /></form>"
+               data = data + "<form method='post' action='/user/index/login/'>Login(email)<input type='text' name='email' value='' /><br/>Password<input type='password' name='password' /><br/><input type='submit' name='login' value='login' /></form>"
               var $dialog = $('<div></div>')
                   .html(data)
                       .dialog({

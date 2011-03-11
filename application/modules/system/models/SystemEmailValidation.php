@@ -73,6 +73,22 @@ class System_Model_SystemEmailValidation extends Zend_Db_Table_Abstract
         $mail->send();
     }
 
+    public function sendWelcomeMail($email){
+        
+        $body = "";
+        $body = $body."<br \>Welcome to the Tipuliteonline!";
+
+        $mail = new Zend_Mail();
+        $mail->setBodyHtml($body)
+                ->setFrom("no-reply@tipulitonline.co.il", "Admin")
+                ->addTo($email)
+                ->setSubject("Your Account at Tipulitonline was regitered!");
+        $mail->send();
+    }
+
+
+
+
     public function checkValidationCode($code, $email){
        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
        $stmp1 = $db->query("SELECT * FROM system__email_validation WHERE sev_validation_code='".$code."'");

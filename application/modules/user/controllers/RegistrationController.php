@@ -33,7 +33,7 @@ class User_RegistrationController extends Zend_Controller_Action
 
     public function secondFormAction()
     {
-        $this->_helper->layout->setLayout('second_form');
+       $this->_helper->layout->setLayout('second_form');
        $email = $this->getRequest()->getParam('email');
        $emailValidation = new System_Model_SystemEmailValidation();
        $userId = $emailValidation->getId($email);
@@ -49,12 +49,13 @@ class User_RegistrationController extends Zend_Controller_Action
                    $this->view->form = $userSecondForm;
                } else {
                   // success
+                   //$emailValidation->sendWelcomeMail($email);
                    $values = $userSecondForm->getValues();
                    $user = new User_Model_UserHealthTable();
                    $user->addAdditionalData($userId,$values);
                    $auth = Zend_Auth::getInstance();
-                   $auth->getStorage()->write(array('u_email'=>$email));
-                   $this->_redirect("/student/index/index/");
+                   $auth->getStorage()->write(array('u_email'=>$email,'u_id'=>$userId));
+                   $this->_redirect("/student/profile/my-profile/");
                }
            } else{
            $this->view->form = $userSecondForm;

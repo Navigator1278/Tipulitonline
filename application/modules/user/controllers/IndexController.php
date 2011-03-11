@@ -25,8 +25,10 @@ class User_IndexController extends Zend_Controller_Action
              if ($user->checkAuth($email, $password)){
                  //correct!
                 $auth = Zend_Auth::getInstance();
-                $auth->getStorage()->write(array('u_email'=>$email));
-                $this->_redirect("/student/index/index/");
+                $systemEmailValidation = new System_Model_SystemEmailValidation();
+                $userId = $systemEmailValidation->getId($email);
+                $auth->getStorage()->write(array('u_email'=>$email,'u_id'=>$userId));
+                $this->_redirect("/student/profile/my-profile/");
              }
              else {
                  echo "Sorry, no record found in the DB with such email und password";

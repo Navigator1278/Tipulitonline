@@ -41,4 +41,5 @@ class User_EmailFunctionsController extends Zend_Controller_Action
        // $emailValidation->sendMail($email, $code);
 		$this->view->message =  "Please check your mail to complete registration";
     }
+    
 }

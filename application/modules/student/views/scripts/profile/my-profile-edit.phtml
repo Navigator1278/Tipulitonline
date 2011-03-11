@@ -1,1 +1,427 @@
-<br /><br /><center>View script for controller <b>Profile</b> and script/action name <b>myProfileEdit</b></center>
+<div class="form_wrap">
+			<ul class="form_big">
+                                    <li style="padding-right: 40px">
+          <?php if (!isset ($this->studentData['u_picture'])): ?>
+                 <a href="#"><img src="/i/noava.gif"></a>
+          <?php else: ?>
+                 <a href="#"><img src="<?php echo $this->studentData['u_picture']?>"></a>
+          <?php endif ?>
+                  <input type="submit" id="Activte_6D" value="Upload">
+					</li>
+                                        <li class="form_big" >
+                                            Last payment<br/>
+                                            Last payment date<br/>
+      <a href="#"><img src="/i/r_button.png"></a>
+                                        </li>
+					<li  class="form_big">
+                                                        Open <b>account</b> .................................. <b>user id</b> ...................................... <b>user name</b><br/><br/>
+                                                        <div style="color:darkred">some other text goes here........................................................text.................</div><br/>
+                                                        text of the first radio<input type="radio" name="sex" id="male">
+                                                        <a href=''>text</a> of the second radio<input type="radio" name="sex" id="male"><br/>
+                                                        <br/>
+                                                        <div style="float:right;">
+                                                        <input type="submit" id="Activte_6D" value="Back">
+							<input type="submit" id="Pause_6D" value="Save">
+                                                        </div>
+					</li>
+
+				</ul>
+				<div class="form">
+					<ul class="form_list">
+						<li>
+							<?php echo $this->form ?>
+							<label for="name">שם פרטי:</label>
+						</li>
+
+						<li>
+							<input type="text" name="lname" id="lname">
+							<label for="lname">שם משפחה:</label>
+						</li>
+						<li>
+							<label class="birth">שנת לידה:
+								<input type="text" name="birth" id="birth">
+							</label>
+							<label for="sex">מין:</label>
+
+							<label>
+								<input type="radio" name="sex" id="male">
+								נקבה
+							</label>
+							<label>
+								<input type="radio" name="sex" id="female">
+								זכר
+							</label>
+
+						</li>
+
+						<li>
+							<label for="height">גובה:</label>
+							<input type="text" name="height" id="height" value="190">
+							<label for="weight">משקל:</label>
+							<input type="text" name="weight" id="weight">
+						</li>
+						<li>
+							<input type="text" name="email" id="email">
+
+							<label for="email">אימייל:</label>
+						</li>
+						<li>
+							<input type="text" name="pass" id="pass">
+							<label for="pass">סיסמא</label>
+						</li>
+						<li>
+							<input type="text" name="c_pass" id="c_pass">
+
+							<label for="c_pass">אימות סיסמא</label>
+						</li>
+						<li>
+							<label for="state">מדינה:</label>
+							<select name="state" id="state">
+								<option value="1">מדינה:</option>
+							</select>
+
+						</li>
+						<li>
+							<input type="text" name="full_adr" id="full_adr">
+							<label for="full_adr">כתובת מלאה:</label>
+						</li>
+						<li>
+							<p><strong>לנשים:</strong> האם את בהריון?</p>
+
+							<label>
+								<input type="radio" name="yes_no" id="yes">
+								כן
+							</label>
+							<label>
+								<input type="radio" name="yes_no" id="no">
+								לא
+							</label>
+
+						</li>
+
+						<li>
+							<label for="hz1">מספר חודשים שעברו מהלידה האחרונה: </label>
+							<select name="hz1" id="hz1">
+								<option value="1">11</option>
+							</select>
+						</li>
+						<li class="other_stile">
+							<label for="obj">מהן המטרות שלך בתרגול איתנו?</label>
+
+							<textarea id="obj" rows="20" cols="20">
+							</textarea>
+						</li>
+					</ul>
+				</div>
+
+				<div class="form">
+					<h2>סמנו אם הינכם סובלים מ:</h2>
+					<ul class="form_list">
+
+						<li>
+							<label for="f_15">
+								<input type="checkbox" name="f_15" id="f_15">
+								מחלת לב/ עורקים/ לחץ דם גבוה
+							</label>
+						</li>
+						<li>
+							<label for="f_16">
+								<input type="checkbox" name="f_16" id="f_16">
+
+								סכרת
+							</label>
+						</li>
+						<li>
+							<label for="f_17">
+								<input type="checkbox" name="f_17" id="f_17">
+								מיגרנה כרונית
+							</label>
+						</li>
+						<li>
+
+							<label for="f_18">
+								<input type="checkbox" name="f_18" id="f_18">
+								בעיות פיריון
+							</label>
+						</li>
+						<li>
+							<label for="f_19">
+								<input type="checkbox" name="f_19" id="f_19">
+								הפרעות שינה
+							</label>
+
+						</li>
+						<li>
+							<label for="f_20">
+								<input type="checkbox" name="f_20" id="f_20">
+								מעי רגיש או בעיות עיכול אחרות
+							</label>
+						</li>
+						<li>
+							<label for="f_21">
+
+								<input type="checkbox" name="f_21" id="f_21">
+								תופעות גיל המעבר
+							</label>
+						</li>
+						<li>
+							<label for="f_22">
+								<input type="checkbox" name="f_22" id="f_22">
+								טרשת נפוצה
+							</label>
+						</li>
+
+						<li>
+							<label for="f_23">
+								<input type="checkbox" name="f_23" id="f_23">
+								אפילפסיה
+							</label>
+						</li>
+						<li>
+							<label for="f_24">
+								<input type="checkbox" name="f_24" id="f_24">
+
+								סרטן
+							</label>
+						</li>
+						<li>
+							<label for="f_25">
+								<input type="checkbox" name="f_25" id="f_25">
+								קוצר נשימה/ אסטמה
+							</label>
+						</li>
+						<li>
+
+							<label for="f_26">
+								<input type="checkbox" name="f_26" id="f_26">
+								דלקת פרקים
+							</label>
+						</li>
+						<li>
+							<label for="f_27">
+								<input type="checkbox" name="f_27" id="f_27">
+								הרניה (קילה)
+							</label>
+
+						</li>
+						<li>
+							<label for="f_28">
+								<input type="checkbox" name="f_28" id="f_28">
+								דכאון או חרדה
+							</label>
+						</li>
+						<li>
+							<label for="f_29">
+
+								<input type="checkbox" name="f_29" id="f_29">
+								כאבי ראש או סחרחורות
+							</label>
+						</li>
+						<li>
+							<label for="f_30">
+								<input type="checkbox" name="f_30" id="f_30">
+								עייפות כרונית או פיברומיאלגיה
+							</label>
+						</li>
+
+						<li>
+							<label for="f_31">
+								<input type="checkbox" name="f_31" id="f_31">
+								פציעה או תאונה מהעבר
+							</label>
+						</li>
+						<li class="textarea_field">
+							<label for="f_32">הערות:</label>
+							<textarea id="f_32" rows="20" cols="20">
+							</textarea>
+
+						</li>
+						<li>
+							<label for="f_33">
+								<input type="checkbox" name="f_33" id="f_33">
+								נוטלים תרופות או תוספים באופן קבוע. פירוט:
+							</label>
+							<textarea id="f_34" rows="20" cols="20">
+							</textarea>
+						</li>
+					</ul>
+
+				</div>
+				<div class="form">
+					<h2>שאלות כלליות :</h2>
+					<ul class="form_list">
+						<li>
+							<div class="input_wrap">
+								<label>
+									<input type="radio" name="yes_no">
+
+									כן
+								</label>
+								<label>
+									<input type="radio" name="yes_no">
+									לא
+								</label>
+							</div>
+							<p>האם ביכולתך ללכת בעצמך?</p>
+
+
+						</li>
+						<li>
+							<div class="input_wrap">
+								<label>
+									<input type="radio" name="yes_no">
+									כן
+								</label>
+								<label>
+									<input type="radio" name="yes_no">
+
+									לא
+								</label>
+							</div>
+							<p>מגבלה בשימוש בידיים ?</p>
+
+
+						</li>
+						<li>
+							<div class="input_wrap">
+								<label>
+
+									<input type="radio" name="yes_no">
+									כן
+								</label>
+								<label>
+									<input type="radio" name="yes_no">
+									לא
+								</label>
+							</div>
+							<p>מגבלה בשימוש ברגליים?</p>
+
+
+						</li>
+						<li>
+							<div class="input_wrap">
+								<label>
+									<input type="radio" name="yes_no">
+									כן
+								</label>
+								<label>
+
+									<input type="radio" name="yes_no">
+									לא
+								</label>
+							</div>
+							<p>האם סובל/ת מכאבי גב או צוואר?</p>
+
+
+						</li>
+						<li>
+							<div class="input_wrap">
+
+								<label>
+									<input type="radio" name="yes_no">
+									כן
+								</label>
+								<label>
+									<input type="radio" name="yes_no">
+									לא
+								</label>
+							</div>
+							<p>האם יש לך פריצת דיסק או בלט?</p>
+
+
+						</li>
+						<li>
+							<input type="text" name="f_1" id="f_1">
+							<label for="f_1">אם כן באיזה חוליות?</label>
+						</li>
+						<li>
+							<input type="text" name="f_2" id="f_2">
+
+							<label for="f_2">פירוט או הערות :</label>
+						</li>
+						<li>
+							<input type="text" name="f_3" id="f_3">
+						</li>
+					</ul>
+					<h2>במסגרת התרגול ארצה להתמקד בעיקר ב:</h2>
+					<ul class="form_list">
+
+						<li>
+							<label for="f_4">
+								<input type="checkbox" name="f_4" id="f_4">
+								גב תחתון</label>
+
+						</li>
+						<li>
+							<label for="f_5">
+								<input type="checkbox" name="f_5" id="f_5">
+
+								גב עליון
+							</label>
+
+						</li>
+						<li>
+							<label for="f_6">
+								<input type="checkbox" name="f_6" id="f_6">
+								כתפיים וצוואר
+							</label>
+
+						</li>
+
+						<li>
+							<label for="f_7">
+								<input type="checkbox" name="f_7" id="f_7">
+								כפות רגליים
+							</label>
+
+						</li>
+						<li>
+							<label for="f_8">
+								<input type="checkbox" name="f_8" id="f_8">
+
+								נשימה
+							</label>
+						</li>
+						<li>
+							<label for="f_9">
+								<input type="checkbox" name="f_9" id="f_9">
+								מותניים ואגן
+							</label>
+						</li>
+						<li>
+
+							<label for="f_10">
+								<input type="checkbox" name="f_10" id="f_10">
+								כפות ידיים
+							</label>
+						</li>
+						<li>
+							<label for="f_11">
+								<input type="checkbox" name="f_11" id="f_11">
+								מרפקים
+							</label>
+
+						</li>
+						<li>
+							<label for="f_12">
+								<input type="checkbox" name="f_12" id="f_12">
+								ראש
+							</label>
+						</li>
+						<li>
+							<label for="f_13">
+
+								<input type="checkbox" name="f_13" id="f_13">
+								מצב מנטלי/ רגשי
+							</label>
+						</li>
+						<li class="textarea_field">
+							<label for="f_14">הערות :</label>
+							<textarea id="f_14" rows="20" cols="20">
+							</textarea>
+						</li>
+
+					</ul>
+				</div>
+
+				</div>

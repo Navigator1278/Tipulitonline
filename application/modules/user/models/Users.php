@@ -72,16 +72,5 @@ class User_Model_Users extends Zend_Db_Table_Abstract{
        else {
            return false;
        }
-
-
-
-
-//       $stmp = $db->query("SELECT * FROM users WHERE u_email='$email' AND u_password='$password'");
- //      $row = $stmp->fetchAll();
-   //    if ($row) return true;
-     //       else return false;
     }
-
-
-
 }

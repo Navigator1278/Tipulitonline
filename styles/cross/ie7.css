@@ -1,8 +1,5 @@
 @import "main.css";
 
-.base{
-    padding-top:200px !important;
-}
 .sub-block-border3 .sub-bottom-border {
     background: url("../../img/vertical-right-bottom-border.png") repeat-y scroll 19% 0 transparent !important;
     height: 50% !important;
@@ -11,6 +8,7 @@
 }
 
 .content_row {
+
     background: url("../../img/main-body.png") repeat-y scroll 17% 100% transparent !important;
 }
 

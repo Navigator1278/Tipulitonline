@@ -6,7 +6,7 @@ class User_Form_UserSecondForm extends Zend_Form{
         array('Label'),
         array('ViewHelper'),
         array('Errors'),
-        array('HtmlTag', array('tag' => 'li'))
+      //  array('HtmlTag', array('tag' => 'li'))
     );
 
     public $elementCheckboxes = array(
