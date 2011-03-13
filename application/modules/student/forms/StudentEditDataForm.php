@@ -348,12 +348,6 @@ class Student_Form_StudentEditDataForm {
         ));
         if (($data['uht_more_info'])) $moreInfo->setValue($data['uht_more_info']);
 
-        $terms = new Zend_Form_Element_Checkbox('terms', array(
-            'required' => 'true,'
-        ));
-        $terms->setDecorators($elementDecorators);
-        $terms->addValidator(new User_Form_UserTermsConditionsValidator());
-        
         $form->addElements(array($firstName,$lastName,$gender,$birthday,$heigth,$weight,
                             $email,$password1,$password2,$state,$address,$pregnant,$pregnantSince,
                             $objectives,$terms,
@@ -364,7 +358,7 @@ class Student_Form_StudentEditDataForm {
                             $walk,$hands,$legs,$backashes,$slippedDisk,
                             $generalQuestionsText1,$generalQuestionsText2,$generalQuestionsText3,
                             $lowerback,$upperback,$feet,$neck,$breath,$pelvis,$knees,
-                            $wrists,$head,$ankles,$moreInfo,$externalMails,$terms
+                            $wrists,$head,$ankles,$moreInfo,$externalMails
                             ));
 
          return $form;
