@@ -1,5 +1,7 @@
 $(document).ready(function(){
-	$('#uploadavatarform').hide();
+		
+	$('#uploadavatarform').hide(); 
+	
 	$('#uploadavatar').click(function(){
 		$('#uploadavatarform').slideToggle();
 	});

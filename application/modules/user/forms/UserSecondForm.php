@@ -54,6 +54,7 @@ class User_Form_UserSecondForm extends Zend_Form{
 
        $walk = new Zend_Form_Element_Radio('walk', array(
            'label' => '',
+           'required' => true,
            'separator' =>'',
            'multiOptions' => array('Yes'=>'Yes', 'No'=>'No'),
         ));
@@ -61,6 +62,7 @@ class User_Form_UserSecondForm extends Zend_Form{
 
        $hands = new Zend_Form_Element_Radio('hands', array(
            'label' => '',
+           'required' => true,
             'separator' =>'',
            'multiOptions' => array('Yes'=>'Yes', 'No'=>'No'),
         ));
@@ -68,6 +70,7 @@ class User_Form_UserSecondForm extends Zend_Form{
 
        $legs = new Zend_Form_Element_Radio('legs', array(
            'label' => '',
+           'required' => true,
             'separator' =>'',
            'multiOptions' => array('Yes'=>'Yes', 'No'=>'No'),
         ));
@@ -75,6 +78,7 @@ class User_Form_UserSecondForm extends Zend_Form{
        
        $backashes = new Zend_Form_Element_Radio('backashes', array(
            'label' => '',
+           'required' => true,
            'separator' =>'',
            'multiOptions' => array('Yes'=>'Yes', 'No'=>'No'),
         ));
@@ -82,6 +86,7 @@ class User_Form_UserSecondForm extends Zend_Form{
 
        $slippedDisk = new Zend_Form_Element_Radio('disc', array(
            'label' => '',
+           'required' => true,           
             'separator' =>'',
            'multiOptions' => array('Yes'=>'Yes', 'No'=>'No'),
         ));
