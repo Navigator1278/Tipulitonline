@@ -755,7 +755,7 @@ a:hover, a:focus {
 
 }
 
-#u_d_go, #edit, #p_object_send, #p_m_id_send, #c_u_submit, #Activte_6D, #Pause_6D {
+#u_d_go, #edit, #p_object_send, #p_m_id_send, #c_u_submit, #Activte_6D, #Pause_6D, #uploadavatar {
 	font-size: 14px;
 	color: #88711c;
 	border: none;
@@ -872,7 +872,7 @@ a:hover, a:focus {
 	padding: 0 0 15px;
 }
 
-#Activte_6D, #Pause_6D{
+#Activte_6D, #Pause_6D, #uploadavatar{
 	width: 81px;
 	height: 34px;
 	background: url(../i/butt_4.png) 0 0 no-repeat;

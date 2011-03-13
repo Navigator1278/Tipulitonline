@@ -16,6 +16,7 @@ class User_Model_Users extends Zend_Db_Table_Abstract{
           'u_id' => null,
           'u_name' => $data['firstname'],
           'u_family_name' => $data['familyname'],
+          'u_sex_id' => $data['sex'],
           'u_status_id' => 4,
           'u_registraion_date' => date('Y-m-d'),
           'u_address' => $data['address'],
@@ -40,6 +41,7 @@ class User_Model_Users extends Zend_Db_Table_Abstract{
           'uht_height' =>$data['heigth'],
           'uht_weight' => $data['weight'],
           'uht_pregnant' => $data['pregnant'],
+          'uht_pregnant_since' => $data['pregnantsince'],
         );
 
         return $db->insert('user__health_table', $userdata2);

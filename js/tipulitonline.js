@@ -1,10 +1,15 @@
 $(document).ready(function(){
+
 	$( "#datepicker" ).datepicker({changeYear: true, changeMonth: true, yearRange: '1900:2010'});
 	$( "#datepicker" ).datepicker( "option", "dateFormat", 'yy-mm-dd' );
 	
 	$('#showloginform').click(function(){
-		
 		show_login_form();
+	});
+
+	$('#uploadavatarform').hide();
+	$('#uploadavatar').click(function(){
+		$('#uploadavatarform').slideToggle();
 	});
 });
 function show_login_form(){

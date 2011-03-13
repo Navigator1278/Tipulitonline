@@ -19,7 +19,7 @@ class User_Form_UserFirstFormPasswordValidator extends Zend_Validate_Abstract{
     public function isValid($value, $contex=null){
 
         $this->_setValue($value);
-        if (strlen($value)<3){
+        if ((strlen($value)<3)&&(strlen($value)>0)){
             $this->_error(self::TOO_SHORT);
             return false;
         }
