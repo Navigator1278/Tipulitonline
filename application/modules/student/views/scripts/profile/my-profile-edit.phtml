@@ -1,12 +1,19 @@
 <div class="form_wrap">
+                    
 			<ul class="form_big">
-                                    <li style="padding-right: 40px">
-          <?php if (!isset ($this->studentData['u_picture'])): ?>
+                          <li style="width:150px;padding-right: 40px">
+          <?php if (!isset ($this->data['u_picture'])): ?>
                  <a href="#"><img src="/i/noava.gif"></a>
           <?php else: ?>
-                 <a href="#"><img src="<?php echo $this->studentData['u_picture']?>"></a>
+                 <a href="#"><img src="<?php echo "/avatars/".$this->data['u_picture']?>"></a>
           <?php endif ?>
-                  <input type="submit" id="Activte_6D" value="Upload">
+    
+                  <input type="button" id="uploadavatar" value="Avatar"/>
+                  <div id="uploadavatarform">
+                      <?php
+                        echo $this->uploadavatarform;
+                      ?>
+                  </div>
 					</li>
                                         <li class="form_big" >
                                             Last payment<br/>
@@ -14,14 +21,15 @@
       <a href="#"><img src="/i/r_button.png"></a>
                                         </li>
 					<li  class="form_big">
-                                                        Open <b>account</b> .................................. <b>user id</b> ...................................... <b>user name</b><br/><br/>
+                                        <form action="<?php echo $this->form->action ?>" method="post">
+                                                        Open <b>account</b> .................................. <b>ID: <?php echo $this->data['u_id']?></b> ...................................... <b><?php echo $this->data['u_name']?></b><br/><br/>
                                                         <div style="color:darkred">some other text goes here........................................................text.................</div><br/>
-                                                        text of the first radio<input type="radio" name="sex" id="male">
-                                                        <a href=''>text</a> of the second radio<input type="radio" name="sex" id="male"><br/>
+                                                        text of the first radio<?php echo $this->form->external ?>
+                                                        <a href=''>text</a> of the second radio<?php echo $this->form->terms ?><br/>
                                                         <br/>
                                                         <div style="float:right;">
                                                         <input type="submit" id="Activte_6D" value="Back">
-							<input type="submit" id="Pause_6D" value="Save">
+							<input type="submit" id="Pause_6D" name="save" value="Save">
                                                         </div>
 					</li>
 
@@ -29,87 +37,62 @@
 				<div class="form">
 					<ul class="form_list">
 						<li>
-							<?php echo $this->form ?>
+							<?php echo $this->form->firstname ?>
 							<label for="name">שם פרטי:</label>
 						</li>
-
 						<li>
-							<input type="text" name="lname" id="lname">
+							<?php echo $this->form->lastname ?>
 							<label for="lname">שם משפחה:</label>
 						</li>
 						<li>
 							<label class="birth">שנת לידה:
-								<input type="text" name="birth" id="birth">
+                                                        <?php echo $this->form->datepicker ?>
 							</label>
 							<label for="sex">מין:</label>
-
-							<label>
-								<input type="radio" name="sex" id="male">
-								נקבה
-							</label>
-							<label>
-								<input type="radio" name="sex" id="female">
-								זכר
-							</label>
-
+                                                        <?php echo $this->form->sex ?>
 						</li>
 
 						<li>
 							<label for="height">גובה:</label>
-							<input type="text" name="height" id="height" value="190">
+                                                        <?php echo $this->form->heigth ?>
 							<label for="weight">משקל:</label>
-							<input type="text" name="weight" id="weight">
+                                                        <?php echo $this->form->weight ?>
 						</li>
 						<li>
-							<input type="text" name="email" id="email">
+							<?php echo $this->form->email ?>
 
 							<label for="email">אימייל:</label>
 						</li>
 						<li>
-							<input type="text" name="pass" id="pass">
+							<?php echo $this->form->password1 ?>
 							<label for="pass">סיסמא</label>
 						</li>
 						<li>
-							<input type="text" name="c_pass" id="c_pass">
+							<?php echo $this->form->password2 ?>
 
 							<label for="c_pass">אימות סיסמא</label>
 						</li>
 						<li>
 							<label for="state">מדינה:</label>
-							<select name="state" id="state">
-								<option value="1">מדינה:</option>
-							</select>
+							<?php echo $this->form->state ?>
 
 						</li>
 						<li>
-							<input type="text" name="full_adr" id="full_adr">
+							<?php echo $this->form->address ?>
 							<label for="full_adr">כתובת מלאה:</label>
 						</li>
 						<li>
 							<p><strong>לנשים:</strong> האם את בהריון?</p>
-
-							<label>
-								<input type="radio" name="yes_no" id="yes">
-								כן
-							</label>
-							<label>
-								<input type="radio" name="yes_no" id="no">
-								לא
-							</label>
-
+                                                        <?php echo $this->form->pregnant ?>
 						</li>
 
 						<li>
 							<label for="hz1">מספר חודשים שעברו מהלידה האחרונה: </label>
-							<select name="hz1" id="hz1">
-								<option value="1">11</option>
-							</select>
+                                                        <?php echo $this->form->pregnantsince ?>
 						</li>
 						<li class="other_stile">
 							<label for="obj">מהן המטרות שלך בתרגול איתנו?</label>
-
-							<textarea id="obj" rows="20" cols="20">
-							</textarea>
+                                                        <?php echo $this->form->objectives ?>
 						</li>
 					</ul>
 				</div>
@@ -120,129 +103,127 @@
 
 						<li>
 							<label for="f_15">
-								<input type="checkbox" name="f_15" id="f_15">
+								<?php echo $this->form->heartpressure ?>
 								מחלת לב/ עורקים/ לחץ דם גבוה
 							</label>
 						</li>
 						<li>
 							<label for="f_16">
-								<input type="checkbox" name="f_16" id="f_16">
+								<?php echo $this->form->diabetes ?>
 
 								סכרת
 							</label>
 						</li>
 						<li>
 							<label for="f_17">
-								<input type="checkbox" name="f_17" id="f_17">
+								<?php echo $this->form->migrene ?>
 								מיגרנה כרונית
 							</label>
 						</li>
 						<li>
 
 							<label for="f_18">
-								<input type="checkbox" name="f_18" id="f_18">
+								<?php echo $this->form->babies ?>
 								בעיות פיריון
 							</label>
 						</li>
 						<li>
 							<label for="f_19">
-								<input type="checkbox" name="f_19" id="f_19">
+								<?php echo $this->form->nosleep ?>
 								הפרעות שינה
 							</label>
 
 						</li>
 						<li>
 							<label for="f_20">
-								<input type="checkbox" name="f_20" id="f_20">
+								<?php echo $this->form->digestion ?>
 								מעי רגיש או בעיות עיכול אחרות
 							</label>
 						</li>
 						<li>
 							<label for="f_21">
 
-								<input type="checkbox" name="f_21" id="f_21">
+								<?php echo $this->form->menopause ?>
 								תופעות גיל המעבר
 							</label>
 						</li>
 						<li>
 							<label for="f_22">
-								<input type="checkbox" name="f_22" id="f_22">
+								<?php echo $this->form->sclorosies ?>
 								טרשת נפוצה
 							</label>
 						</li>
 
 						<li>
 							<label for="f_23">
-								<input type="checkbox" name="f_23" id="f_23">
+								<?php echo $this->form->epilepsy ?>
 								אפילפסיה
 							</label>
 						</li>
 						<li>
 							<label for="f_24">
-								<input type="checkbox" name="f_24" id="f_24">
+								<?php echo $this->form->cancer ?>
 
 								סרטן
 							</label>
 						</li>
 						<li>
 							<label for="f_25">
-								<input type="checkbox" name="f_25" id="f_25">
+								<?php echo $this->form->asthma ?>
 								קוצר נשימה/ אסטמה
 							</label>
 						</li>
 						<li>
 
 							<label for="f_26">
-								<input type="checkbox" name="f_26" id="f_26">
+								<?php echo $this->form->artritis ?>
 								דלקת פרקים
 							</label>
 						</li>
 						<li>
 							<label for="f_27">
-								<input type="checkbox" name="f_27" id="f_27">
+								<?php echo $this->form->hernia ?>
 								הרניה (קילה)
 							</label>
 
 						</li>
 						<li>
 							<label for="f_28">
-								<input type="checkbox" name="f_28" id="f_28">
+								<?php echo $this->form->depression ?>
 								דכאון או חרדה
 							</label>
 						</li>
 						<li>
 							<label for="f_29">
 
-								<input type="checkbox" name="f_29" id="f_29">
+								<?php echo $this->form->headaches ?>
 								כאבי ראש או סחרחורות
 							</label>
 						</li>
 						<li>
 							<label for="f_30">
-								<input type="checkbox" name="f_30" id="f_30">
+								<?php echo $this->form->fatigue ?>
 								עייפות כרונית או פיברומיאלגיה
 							</label>
 						</li>
 
 						<li>
 							<label for="f_31">
-								<input type="checkbox" name="f_31" id="f_31">
+								<?php echo $this->form->injury ?>
 								פציעה או תאונה מהעבר
 							</label>
 						</li>
 						<li class="textarea_field">
 							<label for="f_32">הערות:</label>
-							<textarea id="f_32" rows="20" cols="20">
-							</textarea>
+							<?php echo $this->form->injurytext ?>
 
 						</li>
 						<li>
 							<label for="f_33">
-								<input type="checkbox" name="f_33" id="f_33">
+								<?php echo $this->form->medication ?>
 								נוטלים תרופות או תוספים באופן קבוע. פירוט:
 							</label>
-							<textarea id="f_34" rows="20" cols="20">
-							</textarea>
+							<?php echo $this->form->medicationtext ?>
 						</li>
 					</ul>
 
@@ -252,15 +233,7 @@
 					<ul class="form_list">
 						<li>
 							<div class="input_wrap">
-								<label>
-									<input type="radio" name="yes_no">
-
-									כן
-								</label>
-								<label>
-									<input type="radio" name="yes_no">
-									לא
-								</label>
+									<?php echo $this->form->walk ?>
 							</div>
 							<p>האם ביכולתך ללכת בעצמך?</p>
 
@@ -268,15 +241,7 @@
 						</li>
 						<li>
 							<div class="input_wrap">
-								<label>
-									<input type="radio" name="yes_no">
-									כן
-								</label>
-								<label>
-									<input type="radio" name="yes_no">
-
-									לא
-								</label>
+								<?php echo $this->form->hands ?>
 							</div>
 							<p>מגבלה בשימוש בידיים ?</p>
 
@@ -284,15 +249,7 @@
 						</li>
 						<li>
 							<div class="input_wrap">
-								<label>
-
-									<input type="radio" name="yes_no">
-									כן
-								</label>
-								<label>
-									<input type="radio" name="yes_no">
-									לא
-								</label>
+                                                                 <?php echo $this->form->legs ?>
 							</div>
 							<p>מגבלה בשימוש ברגליים?</p>
 
@@ -300,15 +257,7 @@
 						</li>
 						<li>
 							<div class="input_wrap">
-								<label>
-									<input type="radio" name="yes_no">
-									כן
-								</label>
-								<label>
-
-									<input type="radio" name="yes_no">
-									לא
-								</label>
+                                                                 <?php echo $this->form->backashes ?>
 							</div>
 							<p>האם סובל/ת מכאבי גב או צוואר?</p>
 
@@ -316,31 +265,23 @@
 						</li>
 						<li>
 							<div class="input_wrap">
-
-								<label>
-									<input type="radio" name="yes_no">
-									כן
-								</label>
-								<label>
-									<input type="radio" name="yes_no">
-									לא
-								</label>
+                                                                 <?php echo $this->form->disc ?>
 							</div>
 							<p>האם יש לך פריצת דיסק או בלט?</p>
 
 
 						</li>
 						<li>
-							<input type="text" name="f_1" id="f_1">
+							<?php echo $this->form->general1 ?>
 							<label for="f_1">אם כן באיזה חוליות?</label>
 						</li>
 						<li>
-							<input type="text" name="f_2" id="f_2">
+							<?php echo $this->form->general2 ?>
 
 							<label for="f_2">פירוט או הערות :</label>
 						</li>
 						<li>
-							<input type="text" name="f_3" id="f_3">
+							<?php echo $this->form->general3 ?>
 						</li>
 					</ul>
 					<h2>במסגרת התרגול ארצה להתמקד בעיקר ב:</h2>
@@ -348,13 +289,13 @@
 
 						<li>
 							<label for="f_4">
-								<input type="checkbox" name="f_4" id="f_4">
+								<?php echo $this->form->lowerback ?>
 								גב תחתון</label>
 
 						</li>
 						<li>
 							<label for="f_5">
-								<input type="checkbox" name="f_5" id="f_5">
+								<?php echo $this->form->upperback ?>
 
 								גב עליון
 							</label>
@@ -362,7 +303,7 @@
 						</li>
 						<li>
 							<label for="f_6">
-								<input type="checkbox" name="f_6" id="f_6">
+								<?php echo $this->form->neck ?>
 								כתפיים וצוואר
 							</label>
 
@@ -370,58 +311,57 @@
 
 						<li>
 							<label for="f_7">
-								<input type="checkbox" name="f_7" id="f_7">
+								<?php echo $this->form->feet ?>
 								כפות רגליים
 							</label>
 
 						</li>
 						<li>
 							<label for="f_8">
-								<input type="checkbox" name="f_8" id="f_8">
+								<?php echo $this->form->knees ?>
 
-								נשימה
+								knees
 							</label>
 						</li>
 						<li>
 							<label for="f_9">
-								<input type="checkbox" name="f_9" id="f_9">
-								מותניים ואגן
+								<?php echo $this->form->breath ?>
+								breath
 							</label>
 						</li>
 						<li>
 
 							<label for="f_10">
-								<input type="checkbox" name="f_10" id="f_10">
+								<?php echo $this->form->pelvis ?>
 								כפות ידיים
 							</label>
 						</li>
 						<li>
 							<label for="f_11">
-								<input type="checkbox" name="f_11" id="f_11">
+								<?php echo $this->form->wrists ?>
 								מרפקים
 							</label>
 
 						</li>
 						<li>
 							<label for="f_12">
-								<input type="checkbox" name="f_12" id="f_12">
+								<?php echo $this->form->ankles ?>
 								ראש
 							</label>
 						</li>
 						<li>
 							<label for="f_13">
 
-								<input type="checkbox" name="f_13" id="f_13">
+								<?php echo $this->form->head ?>
 								מצב מנטלי/ רגשי
 							</label>
 						</li>
 						<li class="textarea_field">
 							<label for="f_14">הערות :</label>
-							<textarea id="f_14" rows="20" cols="20">
-							</textarea>
+							<?php echo $this->form->moreinfo ?>
 						</li>
 
 					</ul>
 				</div>
-
-				</div>
+                    </form>
+	</div>

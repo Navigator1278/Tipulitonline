@@ -1,6 +1,5 @@
 <?php
-require_once 'application/modules/student/forms/StudentEditDataForm.php';
-require_once 'application/modules/student/models/Students.php';
+
 class Student_ProfileController extends Zend_Controller_Action
 {
 
@@ -52,6 +51,10 @@ class Student_ProfileController extends Zend_Controller_Action
         $this->_helper->layout->setLayout('teacher');
         $sessionData = Zend_Auth::getInstance()->getIdentity();
         $id = $this->_getParam('id');
+
+        $uploadAvaForm = new Student_Form_StudentUploadAvaForm();
+        $this->view->uploadavatarform = $uploadAvaForm;
+            
         if (!$sessionData){ //user is not logged in
             if (!$id) // no id was specified
             {
@@ -65,8 +68,34 @@ class Student_ProfileController extends Zend_Controller_Action
             $dataMain = $student->getStudentMainData(intval($sessionData['u_id']));
             $dataHealth = $student->getStudentHealthData($sessionData['u_id']);
             $dataAll = $dataHealth+$dataMain;
+            $this->view->data = $dataAll;
             $studentForm = Student_Form_StudentEditDataForm::getForm($dataAll,1);
-            $this->view->form = $studentForm;
+
+            if ($this->getRequest()->getParam('uploadavatar')){
+                if ($uploadAvaForm->isValid($_POST)){
+                    $values = $uploadAvaForm->getValues();
+                    $student->uploadStudentAva($sessionData['u_id'], $values['ava']);
+                    $dataMain = $student->getStudentMainData(intval($sessionData['u_id']));
+                    $this->view->data = $dataMain;
+                } else{
+                    $this->view->uploadavatarform = $uploadAvaForm;
+                }
+            }
+            if ($this->getRequest()->getParam('save')){
+            if (!$studentForm->isValid($_POST)){
+                $this->view->form = $studentForm;
+            } else{
+                // success
+                $student->updateStudentData($sessionData['u_id'], $_POST);
+                $dataMain = $student->getStudentMainData(intval($sessionData['u_id']));
+                $dataHealth = $student->getStudentHealthData($sessionData['u_id']);
+                $dataAll = $dataHealth+$dataMain;
+                $this->view->form = $studentForm;
+            }
+        } else{
+                $this->view->form = $studentForm;
+        }
+
         }
     }
 
