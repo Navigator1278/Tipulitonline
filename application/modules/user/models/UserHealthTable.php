@@ -17,6 +17,7 @@ class User_Model_UserHealthTable extends Zend_Db_Table_Abstract{
              'uht_hands' => $values['hands'],
              'uht_sit' => $values['legs'],
              'uht_slipped_disk' => $values['disc'],
+             'uht_backashes' => $values['backashes'],
              'uht_lower_back' => $values['lowerback'],
              'uht_upper_back' => $values['upperback'],
              'uht_neck_and_shoulders' => $values['shoulders'],

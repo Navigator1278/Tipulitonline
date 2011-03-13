@@ -103,6 +103,4 @@ class Student_ProfileController extends Zend_Controller_Action
     {
         // action body
     }
-
-
 }
