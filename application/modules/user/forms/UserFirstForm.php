@@ -138,7 +138,7 @@ class User_Form_UserFirstForm extends Zend_Form{
         $pregnant = new Zend_Form_Element_Radio('pregnant', array(
             'label' => 'לנשים: האם את בהריון?',
             'separator' =>'',
-            'multioptions' => array('1'=>'לא ', '0' => 'כן'),
+            'multiOptions' => array('Yes'=>'Yes', 'No'=>'No'),
         ));
         $pregnant->setDecorators($this->elementDecorators);
 

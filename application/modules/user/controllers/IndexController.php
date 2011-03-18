@@ -10,7 +10,7 @@ class User_IndexController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        // action body
+        //index
     }
 
     public function loginAction(){
@@ -22,13 +22,16 @@ class User_IndexController extends Zend_Controller_Action
          $loginForm = new User_Form_UserLoginForm();
          if ($this->getRequest()->getParam('login')){
              $this->view->loginform = $loginForm;
-             if ($user->checkAuth($email, $password)){
+             $status = $user->checkAuth($email, $password);
+             if ($status==1){
                  //correct!
                 $auth = Zend_Auth::getInstance();
                 $systemEmailValidation = new System_Model_SystemEmailValidation();
                 $userId = $systemEmailValidation->getId($email);
-                $auth->getStorage()->write(array('u_email'=>$email,'u_id'=>$userId));
+                $auth->getStorage()->write(array('u_email'=>$email,'u_id'=>$userId, 'u_status'=>$status));
                 $this->_redirect("/student/profile/my-profile/");
+             } elseif($status==2){
+                 $this->_redirect("/teacher/dashboard/index/");
              }
              else {
                  echo "Sorry, no record found in the DB with such email und password";

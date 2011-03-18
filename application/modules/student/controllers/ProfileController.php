@@ -34,8 +34,18 @@ class Student_ProfileController extends Zend_Controller_Action
                 $this->_redirect("/student/profile/view-student/id/$id");
             }
         } else{ //user was logged in, getting user info
+
             $student = new Student_Model_Students();
             $this->view->studentMainData = $student->getStudentMainData($sessionData['u_id']);
+            $mailExchange = new Student_Model_MailExchange();
+            $mailSendForm = new Student_Form_StudentWriteNewMailForm();
+            $this->view->teacher = $mailExchange->getTeacherNameById(1);
+            if ($this->getRequest()->getParam('mailsend')){
+                $mailExchange->sendMessageFromStudentToTeacher($sessionData['u_id'], 
+                                    1, $_POST['subject'], $_POST['mailbody']);
+            }
+            $this->view->mailform = $mailSendForm->getForm();
+            $this->view->mails = $mailExchange->getAllMessagesFromTeacher($sessionData['u_id']);
         }
     }
 
@@ -70,7 +80,8 @@ class Student_ProfileController extends Zend_Controller_Action
             $dataAll = $dataHealth+$dataMain;
             $this->view->data = $dataAll;
             $studentForm = Student_Form_StudentEditDataForm::getForm($dataAll,1);
-
+            $this->view->studentstatus = $student->getStudentStatus($sessionData['u_id']);
+            $this->view->form = $studentForm;
             if ($this->getRequest()->getParam('uploadavatar')){
                 if ($uploadAvaForm->isValid($_POST)){
                     $values = $uploadAvaForm->getValues();
@@ -90,7 +101,6 @@ class Student_ProfileController extends Zend_Controller_Action
                 $dataMain = $student->getStudentMainData(intval($sessionData['u_id']));
                 $dataHealth = $student->getStudentHealthData($sessionData['u_id']);
                 $dataAll = $dataHealth+$dataMain;
-                $this->view->form = $studentForm;
             }
         } else{
                 $this->view->form = $studentForm;

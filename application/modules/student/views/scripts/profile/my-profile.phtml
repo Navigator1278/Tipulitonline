@@ -1,14 +1,14 @@
-<div class="side_block">
+﻿<div class="side_block">
     <div class="sub">
         <div class="sub-left">
             <a href="#"><img src="/i/r_button.png"></a>
             <a href="/student/profile/my-profile-edit/">Edit Your Profile</a>
         </div>
         <div class="sub-right">
-         <?php if (!isset ($this->studentData['u_picture'])): ?>
+          <?php if (!isset ($this->studentMainData['u_picture'])): ?>
                  <a href="#"><img src="/i/noava.gif"></a>
           <?php else: ?>
-                 <a href="#"><img src="<?php echo $this->studentData['u_picture']?>"></a>
+                 <a href="#"><img src="<?php echo "/avatars/".$this->studentMainData['u_picture']?>"></a>
           <?php endif ?>
         </div>
       </div>
@@ -130,14 +130,44 @@
 הודעות ממרכז הלמידה
         </div>
         <div class="mail-block">
-            <div class="mail-top">
-            </div>
-            <div class="mail-bottom">
-                <div class="mail-bottom-header">
-                </div>
-                <div class="mail-message">
-                </div>
-            </div>
+            <?php if ($this->mails): ?>
+            <table id="mailtable">
+                <th>From/To</th><th>Subject</th><th>Date</th>
+                <?php foreach($this->mails as $mail): ?>
+                <tr class="eachmessage">
+                    <td width="20%"><?php echo $this->teacher ?></td>
+                    <td width="30%"><?php echo $mail['spm_subject'] ?></td>
+                    <td width="40%"><?php echo $mail['spm_datetime'] ?></td>
+                    <td width="10%">
+                        <?php if ($mail['spm_from_teacher_id']): ?>
+                        <h6>in</h6>
+                        <?php else: ?>
+                        <h6>out</h6>
+                        <?php endif;?>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="mailbody" colspan="4">
+                        <?php echo $mail['spm_body'] ?><br/>
+                        <?php if ($mail['spm_from_teacher_id']): ?>
+                        <div class="replylink"
+                           id="<?php echo $mail['spm_id']?>"
+                           subj="<?php echo $mail['spm_subject'] ?>">reply</div>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+           
+          <?php else: ?>
+
+          <?php endif;?>
+
+                 <tr>
+                    <td colspan="4"><br/>
+                        <span id="newmailform" ><?php echo $this->mailform ?></span>
+                    </td>
+                </tr>
+        </table>
         </div>
     </div>
     <div class='video_link'>
