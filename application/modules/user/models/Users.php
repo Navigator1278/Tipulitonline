@@ -17,11 +17,11 @@ class User_Model_Users extends Zend_Db_Table_Abstract{
           'u_name' => $data['firstname'],
           'u_family_name' => $data['familyname'],
           'u_sex_id' => $data['sex'],
-          'u_status_id' => 4,
+          'u_status_id' => 5,
           'u_registraion_date' => date('Y-m-d'),
           'u_address' => $data['address'],
           'u_state_id' => 1,
-          'u_zip' => $data['zip'],
+          'u_zip' => $data['zip'], 
           'u_country_id' => 1,
           'u_password' => $data['password1'],
           'u_email' => $data['email'],
@@ -30,21 +30,20 @@ class User_Model_Users extends Zend_Db_Table_Abstract{
           'u_visits_amount' => 0,
           'u_picture' => $data['userimage'],
           'u_registration_stamp' => '3333',
+          'u_objectives' => $data['objectives'],
         );
         $db->insert($this->_name, $userdata);
         $systemEmailValidation = new System_Model_SystemEmailValidation();
         $userId = $systemEmailValidation->getId($data['email']);
         $db = Zend_Db_Table_Abstract::getDefaultAdapter();
-
-        $userdata2 = array(
+      $userdata2 = array(
           'uht_user_id' => $userId,
           'uht_height' =>$data['heigth'],
           'uht_weight' => $data['weight'],
           'uht_pregnant' => $data['pregnant'],
           'uht_pregnant_since' => $data['pregnantsince'],
         );
-
-        return $db->insert('user__health_table', $userdata2);
+       return $db->insert('user__health_table', $userdata2);
     }
 
     /*
@@ -69,10 +68,26 @@ class User_Model_Users extends Zend_Db_Table_Abstract{
        if ($result->isValid()){
            $data = $authAdapter->getResultRowObject(null, 'u_password');
            $auth->getStorage()->write($data);
-           return true;
+           return 1;
        }
-       else {
-           return false;
+       else { //checking if the data submittet  is the teacher's data
+           $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+           $authTeacherAdapter = new Zend_Auth_Adapter_DbTable($db);
+           $authTeacherAdapter->setTableName('teachers');
+           $authTeacherAdapter->setIdentityColumn('t_email');
+           $authTeacherAdapter->setCredentialColumn('t_pass');
+           $authTeacherAdapter->setIdentity($email);
+           $authTeacherAdapter->setCredential($password);
+           $authTeacher = Zend_Auth::getInstance();
+           $resultTeacher = $authTeacher->authenticate($authTeacherAdapter);
+           if ($resultTeacher->isValid()){
+               $dataTeacher = $authTeacherAdapter->getResultRowObject(null, 't_pass');
+               $authTeacher->getStorage()->write($dataTeacher);
+               return 2;
+           }
+           else {
+               return false; 
+           }
        }
     }
 }

@@ -755,7 +755,7 @@ a:hover, a:focus {
 
 }
 
-#u_d_go, #edit, #p_object_send, #p_m_id_send, #c_u_submit, #Activte_6D, #Pause_6D, #uploadavatar {
+#u_d_go, #edit, #p_object_send, #p_m_id_send, #c_u_submit, #Activte_6D, #Pause_6D, #uploadavatar, #Save {
 	font-size: 14px;
 	color: #88711c;
 	border: none;
@@ -872,7 +872,7 @@ a:hover, a:focus {
 	padding: 0 0 15px;
 }
 
-#Activte_6D, #Pause_6D, #uploadavatar{
+#Activte_6D, #Pause_6D, #uploadavatar, #Save{
 	width: 81px;
 	height: 34px;
 	background: url(../i/butt_4.png) 0 0 no-repeat;
@@ -962,3 +962,113 @@ a:hover, a:focus {
 	}
 }
 
+/* mail block*/
+.mail-content-wrap {
+   height: 575px;
+padding-top:100px;
+}
+
+.mail-content-wrap .mail-block {
+    border-style: ridge;
+        border-color: #eae7d8;
+    border-width: 3px;
+    height: 400px;
+    left: 42px;
+    position: relative;
+    top: 10px;
+    width: 600px;
+overflow-y: scroll;
+
+}
+
+.mail-content-wrap .mail-block-title {
+    color: #292929;
+    float: right;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 24px;
+    margin-right: 100px;
+    margin-top: 60px;
+
+}
+
+#mailtable{
+	width: 100%;
+	text-align : justify;
+}
+
+.eachmessage{
+    cursor:pointer;
+}
+
+#writenewmail{
+    cursor:pointer;
+	color: blue;	
+}
+
+.replylink{
+    cursor:pointer;
+	color: blue;		
+}
+
+.mailbody{
+	background-color : white;
+}
+
+
+.for_ie {
+           background: url("../img/footer.png") no-repeat scroll 68% 0 transparent;
+    bottom: -24px;
+    height: 58px;
+    left: 644px;
+    position: absolute;
+    width: 77px;
+    z-index: 1;
+}
+/*
+.mail-content-wrap .mail-block .mail-top {
+    border-style: ridge;
+        border-color: #eae7d8;
+    border-width: 3px;
+    height: 160px;
+
+}
+
+.mail-content-wrap .mail-block .mail-bottom {
+    border-style: ridge;
+        border-color: #eae7d8;
+    border-width: 3px;
+      height: 228px;
+
+}
+
+.mail-content-wrap .mail-block .mail-bottom .mail-bottom-header {
+
+        background-color: #eae7d8;
+    height:33px;
+}
+
+.mail-content-wrap .mail-block .mail-bottom .mail-message {
+         float: left;
+    margin-left: 32px;
+    margin-top: 28px;
+    width: 260px;
+}
+
+.mail-content-wrap .mail-message .m-header{
+    height: 27px;    
+    border-style: ridge;
+        border-color: #eae7d8;
+    border-width: 3px;
+    alight: left;
+}
+
+.mail-content-wrap .mail-message .m-body{
+        border-style: ridge;
+        border-color: #eae7d8;
+    border-width: 3px;
+    alight: left;
+}
+
+
+
+*/

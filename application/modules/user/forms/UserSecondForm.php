@@ -16,269 +16,179 @@ class User_Form_UserSecondForm extends Zend_Form{
     );
     
     public function init(){
+
+
+        $elementDecorators = array(
+        array('Label'),
+         array('ViewHelper'),
+        array('Errors'),
+
+        );
         //setting  method and action of the form
         $this->setAction('')
                ->setMethod('post');
 
-     $bmi = new Zend_Form_Element_Text('bmi', array(
-            'required'=>false,
-            'size' => 20,
-            'label'   => 'BMI: ',
-            'maxLength' => '5',
-            'validators' => array(
-                                array('Float'),
-                                ),
-       ));
+          $heartPressure = new Zend_Form_Element_Checkbox('heartpressure', array());
+        $heartPressure->setDecorators($elementDecorators);
 
-     $sufferinfo = new Zend_Form_Element_Textarea('sufferinfo', array(
-         'required' => false,
-         'label' => 'Suffer info:',
-         'rows' => 5,
-         'cols' => 15,
-     ));
+        $diabetes = new Zend_Form_Element_Checkbox('diabetes', array());
+        $diabetes->setDecorators($elementDecorators);
 
-     $medicationsinfo = new Zend_Form_Element_Textarea('medicationsinfo', array(
-         'required' => false,
-         'label' => 'Medications info:',
-         'rows' => 5,
-         'cols' => 15,
-     ));
+        $migrene = new Zend_Form_Element_Checkbox('migrene', array());
+        $migrene->setDecorators($elementDecorators);
 
-     $treatinfo = new Zend_Form_Element_Textarea('treatinfo', array(
-         'required' => false,
-         'label' => 'Treat info:',
-         'rows' => 5,
-         'cols' => 15,
-     ));
-// Radiobuttons ---------------------------------------------------//
+        $babies = new Zend_Form_Element_Checkbox('babies', array());
+        $babies->setDecorators($elementDecorators);
+
+        $nosleep = new Zend_Form_Element_Checkbox('nosleep', array());
+        $nosleep->setDecorators($elementDecorators);
+
+        $digestion = new Zend_Form_Element_Checkbox('digestion', array());
+        $digestion->setDecorators($elementDecorators);
+
+        $menopause = new Zend_Form_Element_Checkbox('menopause', array());
+        $menopause->setDecorators($elementDecorators);
+
+        $sclorosies = new Zend_Form_Element_Checkbox('sclorosies', array());
+        $sclorosies->setDecorators($elementDecorators);
+
+        $epilepsy = new Zend_Form_Element_Checkbox('epilepsy', array());
+        $epilepsy->setDecorators($elementDecorators);
+
+        $cancer = new Zend_Form_Element_Checkbox('cancer', array());
+        $cancer->setDecorators($elementDecorators);
+
+        $asthma = new Zend_Form_Element_Checkbox('asthma', array());
+        $asthma->setDecorators($elementDecorators);
+
+        $artritis = new Zend_Form_Element_Checkbox('artritis', array());
+        $artritis->setDecorators($elementDecorators);
+
+        $hernia = new Zend_Form_Element_Checkbox('hernia', array());
+        $hernia->setDecorators($elementDecorators);
+
+        $depression = new Zend_Form_Element_Checkbox('depression', array());
+        $depression->setDecorators($elementDecorators);
+
+        $headaches = new Zend_Form_Element_Checkbox('headaches', array());
+        $headaches->setDecorators($elementDecorators);
+
+        $fatigue = new Zend_Form_Element_Checkbox('fatigue', array());
+        $fatigue->setDecorators($elementDecorators);
+
+        $injury = new Zend_Form_Element_Checkbox('injury', array());
+        $injury->setDecorators($elementDecorators);
+
+        $injuryText = new Zend_Form_Element_Textarea('injurytext', array(
+            'id' => 'obj',
+            'rows' => '20',
+            'cols' => '20',
+        ));
+
+        $medication = new Zend_Form_Element_Checkbox('medication', array());
+        $medication->setDecorators($elementDecorators);
+
+        $medicationText = new Zend_Form_Element_Textarea('medicationtext', array(
+            'id' => 'obj',
+            'rows' => '20',
+            'cols' => '20',
+        ));
 
        $walk = new Zend_Form_Element_Radio('walk', array(
            'label' => '',
-           'required' => true,
            'separator' =>'',
            'multiOptions' => array('Yes'=>'Yes', 'No'=>'No'),
         ));
-       $walk->setDecorators($this->elementDecorators);
+       $walk->setDecorators($elementDecorators);
 
        $hands = new Zend_Form_Element_Radio('hands', array(
            'label' => '',
-           'required' => true,
             'separator' =>'',
            'multiOptions' => array('Yes'=>'Yes', 'No'=>'No'),
         ));
-       $hands->setDecorators($this->elementDecorators);
+       $hands->setDecorators($elementDecorators);
 
        $legs = new Zend_Form_Element_Radio('legs', array(
            'label' => '',
-           'required' => true,
             'separator' =>'',
            'multiOptions' => array('Yes'=>'Yes', 'No'=>'No'),
         ));
-       $legs->setDecorators($this->elementDecorators);
-       
+       $legs->setDecorators($elementDecorators);
+
        $backashes = new Zend_Form_Element_Radio('backashes', array(
            'label' => '',
-           'required' => true,
            'separator' =>'',
            'multiOptions' => array('Yes'=>'Yes', 'No'=>'No'),
         ));
-       $backashes->setDecorators($this->elementDecorators);
+       $backashes->setDecorators($elementDecorators);
 
        $slippedDisk = new Zend_Form_Element_Radio('disc', array(
            'label' => '',
-           'required' => true,           
             'separator' =>'',
            'multiOptions' => array('Yes'=>'Yes', 'No'=>'No'),
         ));
-       $slippedDisk->setDecorators($this->elementDecorators);
+       $slippedDisk->setDecorators($elementDecorators);
 
+        $generalQuestionsText1 = new Zend_Form_Element_Text('general1', array('id'=>'f_1'));
+        $generalQuestionsText2 = new Zend_Form_Element_Text('general2', array('id'=>'f_2'));
+        $generalQuestionsText3 = new Zend_Form_Element_Text('general3', array('id'=>'f_3'));
+        $generalQuestionsText1->setDecorators($elementDecorators);
+        $generalQuestionsText2->setDecorators($elementDecorators);
+        $generalQuestionsText3->setDecorators($elementDecorators);
 
-//checkboxes at the right
+        $lowerback = new Zend_Form_Element_Checkbox('lowerback', array());
+        $lowerback->setDecorators($elementDecorators);
 
-        $lowerBack = new Zend_Form_Element_Checkbox('lowerback', array(
-           'label' => '',
-            'multiOptions' => array('Yes'=>'Yes'),
+        $upperback = new Zend_Form_Element_Checkbox('upperback', array());
+        $upperback->setDecorators($elementDecorators);
+
+        $feet = new Zend_Form_Element_Checkbox('feet', array());
+        $feet->setDecorators($elementDecorators);
+
+        $neck = new Zend_Form_Element_Checkbox('neck', array());
+        $neck->setDecorators($elementDecorators);
+
+        $breath = new Zend_Form_Element_Checkbox('breath', array());
+        $breath->setDecorators($elementDecorators);
+
+        $pelvis = new Zend_Form_Element_Checkbox('pelvis', array());
+        $pelvis->setDecorators($elementDecorators);
+
+        $knees = new Zend_Form_Element_Checkbox('knees', array());
+        $knees->setDecorators($elementDecorators);
+
+        $wrists = new Zend_Form_Element_Checkbox('wrists', array());
+        $wrists->setDecorators($elementDecorators);
+
+        $head = new Zend_Form_Element_Checkbox('head', array());
+        $head->setDecorators($elementDecorators);
+
+        $ankles = new Zend_Form_Element_Checkbox('ankles', array());
+        $ankles->setDecorators($elementDecorators);
+
+        $externalMails = new Zend_Form_Element_Checkbox('external', array());
+        $externalMails->setDecorators($elementDecorators);
+
+        $moreInfo = new Zend_Form_Element_Textarea('moreinfo', array(
+            'id' => 'obj',
+            'rows' => '20',
+            'cols' => '20',
         ));
-         $lowerBack->setDecorators($this->elementCheckboxes);
-
-        $upperBack = new Zend_Form_Element_Checkbox('upperback', array(
-           'label' => '',
-            'multiOptions' => array('Yes'=>'Yes'),
-        ));
-         $upperBack->setDecorators($this->elementCheckboxes);
-
-        $shoulders = new Zend_Form_Element_Checkbox('shoulders', array(
-           'label' => '',
-            'multiOptions' => array('Yes'=>'Yes'),
-        ));
-         $shoulders->setDecorators($this->elementCheckboxes);
-
-        $feet = new Zend_Form_Element_Checkbox('feet', array(
-           'label' => '',
-            'multiOptions' => array('Yes'=>'Yes'),
-        ));
-        $feet->setDecorators($this->elementCheckboxes);
-
-        $knees = new Zend_Form_Element_Checkbox('knees', array(
-           'label' => '',
-            'multiOptions' => array('Yes'=>'Yes'),
-        ));
-        $knees->setDecorators($this->elementCheckboxes);
-
-        $pelvis = new Zend_Form_Element_Checkbox('pelvis', array(
-           'label' => '',
-            'multiOptions' => array('Yes'=>'Yes'),
-        ));
-        $pelvis->setDecorators($this->elementCheckboxes);
-
-        $wrists = new Zend_Form_Element_Checkbox('wrists', array(
-           'label' => '',
-            'multiOptions' => array('Yes'=>'Yes'),
-        ));
-        $wrists->setDecorators($this->elementCheckboxes);
-
-        $ankles = new Zend_Form_Element_Checkbox('ankles', array(
-           'label' => '',
-            'multiOptions' => array('Yes'=>'Yes'),
-        ));
-        $ankles->setDecorators($this->elementCheckboxes);
-
-        $head = new Zend_Form_Element_Checkbox('head', array(
-           'label' => '',
-            'multiOptions' => array('Yes'=>'Yes'),
-        ));
-        $head->setDecorators($this->elementCheckboxes);
-
-        $mental = new Zend_Form_Element_Checkbox('mental', array(
-           'label' => '',
-            'multiOptions' => array('Yes'=>'Yes'),
-        ));
-        $mental->setDecorators($this->elementCheckboxes);
-
-//checkbox at the left
-
-        $heart = new Zend_Form_Element_Checkbox('heart', array(
-           'label' => '',
-            'multiOptions' => array('Yes'=>'Yes'),
-        ));
-        $heart->setDecorators($this->elementCheckboxes);
-
-        $diabities = new Zend_Form_Element_Checkbox('diabities', array(
-           'label' => '',
-            'multiOptions' => array('Yes'=>'Yes'),
-        ));
-        $diabities->setDecorators($this->elementCheckboxes);
-
-        $migren = new Zend_Form_Element_Checkbox('migren', array(
-           'label' => '',
-            'multiOptions' => array('Yes'=>'Yes'),
-        ));
-        $migren->setDecorators($this->elementCheckboxes);
-
-        $babies = new Zend_Form_Element_Checkbox('babies', array(
-           'label' => '',
-            'multiOptions' => array('Yes'=>'Yes'),
-        ));
-        $babies->setDecorators($this->elementCheckboxes);
-
-        $sleep = new Zend_Form_Element_Checkbox('sleep', array(
-           'label' => '',
-            'multiOptions' => array('Yes'=>'Yes'),
-        ));
-        $sleep->setDecorators($this->elementCheckboxes);
-        
-        $digestion = new Zend_Form_Element_Checkbox('digestion', array(
-           'label' => '',
-            'multiOptions' => array('Yes'=>'Yes'),
-        ));
-        $digestion->setDecorators($this->elementCheckboxes);
-
-        $menopause = new Zend_Form_Element_Checkbox('menopause', array(
-           'label' => '',
-            'multiOptions' => array('Yes'=>'Yes'),
-        ));
-        $menopause->setDecorators($this->elementCheckboxes);
-  
-        $scorosies = new Zend_Form_Element_Checkbox('scorosies', array(
-           'label' => '',
-            'multiOptions' => array('Yes'=>'Yes'),
-        ));
-        $scorosies->setDecorators($this->elementCheckboxes);
-
-        $epilepsy = new Zend_Form_Element_Checkbox('epilepsy', array(
-           'label' => '',
-            'multiOptions' => array('Yes'=>'Yes'),
-        ));
-        $epilepsy->setDecorators($this->elementCheckboxes);
-
-        $cancer = new Zend_Form_Element_Checkbox('cancer', array(
-           'label' => '',
-            'multiOptions' => array('Yes'=>'Yes'),
-        ));
-        $cancer->setDecorators($this->elementCheckboxes);
-
-        $asthma = new Zend_Form_Element_Checkbox('asthma', array(
-           'label' => '',
-            'multiOptions' => array('Yes'=>'Yes'),
-        ));
-        $asthma->setDecorators($this->elementCheckboxes);
-
-        $artrities = new Zend_Form_Element_Checkbox('artrities', array(
-           'label' => '',
-            'multiOptions' => array('Yes'=>'Yes'),
-        ));
-        $artrities->setDecorators($this->elementCheckboxes);
-
-        $hernia = new Zend_Form_Element_Checkbox('hernia', array(
-           'label' => '',
-            'multiOptions' => array('Yes'=>'Yes'),
-        ));
-        $hernia->setDecorators($this->elementCheckboxes);
-
-        $dipression = new Zend_Form_Element_Checkbox('dipression', array(
-           'label' => '',
-            'multiOptions' => array('Yes'=>'Yes'),
-        ));
-        $dipression->setDecorators($this->elementCheckboxes);
-
-        $headaches = new Zend_Form_Element_Checkbox('headaches', array(
-           'label' => '',
-            'multiOptions' => array('Yes'=>'Yes'),
-        ));
-        $headaches->setDecorators($this->elementCheckboxes);
-
-        $fatigue = new Zend_Form_Element_Checkbox('fatigue', array(
-           'label' => '',
-            'multiOptions' => array('Yes'=>'Yes'),
-        ));
-        $fatigue->setDecorators($this->elementCheckboxes);
-
-        $accident = new Zend_Form_Element_Checkbox('accident', array(
-           'label' => '',
-            'multiOptions' => array('Yes'=>'Yes'),
-        ));
-        $accident->setDecorators($this->elementCheckboxes);
-// end
-
        $terms = new Zend_Form_Element_Checkbox('terms', array(
            'label' => '',
             'multiOptions' => array('Yes'=>'Yes'),
         ));
         $terms->setDecorators($this->elementCheckboxes);
         $terms->addValidator(new User_Form_UserTermsConditionsValidator());
-
-        $submit = new Zend_Form_Element_Submit('submit');
-        $submit->setLabel('Send');
-
-
-      $this->addElements(array($sufferinfo,$treatinfo,$medicationsinfo,
-          $walk,$hands,$legs,$backashes,$slippedDisk,
-          $lowerBack,$upperBack,$shoulders,$feet,$knees,$pelvis,$wrists,$ankles,$head,$mental,
-          $heart,$diabities,$migren,$babies,$sleep,$digestion,$menopause,$scorosies,$epilepsy,$cancer,
-          $asthma,$artrities,$hernia,$dipression,$headaches,$fatigue,$accident,
-          $terms,
-          $submit,
-          ));
+        $this->addElements(array($heartPressure,$diabetes,$migrene,$babies,$nosleep,
+                            $digestion,$menopause,$sclorosies,$epilepsy,$cancer,$asthma,
+                            $artritis,$hernia,$depression,$fatigue,$headaches,$injury,
+                            $injuryText,$medication,$medicationText,
+                            $walk,$hands,$legs,$backashes,$slippedDisk,
+                            $generalQuestionsText1,$generalQuestionsText2,$generalQuestionsText3,
+                            $lowerback,$upperback,$feet,$neck,$breath,$pelvis,$knees,
+                            $wrists,$head,$ankles,$moreInfo,$externalMails,$terms
+                            ));
 
     }
 }

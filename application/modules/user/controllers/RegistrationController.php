@@ -23,8 +23,8 @@ class User_RegistrationController extends Zend_Controller_Action
                 $values = $userFirstForm->getValues();
                 $user = new User_Model_Users();
                 $user->addUser($values);
-                $userdata = serialize($values);
-                $this->_redirect("/user/email-functions/create-validation-code/userdata/$userdata/");
+                $email = $values['email']; $pwd=$values['password1'];
+                $this->_redirect("/user/email-functions/create-validation-code/email/$email/pwd/$pwd/");
             }
         } else{
             $this->view->form = $userFirstForm;
@@ -46,10 +46,12 @@ class User_RegistrationController extends Zend_Controller_Action
            $this->view->form = $userSecondForm;
            if ($this->getRequest()->getParam('submit')){
                if (!$userSecondForm->isValid($_POST)){
+
                    $this->view->form = $userSecondForm;
                } else {
                   // success
-                   //$emailValidation->sendWelcomeMail($email);
+                   $username = $emailValidation->getNameByEmail($email);
+                   //$emailValidation->sendWelcomeMail($email,$username);
                    $values = $userSecondForm->getValues();
                    $user = new User_Model_UserHealthTable();
                    $user->addAdditionalData($userId,$values);

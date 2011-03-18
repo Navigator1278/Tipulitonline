@@ -9,219 +9,265 @@
 		<div class="form" style="float:right;">
 			<h2>שאלות כלליות :</h2>
 			<ul class="form_list first">
-				<li>
-					<p>האם ביכולתך ללכת בעצמך?</p>
+			<li>
+							<div class="input_wrap">
+									<?php echo $this->form->walk ?>
+							</div>
+							<p>האם ביכולתך ללכת בעצמך?</p>
 
-					<div class="input_wrap">
-                                                <?php echo $this->form->walk ?>
-					</div>
-				</li>
-				<li>
-					<p>מגבלה בשימוש בידיים ?</p>
 
-					<div class="input_wrap">
-						<?php echo $this->form->hands ?>
-					</div>
-				</li>
-				<li>
+						</li>
+						<li>
+							<div class="input_wrap">
+								<?php echo $this->form->hands ?>
+							</div>
+							<p>מגבלה בשימוש בידיים ?</p>
 
-					<p>מגבלה בשימוש ברגליים?</p>
 
-					<div class="input_wrap">
-						<?php echo $this->form->legs ?>
-					</div>
-				</li>
-				<li>
-					<p>האם סובל/ת מכאבי גב או צוואר?</p>
+						</li>
+						<li>
+							<div class="input_wrap">
+                                                                 <?php echo $this->form->legs ?>
+							</div>
+							<p>מגבלה בשימוש ברגליים?</p>
 
-					<div class="input_wrap">
-						<?php echo $this->form->backashes ?>
-					</div>
-				</li>
-				<li>
 
-					<p>האם יש לך פריצת דיסק או בלט?</p>
+						</li>
+						<li>
+							<div class="input_wrap">
+                                                                 <?php echo $this->form->backashes ?>
+							</div>
+							<p>האם סובל/ת מכאבי גב או צוואר?</p>
 
-					<div class="input_wrap">
-                                                <?php echo $this->form->disc ?>
-					</div>
-				</li>
+
+						</li>
+						<li>
+							<div class="input_wrap">
+                                                                 <?php echo $this->form->disc ?>
+							</div>
+							<p>האם יש לך פריצת דיסק או בלט?</p>
+
+
+						</li>
+						<li>
+							<?php echo $this->form->general1 ?>
+							<label for="f_1">אם כן באיזה חוליות?</label>
+						</li>
+						<li>
+							<?php echo $this->form->general2 ?>
+
+							<label for="f_2">פירוט או הערות :</label>
+						</li>
+						<li>
+							<?php echo $this->form->general3 ?>
+						</li>
 			</ul>
 			<h2>במסגרת התרגול ארצה להתמקד בעיקר ב:</h2>
 
 			<ul class="form_list">
-				<li>
-					<label>
-						<?php echo $this->form->lowerback ?>
-						סכרת
-					</label>
-				</li>
-				<li>
-					<label>
-						<?php echo $this->form->upperback ?>
-						upperback
-					</label>
+						<li>
+							<label for="f_4">
+								<?php echo $this->form->lowerback ?>
+								גב תחתון</label>
 
-				</li>
-				<li>
-					<label>
-						<?php echo $this->form->shoulders ?>
-						shoulders
-					</label>
-				</li>
-                                <li>
-					<label>
-						<?php echo $this->form->feet ?>
-						feet
-					</label>
-                                </li>
-                                <li>
-					<label>
-						<?php echo $this->form->knees ?>
-						knees
-					</label>
-                                </li>
-                                <li>
-					<label>
-						<?php echo $this->form->pelvis ?>
-						pelvis
-					</label>
-                                </li>
-                                <li>
-					<label>
-						<?php echo $this->form->wrists ?>
-						wrists
-					</label>
-                                </li>
-                                <li>
-					<label>
-						<?php echo $this->form->ankles ?>
-						ankles
-					</label>
-                                </li>
-                                <li>
-					<label>
-						<?php echo $this->form->head ?>
-						head
-					</label>
-                                </li>
-                                <li>
-					<label>
-						<?php echo $this->form->mental ?>
-						mental
-					</label>
-                                </li>
-				<li class="textarea_field">
-                                         <?php echo $this->form->treatinfo ?>
-				</li>
+						</li>
+						<li>
+							<label for="f_5">
+								<?php echo $this->form->upperback ?>
+
+								גב עליון
+							</label>
+
+						</li>
+						<li>
+							<label for="f_6">
+								<?php echo $this->form->neck ?>
+								כתפיים וצוואר
+							</label>
+
+						</li>
+
+						<li>
+							<label for="f_7">
+								<?php echo $this->form->feet ?>
+								כפות רגליים
+							</label>
+
+						</li>
+						<li>
+							<label for="f_8">
+								<?php echo $this->form->knees ?>
+
+								knees
+							</label>
+						</li>
+						<li>
+							<label for="f_9">
+								<?php echo $this->form->breath ?>
+								breath
+							</label>
+						</li>
+						<li>
+
+							<label for="f_10">
+								<?php echo $this->form->pelvis ?>
+								כפות ידיים
+							</label>
+						</li>
+						<li>
+							<label for="f_11">
+								<?php echo $this->form->wrists ?>
+								מרפקים
+							</label>
+
+						</li>
+						<li>
+							<label for="f_12">
+								<?php echo $this->form->ankles ?>
+								ראש
+							</label>
+						</li>
+						<li>
+							<label for="f_13">
+
+								<?php echo $this->form->head ?>
+								מצב מנטלי/ רגשי
+							</label>
+						</li>
+						<li class="textarea_field">
+							<label for="f_14">הערות :</label>
+							<?php echo $this->form->moreinfo ?>
+						</li>
 			</ul>
 		</div>
 		<div class="form">
 			<h2>סמנו אם הינכם סובלים מ:</h2>
 			<ul class="form_list">
 
-				<li>
-					<label for="f_16">
-						 <?php echo $this->form->heart ?>
-						heart
-					</label>
-				</li>
-				<li>
-					<label for="f_17">
-						<?php echo $this->form->diabities ?>
-						diabetes
-					</label>
-				</li>
-				<li>
-					<label for="f_18">
-						<?php echo $this->form->migren ?>
-                                                migren
-					</label>
-				</li>
-				<li>
-					<label for="f_19">
-						<?php echo $this->form->babies ?>
-                                                babies
-					</label>
-				</li>
-				<li>
-					<label for="f_20">
-						<?php echo $this->form->sleep ?>
-                                                nosleep
-					</label>
-				</li>
-				<li>
-                                       <label for="f_20">
-						<?php echo $this->form->digestion ?>
-                                                digestion
-					</label>
-				</li>
-				<li>
-                                       <label for="f_20">
-						<?php echo $this->form->menopause ?>
-                                                menopause
-					</label>
-				</li>
-				<li>
-                                       <label for="f_20">
-						<?php echo $this->form->scorosies ?>
-                                                scorosies
-					</label>
-				</li>
-				<li>
-                                       <label for="f_20">
-						<?php echo $this->form->epilepsy ?>
-                                                epilepsy
-					</label>
-				</li>
-				<li>
-                                       <label for="f_20">
-						<?php echo $this->form->cancer ?>
-                                               cancer
-					</label>
-				</li>
-				<li>
-                                       <label for="f_20">
-						<?php echo $this->form->asthma ?>
-                                               asthma
-					</label>
-				</li>
-				<li>
-                                       <label for="f_20">
-						<?php echo $this->form->artrities ?>
-                                               artrities
-					</label>
-				</li>
-				<li>
-                                       <label for="f_20">
-						<?php echo $this->form->hernia ?>
-                                               hernia
-					</label>
-				</li>
-				<li>
-                                       <label for="f_20">
-						<?php echo $this->form->dipression ?>
-                                               dipression
-					</label>
-				</li>
-				<li>
-                                       <label for="f_20">
-						<?php echo $this->form->headaches ?>
-                                               headaches
-					</label>
-				</li>
-				<li>
-                                       <label for="f_20">
-						<?php echo $this->form->fatigue ?>
-                                               fatigue
-					</label>
-				</li>
-				<li>
-                                       <label for="f_20">
-						<?php echo $this->form->accident ?>
-                                               accident
-					</label>
-				</li>
+						<li>
+							<label for="f_15">
+								<?php echo $this->form->heartpressure ?>
+								מחלת לב/ עורקים/ לחץ דם גבוה
+							</label>
+						</li>
+						<li>
+							<label for="f_16">
+								<?php echo $this->form->diabetes ?>
+
+								סכרת
+							</label>
+						</li>
+						<li>
+							<label for="f_17">
+								<?php echo $this->form->migrene ?>
+								מיגרנה כרונית
+							</label>
+						</li>
+						<li>
+
+							<label for="f_18">
+								<?php echo $this->form->babies ?>
+								בעיות פיריון
+							</label>
+						</li>
+						<li>
+							<label for="f_19">
+								<?php echo $this->form->nosleep ?>
+								הפרעות שינה
+							</label>
+
+						</li>
+						<li>
+							<label for="f_20">
+								<?php echo $this->form->digestion ?>
+								מעי רגיש או בעיות עיכול אחרות
+							</label>
+						</li>
+						<li>
+							<label for="f_21">
+
+								<?php echo $this->form->menopause ?>
+								תופעות גיל המעבר
+							</label>
+						</li>
+						<li>
+							<label for="f_22">
+								<?php echo $this->form->sclorosies ?>
+								טרשת נפוצה
+							</label>
+						</li>
+
+						<li>
+							<label for="f_23">
+								<?php echo $this->form->epilepsy ?>
+								אפילפסיה
+							</label>
+						</li>
+						<li>
+							<label for="f_24">
+								<?php echo $this->form->cancer ?>
+
+								סרטן
+							</label>
+						</li>
+						<li>
+							<label for="f_25">
+								<?php echo $this->form->asthma ?>
+								קוצר נשימה/ אסטמה
+							</label>
+						</li>
+						<li>
+
+							<label for="f_26">
+								<?php echo $this->form->artritis ?>
+								דלקת פרקים
+							</label>
+						</li>
+						<li>
+							<label for="f_27">
+								<?php echo $this->form->hernia ?>
+								הרניה (קילה)
+							</label>
+
+						</li>
+						<li>
+							<label for="f_28">
+								<?php echo $this->form->depression ?>
+								דכאון או חרדה
+							</label>
+						</li>
+						<li>
+							<label for="f_29">
+
+								<?php echo $this->form->headaches ?>
+								כאבי ראש או סחרחורות
+							</label>
+						</li>
+						<li>
+							<label for="f_30">
+								<?php echo $this->form->fatigue ?>
+								עייפות כרונית או פיברומיאלגיה
+							</label>
+						</li>
+
+						<li>
+							<label for="f_31">
+								<?php echo $this->form->injury ?>
+								פציעה או תאונה מהעבר
+							</label>
+						</li>
+						<li class="textarea_field">
+							<label for="f_32">הערות:</label>
+							<?php echo $this->form->injurytext ?>
+
+						</li>
+						<li>
+							<label for="f_33">
+								<?php echo $this->form->medication ?>
+								נוטלים תרופות או תוספים באופן קבוע. פירוט:
+							</label>
+							<?php echo $this->form->medicationtext ?>
+						</li>
 				<li class="textarea_field">
                                          <?php echo $this->form->sufferinfo ?>
 				</li>

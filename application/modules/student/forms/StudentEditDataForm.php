@@ -15,7 +15,6 @@ class Student_Form_StudentEditDataForm {
         array('Label'),
          array('ViewHelper'),
         array('Errors'),
-        
     );
         
         $form = new Zend_Form();

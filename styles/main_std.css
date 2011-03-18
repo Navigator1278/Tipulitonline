@@ -993,6 +993,7 @@ background: url(../img/head-block.png) 0 0 no-repeat;
 /* mail block*/
 .mail-content-wrap {
    height: 575px;
+padding-top:100px;
 }
 
 .mail-content-wrap .mail-block {
@@ -1002,8 +1003,10 @@ background: url(../img/head-block.png) 0 0 no-repeat;
     height: 400px;
     left: 42px;
     position: relative;
-    top: 107px;
+    top: 10px;
     width: 600px;
+overflow-y: scroll;
+
 }
 
 .mail-content-wrap .mail-block-title {
@@ -1015,6 +1018,55 @@ background: url(../img/head-block.png) 0 0 no-repeat;
     margin-top: 60px;
 
 }
+
+#mailtable{
+	width: 100%;
+	text-align : justify;
+}
+
+.eachmessage{
+    cursor:pointer;
+}
+
+#writenewmail{
+    cursor:pointer;
+	color: blue;	
+}
+
+.replylink{
+    cursor:pointer;
+	color: blue;		
+}
+
+.mailbody{
+	background-color : white;
+}
+
+#bstrong{
+	margin-top: 5px;
+	background-image : url(/i/butt_bold.gif);
+	height : 20px;
+	width : 20px;
+	background-repeat : no-repeat;
+}
+
+#bstrike{
+	margin-top: 5px;
+	background-image : url(/i/butt_strike.gif);
+	height : 20px;
+	width : 20px;
+	background-repeat : no-repeat;
+}
+
+#bcursive{
+	margin-top: 5px;
+	background-image : url(/i/butt_cursive.gif);
+	height : 20px;
+	width : 20px;
+	background-repeat : no-repeat;
+}
+
+
 
 .for_ie {
            background: url("../img/footer.png") no-repeat scroll 68% 0 transparent;
@@ -1069,4 +1121,7 @@ background: url(../img/head-block.png) 0 0 no-repeat;
     border-width: 3px;
     alight: left;
 }
+
+
+
 */
