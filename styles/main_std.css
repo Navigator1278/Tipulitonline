@@ -993,20 +993,22 @@ background: url(../img/head-block.png) 0 0 no-repeat;
 /* mail block*/
 .mail-content-wrap {
    height: 575px;
-padding-top:100px;
+    padding-top:100px;
+
 }
 
 .mail-content-wrap .mail-block {
-    border-style: ridge;
-        border-color: #eae7d8;
-    border-width: 3px;
-    height: 400px;
-    left: 42px;
-    position: relative;
-    top: 10px;
-    width: 600px;
-overflow-y: scroll;
-
+	border-style: ridge;
+	border-color: #eae7d8;
+	border-width: 3px;
+	height: 400px;
+	left: 42px;
+	position: relative;
+	top: 10px;
+	width: 580px;
+	overflow-y: scroll;
+	background-color : white;
+	padding-right: 30px;
 }
 
 .mail-content-wrap .mail-block-title {
@@ -1014,21 +1016,38 @@ overflow-y: scroll;
     float: right;
     font-family: Arial,Helvetica,sans-serif;
     font-size: 24px;
-    margin-right: 100px;
+    margin-right: 10px;
     margin-top: 60px;
-
 }
 
 #mailtable{
-	width: 100%;
+	width: 90%;
 	text-align : justify;
 }
 
-.eachmessage{
-    cursor:pointer;
+.currentmessage{
+	color: #a98e28;
 }
 
-#writenewmail{
+#mailsend {
+	font-size: 14px;
+	color: #88711c;
+	border: none;
+	cursor: pointer;
+	width: 58px;
+	height: 24px;
+	background: url(../i/butt_1.png) 0 0 no-repeat;
+}
+
+.eachmessage{
+	cursor:pointer;
+		border-top : thin solid Black;
+	border-left : thin solid Black;
+  border-right : thin solid Black;	
+}
+
+
+#newmaillink{
     cursor:pointer;
 	color: blue;	
 }
@@ -1039,34 +1058,15 @@ overflow-y: scroll;
 }
 
 .mailbody{
-	background-color : white;
-}
-
-#bstrong{
-	margin-top: 5px;
-	background-image : url(/i/butt_bold.gif);
-	height : 20px;
-	width : 20px;
-	background-repeat : no-repeat;
-}
-
-#bstrike{
-	margin-top: 5px;
-	background-image : url(/i/butt_strike.gif);
-	height : 20px;
-	width : 20px;
-	background-repeat : no-repeat;
-}
-
-#bcursive{
-	margin-top: 5px;
-	background-image : url(/i/butt_cursive.gif);
-	height : 20px;
-	width : 20px;
-	background-repeat : no-repeat;
+	border-bottom : thin solid Black;
+	border-left : thin solid Black;
+   border-right : thin solid Black;	
 }
 
 
+#vid1{
+margin-right: -110px;
+}
 
 .for_ie {
            background: url("../img/footer.png") no-repeat scroll 68% 0 transparent;

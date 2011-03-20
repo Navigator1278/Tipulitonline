@@ -4,7 +4,15 @@
  * Form for uploading student's avatars
  */
 
-class Student_Form_StudentWriteNewMailForm extends Zend_Form{
+class Teacher_Form_TeacherWriteNewMailForm extends Zend_Form{
+
+
+    private $_stid;
+
+    public function  __construct($stid) {
+        $this->_stid = $stid;
+    }
+
 
     public function getForm() {
 
@@ -13,14 +21,13 @@ class Student_Form_StudentWriteNewMailForm extends Zend_Form{
             array('ViewHelper'),
             array('Errors'),
         );
-        
+
         $form = new Zend_Form();
-        $form->setAction('/student/profile/my-profile/')
+        $form->setAction("/teacher/dashboard/view-student/stid/$this->_stid/")
                 ->setMethod('post');
         $mailSubject = new Zend_Form_Element_Text('subject', array(
            'id'=>'mailsubj',
            'label'=>'Subject',
-            'maxLength' => '30',
         ));
 
         $mailBody = new Zend_Form_Element_Textarea('mailbody', array(

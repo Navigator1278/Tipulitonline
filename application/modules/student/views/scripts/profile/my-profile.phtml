@@ -117,22 +117,44 @@
         </div>
     </div>
 </div>
-<div class="form_wrap">
-    <video id="vid1" width="689" height="579"
-           poster="http://cdn.kaltura.org/apis/html5lib/kplayer-examples/media/bbb480.jpg"
-           durationHint="33"
-            >
-        <source src="http://cdn.kaltura.org/apis/html5lib/kplayer-examples/media/bbb_trailer_400p.ogv"
-                type="video/ogg"/>
-    </video>
+ <div class="form_wrap">
+     <?php if (!$this->kaltura): ?>
+<object id="vid1" name="kaltura_player" type="application/x-shockwave-flash" allowFullScreen="true" allowNetworking="all" allowScriptAccess="always"
+height="579" width="689" xmlns:dc="http://purl.org/dc/terms/" xmlns:media="http://search.yahoo.com/searchmonkey/media/" rel="media:video"
+resource="http://www.kaltura.com/index.php/kwidget/cache_st/1288021248/wid/_246422/uiconf_id/2446261/entry_id/0_hle245bt"
+data="http://www.kaltura.com/index.php/kwidget/cache_st/1288021248/wid/_246422/uiconf_id/2446261/entry_id/0_hle245bt"><param name="allowFullScreen"
+value="true" /><param name="allowNetworking" value="all" /><param name="allowScriptAccess" value="always" /><param name="bgcolor" value="#000000" /><param
+name="flashVars" value="&" /><param name="movie"
+value="http://www.kaltura.com/index.php/kwidget/cache_st/1288021248/wid/_246422/uiconf_id/2446261/entry_id/0_hle245bt" /><a
+href="http://corp.kaltura.com">video platform</a> <a href="http://corp.kaltura.com/video_platform/video_management">video management</a> <a
+href="http://corp.kaltura.com/solutions/video_solution">video solutions</a> <a href="http://corp.kaltura.com/video_platform/video_publishing">video
+player</a> <a rel="media:thumbnail"
+href="http://cdnbakmi.kaltura.com/p/246422/sp/24642200/thumbnail/entry_id/0_hle245bt/width/120/height/90/bgcolor/000000/type/2" /> <span
+property="dc:description" content="" /><span property="media:title" content="roy test 1" /> <span property="media:width" content="689" /><span
+property="media:height" content="579" /> <span property="media:type" content="application/x-shockwave-flash" /> </object>
+     <?php else: ?>
+<object id="vid1" name="kaltura_player" type="application/x-shockwave-flash" allowFullScreen="true" allowNetworking="all"allowScriptAccess="always"
+height="579" width="689" xmlns:dc="http://purl.org/dc/terms/" xmlns:media="http://search.yahoo.com/searchmonkey/media/" rel="media:video"
+resource="http://www.kaltura.com/index.php/kwidget/cache_st/1288021248/wid/_246422/uiconf_id/2446261/entry_id/<?php echo $this->kaltura['vam_video_player1'] ?>"
+data="http://www.kaltura.com/index.php/kwidget/cache_st/1288021248/wid/_246422/uiconf_id/2446261/entry_id/<?php echo $this->kaltura['vam_video_player1'] ?>"><param name="allowFullScreen"
+value="true" /><param name="allowNetworking" value="all" /><param name="allowScriptAccess" value="always" /><param name="bgcolor" value="#000000" /><param
+name="flashVars" value="&" /><param name="movie"
+value="http://www.kaltura.com/index.php/kwidget/cache_st/1288021248/wid/_246422/uiconf_id/2446261/entry_id/<?php echo $this->kaltura['vam_video_player1'] ?>" /><a
+href="http://corp.kaltura.com">video platform</a> <a href="http://corp.kaltura.com/video_platform/video_management">video management</a> <a
+href="http://corp.kaltura.com/solutions/video_solution">video solutions</a> <a href="http://corp.kaltura.com/video_platform/video_publishing">video
+player</a> <a rel="media:thumbnail"
+href="http://cdnbakmi.kaltura.com/p/246422/sp/24642200/thumbnail/entry_id/<?php echo $this->kaltura['vam_video_player1'] ?>/width/120/height/90/bgcolor/000000/type/2" /> <span
+property="dc:description" content="" /><span property="media:title" content="roy test 1" /> <span property="media:width" content="689" /><span
+property="media:height" content="579" /> <span property="media:type" content="application/x-shockwave-flash" /> </object>
+     <?php endif;?>
     <div class="mail-content-wrap">
         <div class="mail-block-title">
 הודעות ממרכז הלמידה
         </div>
         <div class="mail-block">
-            <?php if ($this->mails): ?>
             <table id="mailtable">
-                <th>From/To</th><th>Subject</th><th>Date</th>
+                <th>From</th><th>Subject</th><th>Date</th>
+                <?php if ($this->mails): ?>
                 <?php foreach($this->mails as $mail): ?>
                 <tr class="eachmessage">
                     <td width="20%"><?php echo $this->teacher ?></td>
@@ -140,9 +162,9 @@
                     <td width="40%"><?php echo $mail['spm_datetime'] ?></td>
                     <td width="10%">
                         <?php if ($mail['spm_from_teacher_id']): ?>
-                        <h6>in</h6>
+                        <img src="/i/mail_in.png" title="inbox"/>
                         <?php else: ?>
-                        <h6>out</h6>
+                        <img src="/i/mail_out.png" title="outbox"/>
                         <?php endif;?>
                     </td>
                 </tr>
@@ -156,23 +178,32 @@
                         <?php endif; ?>
                     </td>
                 </tr>
+
                 <?php endforeach; ?>
-           
-          <?php else: ?>
-
-          <?php endif;?>
-
-                 <tr>
-                    <td colspan="4"><br/>
-                        <span id="newmailform" ><?php echo $this->mailform ?></span>
-                    </td>
+                           <tr class="eachmessage">
+                    <td></td><td></td><td></td><td></td>
                 </tr>
-        </table>
+                <?php else :?>
+                <tr><td colspan="4"><i>You have no messages in your box</i></td></tr>
+              <?php endif;?>
+        </table><br/><br/><br/>
+            <img id="newmaillink" src="/i/email.jpg" title="write new mail"/>
+                        <span id="newmailform" >
+                            <form method="post" action="/student/profile/my-profile/">
+                            subject <input type="text" name="subject" id="mailsubj" /><br/><br/>
+                            <textarea name="mailbody" id="mailbody" cols="30" rows="5"></textarea><br/>
+                            <input type="submit" name="mailsend" id="mailsend" value="send"/>
+                            </form>
+                        </span>
         </div>
     </div>
     <div class='video_link'>
+        <?php if ($this->youtube):?>
+            <?php echo $this->youtube['vam_video_player2'] ?>
+        <?php else :?>
         <iframe title="YouTube video player" width="623" height="686"
                 src="http://www.youtube.com/embed/ew9KuRkTt_Y" frameborder="0" allowfullscreen></iframe>
+        <?php endif; ?>
     </div>
 </div>
      <div class="for_ie">
