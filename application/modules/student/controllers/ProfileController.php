@@ -36,16 +36,20 @@ class Student_ProfileController extends Zend_Controller_Action
         } else{ //user was logged in, getting user info
 
             $student = new Student_Model_Students();
-            $this->view->studentMainData = $student->getStudentMainData($sessionData['u_id']);
+            $sessionId = $sessionData['u_id'];
+            $this->view->studentMainData = $student->getStudentMainData($sessionId);
+            $this->view->kaltura = $student->getAllKalturaVideosForUser($sessionId);
+            $this->view->youtube = $student->getAllYouTubeVideosForUser($sessionId);
             $mailExchange = new Student_Model_MailExchange();
             $mailSendForm = new Student_Form_StudentWriteNewMailForm();
             $this->view->teacher = $mailExchange->getTeacherNameById(1);
             if ($this->getRequest()->getParam('mailsend')){
-                $mailExchange->sendMessageFromStudentToTeacher($sessionData['u_id'], 
+                $mailExchange->sendMessageFromStudentToTeacher($sessionId,
                                     1, $_POST['subject'], $_POST['mailbody']);
+                $this->_redirect("/student/profile/my-profile/");
             }
             $this->view->mailform = $mailSendForm->getForm();
-            $this->view->mails = $mailExchange->getAllMessagesFromTeacher($sessionData['u_id']);
+            $this->view->mails = $mailExchange->getAllMessagesFromTeacher($sessionId);
         }
     }
 
@@ -69,7 +73,7 @@ class Student_ProfileController extends Zend_Controller_Action
             if (!$id) // no id was specified
             {
                 $this->_redirect("/user/index/login/");
-            } else{ //id was specofied
+            } else{ //id was specified
                 $this->_redirect("/student/profile/view-student/id/$id");
             }
         } else{ //user was logged in, getting user info

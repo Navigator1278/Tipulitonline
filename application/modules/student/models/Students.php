@@ -48,9 +48,6 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
         return $res[0]['us_type'];
         }
 
-
-
-
         /*
          * assigning image uploaded to the student's record in the DB
          */
@@ -144,5 +141,67 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
             $db->update('users', $userdata,"u_id=$id");
             $db->update('user__health_table', $userhealthdata,"uht_user_id=$id");
         
+        }
+
+        /*
+         * Function that returns all Kaltura videos accorting to the User's Id
+         */
+        public function getAllKalturaVideosForUser($userId){
+        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+        $select = $db->select()
+                    ->from('video__all_movies')
+                    ->order("vam_timestamp DESC")
+                     ->where("vam_user_id=$userId")
+                    ->where("vam_video_player2 IS NULL");
+        $stmp = $select->query();
+        $res = $stmp->fetchAll();
+        if ($res) return $res[0];
+            else return false;
+
+        }
+
+        public function getAllYouTubeVideosForUser($userId){
+        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+        $select = $db->select()
+                    ->from('video__all_movies')
+                    ->order("vam_timestamp DESC")
+                     ->where("vam_user_id=$userId")
+                    ->where("vam_video_player1 IS NULL");
+        $stmp = $select->query();
+        $res = $stmp->fetchAll();
+        if ($res) return $res[0];
+            else return false;
+        }
+
+        public function postKalturaVideoForUser($userId,$teacherId,$code){
+            
+            $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+            $data = array(
+               'vam_id' => null,
+              'vam_video_player1' => stripslashes($code),
+              'vam_video_player2' => null,
+              'vam_teacher_id' => $teacherId,
+              'vam_user_id' => $userId,
+              'vam_is_payed' => 'No',
+              'vam_playing_duration' => 0,
+            );
+            $db->insert('video__all_movies', $data);
+            return $data;
+        }
+
+        public function postYouTubeVideoForUser($userId,$teacherId,$code){
+
+            $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+            $data = array(
+               'vam_id' => null,
+              'vam_video_player1' => null,
+              'vam_video_player2' => stripslashes($code),
+              'vam_teacher_id' => $teacherId,
+              'vam_user_id' => $userId,
+              'vam_is_payed' => 'No',
+              'vam_playing_duration' => 0,
+            );
+            $db->insert('video__all_movies', $data);
+            return $data;
         }
 }

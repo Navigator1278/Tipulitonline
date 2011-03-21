@@ -50,5 +50,20 @@ class Student_Model_MailExchange extends Zend_Db_Table_Abstract{
         return $db->insert('privat_messages',$data);
   }
   
-    
+  public function sendMessageFromTeacherToStudent($studentId, $teacherId, $subj, $text){
+
+        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+        $data = array(
+          'spm_from_user_id' => null,
+          'spm_from_teacher_id' => $teacherId,
+          'spm_to_user_id' => $studentId,
+          'spm_to_teacher_id' => null,
+          'spm_subject' => stripslashes($subj),
+          'spm_body' => stripslashes($text),
+          'spm_datetime' => date('Y-m-d H:i:s'),
+          'spm_is_new' => 0,
+        );
+        return $db->insert('privat_messages',$data);
+  }
+
 }
