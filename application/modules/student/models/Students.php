@@ -151,7 +151,7 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
         $select = $db->select()
                     ->from('video__all_movies')
                     ->order("vam_timestamp DESC")
-                     ->where("vam_user_id=$userId")
+                    ->where("vam_user_id=$userId")
                     ->where("vam_video_player2 IS NULL");
         $stmp = $select->query();
         $res = $stmp->fetchAll();
@@ -202,7 +202,7 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
 
             $db = Zend_Db_Table_Abstract::getDefaultAdapter();
             $data = array(
-               'vam_id' => null,
+              'vam_id' => null,
               'vam_video_player1' => null,
               'vam_video_player2' => stripslashes($code),
               'vam_teacher_id' => $teacherId,
@@ -215,7 +215,16 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
         }
 
         public function subscribeFor6DCourse($userId){
+            
             $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+            $select = $db->select()
+                    ->from('system__alerts')
+                     ->where("sa_student_id=$userId")
+                    ->where("sa_alert_type_id=3");
+            $stmp = $select->query();
+            $res = $stmp->fetchAll();
+            if ($res) return;
+            
             $data = array(
               'sa_id' => null,
               'sa_student_id' => $userId,
@@ -227,6 +236,15 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
         }
 
         public function activate6DCourse($userId){
+
+            $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+            $select = $db->select()
+                    ->from('video__6d_status')
+                     ->where("v6ds_user_id=$userId");
+            $stmp = $select->query();
+            $res = $stmp->fetchAll();
+            if ($res) return;
+
             $db = Zend_Db_Table_Abstract::getDefaultAdapter();
             $data = array(
               'v6ds_id' => null,

@@ -1046,6 +1046,9 @@ background: url(../img/head-block.png) 0 0 no-repeat;
   border-right : thin solid Black;	
 }
 
+#youtube{
+	text-align : center;
+}
 
 #newmaillink{
     cursor:pointer;
