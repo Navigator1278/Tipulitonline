@@ -37,9 +37,11 @@ class Student_ProfileController extends Zend_Controller_Action
 
             $student = new Student_Model_Students();
             $sessionId = $sessionData['u_id'];
+            $this->view->stid = $sessionId;
             $this->view->studentMainData = $student->getStudentMainData($sessionId);
             $this->view->kaltura = $student->getAllKalturaVideosForUser($sessionId);
             $this->view->youtube = $student->getAllYouTubeVideosForUser($sessionId);
+            $this->view->all6dvideos = $student->getAll6DVideosForUser($sessionId);
             $mailExchange = new Student_Model_MailExchange();
             $mailSendForm = new Student_Form_StudentWriteNewMailForm();
             $this->view->teacher = $mailExchange->getTeacherNameById(1);
@@ -112,6 +114,16 @@ class Student_ProfileController extends Zend_Controller_Action
 
         }
     }
+
+    public function subscribecourseAction(){
+    	if ($this->getRequest()->isXmlHttpRequest()) {
+    		$stid = $this->_request->getParam('stid');
+                $student = new Student_Model_Students();
+                $student->subscribeFor6DCourse($stid);
+    	}
+    	else echo "no AJAX";
+    }
+
 
     public function ajaxValidateProfileEditAction()
     {

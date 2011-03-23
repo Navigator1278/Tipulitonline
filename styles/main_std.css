@@ -1057,6 +1057,11 @@ background: url(../img/head-block.png) 0 0 no-repeat;
 	color: blue;		
 }
 
+#sub-bottom-border{
+    cursor:pointer;	
+}
+
+
 .mailbody{
 	border-bottom : thin solid Black;
 	border-left : thin solid Black;
