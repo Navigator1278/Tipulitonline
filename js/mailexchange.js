@@ -30,4 +30,23 @@ $('.eachmessage').mouseout(function(){
 	$(this).removeClass('currentmessage');
 });
 
+$('#sub-bottom-border').click(function(){
+
+	if (confirm('A you sure to subscribe for the 6D course?')) {
+	var stid = $(this).attr('stid');
+	$.ajax({
+		type:"POST",
+		url: "/student/profile/subscribecourse/",	
+			data: "stid="+stid,
+			success: function(html){
+				alert('You were subscribed for the 6D course successfuly');
+			},
+			error: function(html){
+				alert('You were subscribed for the 6D course');
+			},
+		});
+	}
+});
+
+
 });

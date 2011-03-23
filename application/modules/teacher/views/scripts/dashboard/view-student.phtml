@@ -8,8 +8,14 @@
 					</li>
 					<li class="alerts">
 						<label for="alerts">Alerts</label>
-						<textarea name="alerts" id="alerts" cols="30" rows="10">
-						</textarea>
+                                                <div id="alerts">
+                                                <?php if ($this->alerts):?>
+                                                    <?php foreach ($this->alerts as $alert):?>
+                                                            <?php echo $alert['sat_type']?>
+                                                            <?php echo $alert['sa_timestamp']?><br/>
+                                                    <?php endforeach;?>
+                                                <?php endif;?>
+                                                </div>
 					</li>
 					<li class="u_details">
 
@@ -67,11 +73,8 @@
 						<div>
 							<input type="submit" id="Activte_6D" value="Activte 6D">
 							<input type="submit" id="Pause_6D" value="Pause 6D">
-                                                        
 						</div>
-
 					</li>
-
 				</ul>
 				<div class="form">
                                     <form action="<?php echo $this->form->action ?>" method="post">

@@ -139,9 +139,6 @@ class System_Model_SystemEmailValidation extends Zend_Db_Table_Abstract
         $mail->send();
     }
 
-
-
-
     public function checkValidationCode($code, $email){
        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
        $stmp1 = $db->query("SELECT * FROM system__email_validation WHERE sev_validation_code='".$code."'");

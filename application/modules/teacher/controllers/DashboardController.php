@@ -33,6 +33,7 @@ class Teacher_DashboardController extends Zend_Controller_Action
         $mailSendForm = new Teacher_Form_TeacherWriteNewMailForm($stid);
         $this->view->teacher = $mailExchange->getTeacherNameById(1);
         $this->view->stid = $stid;
+        $this->view->alerts = $student->getStudentAlerts($stid);
         // dealing with the saving student's details updated by the teacher
         if ($this->getRequest()->getParam('save')){
             if (!$studentForm->isValid($_POST)){
@@ -49,10 +50,12 @@ class Teacher_DashboardController extends Zend_Controller_Action
         if ($this->getRequest()->getParam('mailsend')){
              $mailExchange->sendMessageFromTeacherToStudent($stid,
                             $teacherId, $_POST['subject'], $_POST['mailbody']);
+             $mailExchange->sendExternalMailToStudent($stid, $_POST['subject'], $_POST['mailbody']);
              $this->_redirect("/teacher/dashboard/view-student/stid/$stid/#newmaillink");
         }
          $this->view->mailform = $mailSendForm->getForm();
          $this->view->mails = $mailExchange->getAllMessagesFromTeacher($stid);
+
         // end of dealing with the saving student's details updated by the teacher
     }
 
@@ -69,6 +72,15 @@ class Teacher_DashboardController extends Zend_Controller_Action
                     $data = $student->postYouTubeVideoForUser ($stid, $teacherId, $code2);
                 echo (Zend_Json::encode($data));
     	}
+    	else echo "no AJAX";
+    }
+
+     public function start6dcourseAction(){
+    	if ($this->getRequest()->isXmlHttpRequest()) {
+    		$stid = $this->_request->getParam('stid');
+                $student = new Student_Model_Students();
+                $student->activate6DCourse($stid);
+                }
     	else echo "no AJAX";
     }
 }

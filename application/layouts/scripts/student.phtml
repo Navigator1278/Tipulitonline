@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html lang="ru-RU">
 <head>
     <title>אימות סיסמא</title>
@@ -42,12 +42,19 @@
     </style>
     <script type="text/javascript" src="/js/kultura/mwEmbed-player-static.js"></script>
     <script type="text/javascript" src="/js/mailexchange.js"></script>
-<script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
-<script type="text/javascript">
-bkLib.onDomLoaded(function() {
+    <script type="text/javascript" src="/js/video.js"></script>
+    <script type="text/javascript" src="/js/swfobject.js"></script>
+    <script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    bkLib.onDomLoaded(function() {
 	new nicEditor().panelInstance('mailbody');
-});
-</script>
+    });
+    </script>
+    <script>
+        function onYouTubePlayerReady(id) {
+        alert("FFF");
+      }
+    </script>
 </head>
 <body class="main_page">
 <div class="wrapper">

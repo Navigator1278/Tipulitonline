@@ -90,7 +90,7 @@
         <div class="sub-bottom">
             <input type="button" class="sub_button_input" value="שלחו" text="" name="">
         </div>
-        <div class="sub-bottom-border" id="sub-bottom-border">
+        <div class="sub-bottom-border" id="sub-bottom-border" stid ="<?php echo $this->stid ?>">
             <div class="sub-bottom-border-block">
                 <div class="sub-bottom-top"></div>
                 <div class="sub-bottom-body">
@@ -104,17 +104,19 @@
                 </div>
                 <div class="sub-bottom-bottom"></div>
             </div>
+
             <div class="sub-view-image">
             <div class="input-title">
                 להצטרפות לקורס הכניסו אימייל
             </div>
-                <input type="text" class="" value="" text="" name=""/>
+              
             </div>
             <div class="bottom-shape"><div class="text-bottom-shape">
 שלחו >
                 </div></div>
 <div class="bottom-shape-like"></div>
         </div>
+        
     </div>
 </div>
  <div class="form_wrap">
@@ -197,12 +199,18 @@ property="media:height" content="579" /> <span property="media:type" content="ap
                         </span>
         </div>
     </div>
-    <div class='video_link'>
-        <?php if ($this->youtube):?>
-            <?php echo $this->youtube['vam_video_player2'] ?>
-        <?php else :?>
-        <iframe title="YouTube video player" width="623" height="686"
-                src="http://www.youtube.com/embed/ew9KuRkTt_Y" frameborder="0" allowfullscreen></iframe>
+    <div class='video_link' id="videotest">
+        <?php if ($this->all6dvideos): ?>
+            <?php $code6d = $this->all6dvideos[0]['v6d_code'] ?>
+                <iframe title="YouTube video player" width="623" height="686"
+                    src="<?php echo $code6d ?>" frameborder="0" allowfullscreen></iframe>
+        <?php else: ?>
+            <?php if ($this->youtube):?>
+                <?php echo $this->youtube['vam_video_player2'] ?>
+            <?php else :?>
+            <iframe title="YouTube video player" width="623" height="686"
+                    src="http://www.youtube.com/embed/ew9KuRkTt_Y" frameborder="0" allowfullscreen></iframe>
+            <?php endif; ?>
         <?php endif; ?>
     </div>
 </div>

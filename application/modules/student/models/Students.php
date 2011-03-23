@@ -161,16 +161,25 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
         }
 
         public function getAllYouTubeVideosForUser($userId){
-        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
-        $select = $db->select()
+            $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+            $select = $db->select()
                     ->from('video__all_movies')
                     ->order("vam_timestamp DESC")
                      ->where("vam_user_id=$userId")
                     ->where("vam_video_player1 IS NULL");
-        $stmp = $select->query();
-        $res = $stmp->fetchAll();
-        if ($res) return $res[0];
-            else return false;
+            $stmp = $select->query();
+            $res = $stmp->fetchAll();
+            if ($res) return $res[0];
+                else return false;
+        }
+
+        public function getAll6DVideosForUser($stid){
+            $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+            $sql = 'SELECT * FROM video__6d_status, video__6d
+                    WHERE video__6d_status.v6ds_video_id = video__6d.v6d_id
+                    AND v6ds_user_id=?';
+            $res = $db->fetchAll($sql,$stid);
+            return $res;
         }
 
         public function postKalturaVideoForUser($userId,$teacherId,$code){
@@ -203,5 +212,41 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
             );
             $db->insert('video__all_movies', $data);
             return $data;
+        }
+
+        public function subscribeFor6DCourse($userId){
+            $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+            $data = array(
+              'sa_id' => null,
+              'sa_student_id' => $userId,
+              'sa_teacher_id' => null,
+              'sa_alert_type_id' => 3,
+            );
+            $db->insert('system__alerts', $data);
+            return $data;
+        }
+
+        public function activate6DCourse($userId){
+            $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+            $data = array(
+              'v6ds_id' => null,
+              'v6ds_video_id' => 1,
+              'v6ds_user_id' => $userId,
+              'v6ds_teacher_id' => 1,
+              'v6ds_viewed' => 'No',
+            );
+            $db->insert('video__6d_status', $data);
+            return $data;
+        }
+
+
+        public function getStudentAlerts($stid){
+
+            $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+            $sql = 'SELECT * FROM system__alerts, system__alert_type
+                    WHERE system__alerts.sa_alert_type_id  = system__alert_type.sat_id
+                    AND sa_student_id=?';
+            $res = $db->fetchAll($sql,$stid);
+            return $res;
         }
 }
