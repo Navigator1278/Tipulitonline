@@ -16,7 +16,7 @@
             echo $this->studentMainData['u_name']." ".$this->studentMainData['u_family_name'];
             ?></b>
     <div class="sub-text">
-       
+
         .זהו ביקורך ה- 18 במרכז הלמידה
         <br/>
 
@@ -109,14 +109,14 @@
             <div class="input-title">
                 להצטרפות לקורס הכניסו אימייל
             </div>
-              
+
             </div>
             <div class="bottom-shape"><div class="text-bottom-shape">
 שלחו >
                 </div></div>
 <div class="bottom-shape-like"></div>
         </div>
-        
+
     </div>
 </div>
  <div class="form_wrap">
@@ -208,8 +208,14 @@ property="media:height" content="579" /> <span property="media:type" content="ap
             <?php if ($this->youtube):?>
                 <?php echo $this->youtube['vam_video_player2'] ?>
             <?php else :?>
-            <iframe title="YouTube video player" width="623" height="686"
-                    src="http://www.youtube.com/embed/ew9KuRkTt_Y" frameborder="0" allowfullscreen></iframe>
+            <div id='videoDiv'></div>
+            <script type="text/javascript">
+                function receiveDuration(){
+                    player = document.getElementById("ytPlayer");
+                    alert(player.getDuration());
+                }
+            </script>
+            <a onclick="receiveDuration()">GET DURATION</a>
             <?php endif; ?>
         <?php endif; ?>
     </div>
