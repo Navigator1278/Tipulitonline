@@ -50,10 +50,33 @@
 	new nicEditor().panelInstance('mailbody');
     });
     </script>
-    <script>
-        function onYouTubePlayerReady(id) {
-        alert("FFF");
+    
+<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+    <script type="text/javascript">
+      google.load("swfobject", "2.1");
+    </script>
+    <script type="text/javascript">
+      function _run() {
+        /*
+        * Simple player embed
+        */
+
+        // The video to load.
+        var videoID = "ew9KuRkTt_Y"
+        // Lets Flash from another domain call JavaScript
+        var params = { allowScriptAccess: "always" };
+        // The element id of the Flash embed
+        var atts = { id: "ytPlayer" };
+        // All of the magic handled by SWFObject (http://code.google.com/p/swfobject/)
+        swfobject.embedSWF("http://www.youtube.com/v/" + videoID + "&enablejsapi=1&playerapiid=ytplayer",
+                           "videoDiv", "480", "295", "8", null, null, params, atts);
+
+
+        
       }
+      google.setOnLoadCallback(_run);
+
+        
     </script>
 </head>
 <body class="main_page">

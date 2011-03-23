@@ -12,7 +12,7 @@ $(document).ready(function(){
 			},
 			error: function(html){
 				alert('Video was sent to the student');
-			},
+			}
 		});
 	return false;
    });
@@ -30,7 +30,7 @@ $(document).ready(function(){
 			},
 			error: function(html){
 				alert('Video was sent to the student');
-			},
+			}
 		});
 	return false;
    });
@@ -46,7 +46,7 @@ $(document).ready(function(){
 			},
 			error: function(html){
 				alert('6d couerse was send');
-			},
+			}
 		});
 
    });
