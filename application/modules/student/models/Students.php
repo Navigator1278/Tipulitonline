@@ -160,6 +160,9 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
 
         }
 
+        /*
+         * Getting all videos, posted to the student by the teacher through YouTube-player
+         */
         public function getAllYouTubeVideosForUser($userId){
             $db = Zend_Db_Table_Abstract::getDefaultAdapter();
             $select = $db->select()
@@ -173,15 +176,42 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
                 else return false;
         }
 
+        /*
+         *  Getting all 6D-videos that are available for this student at the moment
+         */
         public function getAll6DVideosForUser($stid){
             $db = Zend_Db_Table_Abstract::getDefaultAdapter();
             $sql = 'SELECT * FROM video__6d_status, video__6d
                     WHERE video__6d_status.v6ds_video_id = video__6d.v6d_id
-                    AND v6ds_user_id=?';
+                    AND v6ds_user_id=? ORDER BY v6ds_video_id DESC';
             $res = $db->fetchAll($sql,$stid);
             return $res;
         }
 
+
+//____________________________________ Not used yet
+        /*
+         * Getting current video for the student that he/she has to watch 
+         */
+        public function getCurrent6DVideoForUser($stid){
+            $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+            /*
+             * first of all we check if some video (but it can be only the last video)
+             * was paused by the teacher
+             * if its true we should render this paused video
+             */
+             $sql = "SELECT * FROM video__6d_status, video__6d
+                    WHERE video__6d_status.v6ds_video_id = video__6d.v6d_id
+                    AND v6ds_paused='Yes' AND v6ds_user_id=? ORDER BY v6ds_video_id DESC";
+             $res = $db->fetchAll($sql,$stid);
+             if ($res) return $res[0]['v6ds_id'];
+        }
+//__________________________________________
+
+        
+        /*
+         * Getting all videos, posted to the student by the teacher through Kaltura-player
+         */
         public function postKalturaVideoForUser($userId,$teacherId,$code){
             
             $db = Zend_Db_Table_Abstract::getDefaultAdapter();
@@ -197,6 +227,10 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
             $db->insert('video__all_movies', $data);
             return $data;
         }
+
+        /*
+         * posting the YouTubeVideo for the student
+         */
 
         public function postYouTubeVideoForUser($userId,$teacherId,$code){
 
@@ -214,6 +248,10 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
             return $data;
         }
 
+        /*
+         * the student subscribes for the 6d video course
+         * after that the teacher gets alert about this
+         */
         public function subscribeFor6DCourse($userId){
             
             $db = Zend_Db_Table_Abstract::getDefaultAdapter();
@@ -235,16 +273,27 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
             return $data;
         }
 
+        /*
+         * activating the 6d course for the student
+         */
         public function activate6DCourse($userId){
 
             $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+            $currentVideo = $this->getCurrent6DVideoForUser($userId);
             $select = $db->select()
                     ->from('video__6d_status')
                      ->where("v6ds_user_id=$userId");
             $stmp = $select->query();
             $res = $stmp->fetchAll();
-            if ($res) return;
-
+            if ($res) { //course was already launched but paused by the teacher
+                 $data = array(
+                    'v6ds_paused' => 'No',
+                    'v6ds_timestamp' => date('y-m-d H:i:s'),
+                    );
+                 $db->update('video__6d_status', $data,"v6ds_id=$currentVideo");
+                 return;
+            }
+            //else we should launch the course with the first one video
             $db = Zend_Db_Table_Abstract::getDefaultAdapter();
             $data = array(
               'v6ds_id' => null,
@@ -257,7 +306,115 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
             return $data;
         }
 
+        /*
+         * pause the 6d course
+         */
+        public function pause6dCourse($userId){
 
+            $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+            $select = $db->select()
+                     ->from('video__6d_status')
+                     ->where("v6ds_user_id=$userId")
+                     ->order('v6ds_video_id DESC');
+            $stmp = $select->query();
+            $res = $stmp->fetchAll();
+            $videoId = $res[0]['v6ds_id'];
+            $data = array(
+            'v6ds_paused' => 'Yes'
+           );
+            $db->update('video__6d_status', $data,"v6ds_id=$videoId");
+        }
+
+
+        /*
+         * changing the flag in the video table if student has  completely viewed the video
+         * now the student can watch another one video
+         */
+        public function set6dVideoFlag($videoId){
+            
+           $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+           $data = array(
+            'v6ds_viewed' => 'Yes'
+           );
+           $db->update('video__6d_status', $data,"v6ds_id=$videoId");
+        }
+
+        /*
+         * sending the video to the student
+         *
+         */
+        public function send6dVideoToStudent($userId){
+            
+            $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+
+            /*
+             * check if 6 was activated
+             */
+            $sql = "SELECT * FROM  video__6d_status
+                    WHERE v6ds_user_id=?";
+             $res = $db->fetchAll($sql,$userId);
+             if (!$res) return "6D wasnt activated";
+
+            /*
+             * first of all we check if some video (but it can be only the last video)
+             * was paused by the teacher
+             * if its true we cant't send another one video
+             */
+             $sql = "SELECT * FROM video__6d_status
+                    WHERE v6ds_paused='Yes' AND v6ds_user_id=? ORDER BY v6ds_video_id DESC";
+             $res = $db->fetchAll($sql,$userId);
+             if ($res) return "VIDEO PAUSED!";
+
+             /*
+              *check if all student's videoz were viewed
+              */
+             $sql = "SELECT * FROM video__6d_status
+                    WHERE v6ds_viewed='No' AND v6ds_user_id=?";
+             $res = $db->fetchAll($sql,$userId);
+             if ($res) return "VIDEO WASNT VIEWED!";
+
+             /*
+              * after that we check if 16 hours went by
+              */
+            $currentTime = time();
+            $difference = 20;
+            $pastTime = $currentTime - $difference;
+            $currentTime = date('y-m-d H:i:s',$currentTime);
+            $pastTime = date('y-m-d H:i:s',$pastTime);
+             $sql = "SELECT * FROM video__6d_status
+                    WHERE v6ds_timestamp BETWEEN ? AND ? AND v6ds_user_id=? ORDER BY v6ds_video_id DESC";
+             $res = $db->fetchAll($sql,array($pastTime,$currentTime,$userId));
+             if ($res) return "TIME DIDNT GO BY!";
+             
+
+            //defining the number of the current video and incrementing it
+            //if this number more than 6 (max videos in the course) returning
+            $select = $db->select()
+                     ->from('video__6d_status')
+                     ->where("v6ds_user_id=$userId")
+                     ->order('v6ds_video_id DESC');
+            $stmp = $select->query();
+            $res = $stmp->fetchAll();
+            $currentVideo = $res[0]['v6ds_video_id']+1;
+            if ($currentVideo>6) return "Uve finished the course"; //no more videos left
+
+            //else we can show the next video to the student
+            $data = array(
+              'v6ds_id' => null,
+              'v6ds_video_id' => $currentVideo,
+              'v6ds_user_id' => $userId,
+              'v6ds_teacher_id' => 1,
+              'v6ds_viewed' => 'No',
+            );
+            $res = $db->insert('video__6d_status', $data);
+            return "INSERTED!";
+          }
+
+
+
+        /*
+         * getting all alerts from the student and showing them on the teacher's page
+         */
         public function getStudentAlerts($stid){
 
             $db = Zend_Db_Table_Abstract::getDefaultAdapter();

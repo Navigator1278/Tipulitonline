@@ -83,4 +83,17 @@ class Teacher_DashboardController extends Zend_Controller_Action
                 }
     	else echo "no AJAX";
     }
+
+
+    /*
+     * Activating the 6d course
+     */
+    public function pause6dcourseAction(){
+    	if ($this->getRequest()->isXmlHttpRequest()) {
+    		$stid = $this->_request->getParam('stid');
+                $student = new Student_Model_Students();
+                $student->pause6dCourse($stid);
+                }
+    	else echo "no AJAX";
+    }
 }

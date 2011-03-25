@@ -470,7 +470,11 @@ background: url(../img/head-block.png) 0 0 no-repeat;
     left: 86px;
     position: absolute;
     width: 160px;
+}
 
+
+#sub-bottom-border{
+    cursor:pointer;	
 }
 
 .sub-block-border2{
@@ -1060,7 +1064,7 @@ background: url(../img/head-block.png) 0 0 no-repeat;
 	color: blue;		
 }
 
-#sub-bottom-border{
+#course6d{
     cursor:pointer;	
 }
 

@@ -50,6 +50,9 @@
 	new nicEditor().panelInstance('mailbody');
     });
     </script>
+    <script>
+        if(window.opera) {document.write('<link rel="stylesheet" type="text/css" href="/styles/cross/op.css" />');}
+    </script>
     
 <script src="http://www.google.com/jsapi" type="text/javascript"></script>
     <script type="text/javascript">
@@ -62,7 +65,8 @@
         */
 
         // The video to load.
-        var videoID = "ew9KuRkTt_Y"
+        <?php $code6d = $this->all6dvideos[0]['v6d_code'] ?>
+        var videoID = "<?php echo $code6d ?>"
         // Lets Flash from another domain call JavaScript
         var params = { allowScriptAccess: "always" };
         // The element id of the Flash embed
@@ -76,7 +80,26 @@
       }
       google.setOnLoadCallback(_run);
 
-        
+    function onYouTubePlayerReady() {
+         ytplayer = document.getElementById("ytPlayer");
+        ytplayer.addEventListener("onStateChange", "onytplayerStateChange");
+        }
+
+    function onytplayerStateChange(newState) {
+
+         if (newState==0){
+         var videoId = $('#videoDivInfo').attr('video');
+         var stid = $('#course6d').attr('stid');
+         $.ajax({
+            type:"POST",
+            url: "/student/profile/setviewedflag/",
+		data: "videoid="+videoId+"&stid="+stid
+        	});
+         }
+            
+     }
+
+
     </script>
 </head>
 <body class="main_page">

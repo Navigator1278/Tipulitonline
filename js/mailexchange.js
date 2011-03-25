@@ -30,7 +30,7 @@ $('.eachmessage').mouseout(function(){
 	$(this).removeClass('currentmessage');
 });
 
-$('#sub-bottom-border').click(function(){
+$('#course6d').click(function(){
 
 	if (confirm('A you sure to subscribe for the 6D course?')) {
 	var stid = $(this).attr('stid');

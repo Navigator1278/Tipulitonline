@@ -25,6 +25,7 @@ class Student_ProfileController extends Zend_Controller_Action
         # тут получаешь данные о юзере, и отправляешь их на показ в вид.
 
         $sessionData = Zend_Auth::getInstance()->getIdentity();
+
         $id = $this->_getParam('id');
         if (!$sessionData){ //user is not logged in
             if (!$id) // no id was specified
@@ -37,11 +38,13 @@ class Student_ProfileController extends Zend_Controller_Action
 
             $student = new Student_Model_Students();
             $sessionId = $sessionData['u_id'];
+            $student->send6dVideoToStudent($sessionId);
             $this->view->stid = $sessionId;
             $this->view->studentMainData = $student->getStudentMainData($sessionId);
             $this->view->kaltura = $student->getAllKalturaVideosForUser($sessionId);
             $this->view->youtube = $student->getAllYouTubeVideosForUser($sessionId);
             $this->view->all6dvideos = $student->getAll6DVideosForUser($sessionId);
+            $this->view->current6dvideo = $student->getCurrent6DVideoForUser($sessionId);
             $mailExchange = new Student_Model_MailExchange();
             $mailSendForm = new Student_Form_StudentWriteNewMailForm();
             $this->view->teacher = $mailExchange->getTeacherNameById(1);
@@ -115,11 +118,29 @@ class Student_ProfileController extends Zend_Controller_Action
         }
     }
 
+    /*
+    * Subscribing the student for the 6d course
+    */
     public function subscribecourseAction(){
     	if ($this->getRequest()->isXmlHttpRequest()) {
     		$stid = $this->_request->getParam('stid');
                 $student = new Student_Model_Students();
                 $student->subscribeFor6DCourse($stid);
+    	}
+    	else echo "no AJAX";
+    }
+
+    /*
+     * Changing the flag in the video table
+     *
+     */
+    public function setviewedflagAction(){
+    	if ($this->getRequest()->isXmlHttpRequest()) {
+    		$videoId = $this->_request->getParam('videoid');
+                $userId = $this->_request->getParam('stid');
+                $student = new Student_Model_Students();
+                $student->set6dVideoFlag($videoId);
+                $student->send6dVideoToStudent($userId);
     	}
     	else echo "no AJAX";
     }
