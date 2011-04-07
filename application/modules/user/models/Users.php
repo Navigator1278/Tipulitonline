@@ -27,7 +27,7 @@ class User_Model_Users extends Zend_Db_Table_Abstract{
           'u_email' => $data['email'],
           'u_date_of_birth' => $data['datepicker'],
           'u_external_emails' => $data['external'],
-          'u_visits_amount' => 0,
+          'u_visits_amount' => 1,
           'u_picture' => $data['userimage'],
           'u_registration_stamp' => '3333',
           'u_objectives' => $data['objectives'],
@@ -90,4 +90,111 @@ class User_Model_Users extends Zend_Db_Table_Abstract{
            }
        }
     }
+
+    /*
+     * Incrementing the ammount of logins of the user
+     */
+    public function increaseVisitsAmount($id){
+
+        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+        $select = $db->select()
+                    ->from('users')
+                    ->where("u_id=$id");
+        $stmp = $select->query();
+        $res = $stmp->fetchAll();
+        $visitsAmount = $res[0]['u_visits_amount'];
+        $visitsAmount++;
+        $data = array(
+            'u_visits_amount' => $visitsAmount,
+        );
+        $db->update('users', $data, "u_id=$id");
+    }
+
+    /*
+     * changing the time of the last student's activity
+     */
+    public function changeStudentActivityTime($id){
+
+        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+        $data = array(
+            'u_lastactivity' => null,
+        );
+        return $db->update('users', $data, "u_id=$id");
+    }
+
+    /*
+     * changing the time of the last teachers's activity
+     */
+    public function changeTeacherActivityTime($id){
+
+        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+        $data = array(
+            't_lastactivity' => null,
+        );
+        return $db->update('teachers', $data, "t_id=$id");
+    }
+
+    /*
+     * checking student's new messages in the chat
+     */
+    public function checkStudentsMessages($id){
+
+        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+        $sql = "SELECT * FROM chat WHERE chat_from_user_id=? OR chat_to_user_id=? ORDER BY chat_datetime ASC";
+            $res = $db->fetchAll($sql, array($id,$id));
+        return $res;
+    }
+
+    /*
+     * checking teacher's new messages in the chat
+     */
+    public function checkTeachersMessages($id){
+
+        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+        $sql = "SELECT * FROM chat WHERE chat_isread_t=0 AND (chat_from_user_id=? OR chat_to_user_id=?) ORDER BY chat_datetime ASC";
+            $res = $db->fetchAll($sql, array($id,$id));
+        return $res;
+    }
+
+    /*
+     * Adding new chatmessage
+     */
+    public function addNewChatMessage($fromUser=null, $fromTeacher=null, $toUser=null, $toTeacher=null, $message=""){
+
+        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+        $data = array(
+            'chat_from_user_id' => $fromUser,
+            'chat_from_teacher_id' => $fromTeacher,
+            'chat_to_user_id' => $toUser,
+            'chat_to_teacher_id' => $toTeacher,
+            'chat_message' => $message,
+            'chat_datetime' => null,
+        );
+        return $db->insert('chat', $data);
+    }
+
+    /*
+     * if student enters the chat area all other requests should be eliminated
+     */
+    public function resetAllChatRequestsStudent($id){
+
+        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+        $data = array(
+            'chat_isread_s' => 1,
+        );
+        return $db->update('chat', $data, "chat_to_user_id=$id OR chat_from_user_id=$id");
+    }
+
+     /*
+     * if student enters the chat area all other requests should be eliminated
+     */
+    public function resetAllChatRequestsTeacher($id){
+
+        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+        $data = array(
+            'chat_isread_t' => 1,
+        );
+        return $db->update('chat', $data, "chat_to_user_id=$id OR chat_from_user_id=$id");
+    }
+
 }

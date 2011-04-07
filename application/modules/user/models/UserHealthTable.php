@@ -10,8 +10,6 @@ class User_Model_UserHealthTable extends Zend_Db_Table_Abstract{
 
          $userdata = array(
               'uht_user_id' => $userId,
-               'uht_height' =>$data['heigth'],
-               'uht_weight' => $data['weight'],
                'uht_heart_or_pb' => $data['heartpressure'],
                'uht_diabetes' => $data['diabetes'],
                'uht_migrene' => $data['migrene'],

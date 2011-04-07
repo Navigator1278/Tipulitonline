@@ -1,7 +1,7 @@
-﻿<div class="side_block">
+﻿<div class="side_block" id="chat" person="student" personid="<?php echo $this->stid ?>">
     <div class="sub">
         <div class="sub-left">
-            <a href="#"><img src="/i/r_button.png"></a>
+            <a href="/student/profile/upgrade-account/" target="new"><img src="/i/r_button.png"></a>
             <a href="/student/profile/my-profile-edit/">Edit Your Profile</a>
         </div>
         <div class="sub-right">
@@ -16,11 +16,13 @@
             echo $this->studentMainData['u_name']." ".$this->studentMainData['u_family_name'];
             ?></b>
     <div class="sub-text">
-
-        .זהו ביקורך ה- 18 במרכז הלמידה
+        <a href="/student/profile/chat/" target="new">chat with teacher</a>
+        <a href="/student/profile/chat/" target="new"><span id="chatrequest"></span></a>
+        <br/>
+        .זהו ביקורך ה- 18 במרכז הלמידה<?php echo $this->studentMainData['u_visits_amount'] ?>
         <br/>
 
-        .עד כה צברת 35 שעות תרגול
+        .עד כה צברת 35 שעות תרגול<div id="numberofunreadmails" q="<?php echo $this->unreadmessages ?>"><?php echo $this->unreadmessages ?></div>
         <br/>
         יש לך 2 הודעות חדשות בתיבת הדואר
         <br/>
@@ -49,47 +51,47 @@
         <div class="sub-sub-block2">
         </div>
         <div class="content-block">
-            <div class="sub-header">
-                משוב על התרגול
-            </div>
-            <br/>
-            <strong>האם חווית שיפור או הקלה</strong><br/>
+                        <div class="sub-header">
+                            משוב על התרגול
+                        </div>
+                        <br/>
+                        <strong>האם חווית שיפור או הקלה</strong><br/>
+improvements
+                        <div class="radio_new"><input type="radio" name="improvement" value="Yes"/></div>
+                        <div class="radio_text">Yes</div>
 
-            <div class="radio_new"></div>
-            <div class="radio_text">Test</div>
+                        <div class="radio_new"><input type="radio" name="improvement" value="No"/></div>
+                        <div class="radio_text">No</div><br/><br/>
 
-            <div class="radio_new"></div>
-            <div class="radio_text">Test</div>
+                        <strong>האם התרגול היה:</strong><br/>
 
-            <div class="radio_new"></div>
-            <div class="radio_text">Test</div>
+                        <div class="radio_new"><input type="radio" name="level" value="Hard"/></div>
+                        <div class="radio_text">Hard</div>
 
-            <strong>האם התרגול היה:</strong><br/>
+                        <div class="radio_new"><input type="radio" name="level" value="Suitable"/></div>
+                        <div class="radio_text">Mid</div>
 
-            <div class="radio_new"></div>
-            <div class="radio_text">Test</div>
-
-            <div class="radio_new"></div>
-            <div class="radio_text">Test</div>
-
-            <div class="radio_new"></div>
-            <div class="radio_text">Test</div>
+                        <div class="radio_new"><input type="radio" name="level" value="Easy"/></div>
+                        <div class="radio_text">Easy</div>
 
         </div>
     </div>
     <div class="sub-block-border3">
         <div class="sub-top">
-            <div class="sub-top-content">
-                ?האם חווית בעיה בתרגול
-                <br/> <textarea class="sub_textarea"></textarea><br/>
-                האם יש לך הצעות לשיפור
-                <br/>
-                <input type="text" class="sub_text_input" value="" text="" name=""/>
-            </div>
+                        <div class="sub-top-content">
+
+                            ?האם חווית בעיה בתרגול
+                            <br/> <textarea class="sub_textarea" id="difficult"></textarea><br/>
+                            
+                            האם יש לך הצעות לשיפור
+                            <br/>
+
+                            <input type="text" class="sub_text_input" id="suggestion" value="" text="" name="">
+                        </div>
         </div>
         <div class="sub-bottom">
-            <input type="button" class="sub_button_input" value="שלחו" text="" name="">
-        </div>
+        <input type="button" class="sub_button_input" value="שלחו" text="" name="" id="sendfeedback" stid ="<?php echo $this->stid ?>">
+      </div>
         <div class="sub-bottom-border" id="sub-bottom-border">
             <div class="sub-bottom-border-block">
                 <div class="sub-bottom-top"></div>
@@ -104,8 +106,11 @@
                 </div>
                 <div class="sub-bottom-bottom"></div>
             </div>
-
+            <?php if (!$this->all6dvideos): ?>
             <div class="sub-view-image" id="course6d" stid ="<?php echo $this->stid ?>">
+            <?php else: ?>
+            <div class="sub-view-image" stid ="<?php echo $this->stid ?>">
+            <?php endif; ?>
             <div class="input-title">
                 להצטרפות לקורס הכניסו אימייל
             </div>
@@ -120,51 +125,39 @@
     </div>
 </div>
  <div class="form_wrap">
-     <?php if (!$this->kaltura): ?>
-<object id="vid1" name="kaltura_player" type="application/x-shockwave-flash" allowFullScreen="true" allowNetworking="all" allowScriptAccess="always"
-height="579" width="689" xmlns:dc="http://purl.org/dc/terms/" xmlns:media="http://search.yahoo.com/searchmonkey/media/" rel="media:video"
-resource="http://www.kaltura.com/index.php/kwidget/cache_st/1288021248/wid/_246422/uiconf_id/2446261/entry_id/0_hle245bt"
-data="http://www.kaltura.com/index.php/kwidget/cache_st/1288021248/wid/_246422/uiconf_id/2446261/entry_id/0_hle245bt"><param name="allowFullScreen"
-value="true" /><param name="allowNetworking" value="all" /><param name="allowScriptAccess" value="always" /><param name="bgcolor" value="#000000" /><param
-name="flashVars" value="&" /><param name="movie"
-value="http://www.kaltura.com/index.php/kwidget/cache_st/1288021248/wid/_246422/uiconf_id/2446261/entry_id/0_hle245bt" /><a
-href="http://corp.kaltura.com">video platform</a> <a href="http://corp.kaltura.com/video_platform/video_management">video management</a> <a
-href="http://corp.kaltura.com/solutions/video_solution">video solutions</a> <a href="http://corp.kaltura.com/video_platform/video_publishing">video
-player</a> <a rel="media:thumbnail"
-href="http://cdnbakmi.kaltura.com/p/246422/sp/24642200/thumbnail/entry_id/0_hle245bt/width/120/height/90/bgcolor/000000/type/2" /> <span
-property="dc:description" content="" /><span property="media:title" content="roy test 1" /> <span property="media:width" content="689" /><span
-property="media:height" content="579" /> <span property="media:type" content="application/x-shockwave-flash" /> </object>
+<?php if ($this->status6d==1): ?>
+      <div id="videoDivInfo" video="<?php echo $this->all6dvideos[0]['v6ds_id'] ?>" course6d="1"></div>
+      <div id="vid1">
+       <?php echo $this->all6dvideos[0]['v6d_code'] ?>
+     </div>
+<?php else:?>
+<?php if (!$this->kaltura): ?>
+      <div id="vid1">
+       <script type="text/javascript" src="http://content.bitsontherun.com/players/WGdA3yA2-TPLLuQfB.js"></script>
+     </div>
      <?php else: ?>
-<object id="vid1" name="kaltura_player" type="application/x-shockwave-flash" allowFullScreen="true" allowNetworking="all"allowScriptAccess="always"
-height="579" width="689" xmlns:dc="http://purl.org/dc/terms/" xmlns:media="http://search.yahoo.com/searchmonkey/media/" rel="media:video"
-resource="http://www.kaltura.com/index.php/kwidget/cache_st/1288021248/wid/_246422/uiconf_id/2446261/entry_id/<?php echo $this->kaltura['vam_video_player1'] ?>"
-data="http://www.kaltura.com/index.php/kwidget/cache_st/1288021248/wid/_246422/uiconf_id/2446261/entry_id/<?php echo $this->kaltura['vam_video_player1'] ?>"><param name="allowFullScreen"
-value="true" /><param name="allowNetworking" value="all" /><param name="allowScriptAccess" value="always" /><param name="bgcolor" value="#000000" /><param
-name="flashVars" value="&" /><param name="movie"
-value="http://www.kaltura.com/index.php/kwidget/cache_st/1288021248/wid/_246422/uiconf_id/2446261/entry_id/<?php echo $this->kaltura['vam_video_player1'] ?>" /><a
-href="http://corp.kaltura.com">video platform</a> <a href="http://corp.kaltura.com/video_platform/video_management">video management</a> <a
-href="http://corp.kaltura.com/solutions/video_solution">video solutions</a> <a href="http://corp.kaltura.com/video_platform/video_publishing">video
-player</a> <a rel="media:thumbnail"
-href="http://cdnbakmi.kaltura.com/p/246422/sp/24642200/thumbnail/entry_id/<?php echo $this->kaltura['vam_video_player1'] ?>/width/120/height/90/bgcolor/000000/type/2" /> <span
-property="dc:description" content="" /><span property="media:title" content="roy test 1" /> <span property="media:width" content="689" /><span
-property="media:height" content="579" /> <span property="media:type" content="application/x-shockwave-flash" /> </object>
+      <div id="videoDivInfo" video="<?php echo $this->kaltura['vam_id'] ?>" course6d="0"></div>
+      <div id="vid1" video="<?php echo $this->kaltura['vam_video_player1'] ?>">
+        <script type="text/javascript" src="http://content.bitsontherun.com/players/<?php echo $this->kaltura['vam_video_player1'] ?>-TPLLuQfB.js"></script>
+     </div>
      <?php endif;?>
+<?php endif; ?>
     <div class="mail-content-wrap">
         <div class="mail-block-title">
 הודעות ממרכז הלמידה
         </div>
         <div class="mail-block">
             <table id="mailtable">
-                <th>From</th><th>Subject</th><th>Date</th>
+                <th>From</th><th>Subject</th><th>Date</th><th></th>
                 <?php if ($this->mails): ?>
                 <?php foreach($this->mails as $mail): ?>
-                <tr class="eachmessage">
-                    <td width="20%"><?php echo $this->teacher ?></td>
-                    <td width="30%"><?php echo $mail['spm_subject'] ?></td>
-                    <td width="40%"><?php echo $mail['spm_datetime'] ?></td>
-                    <td width="10%">
+                <tr class="eachmessage" id="<?php echo $mail['spm_id'] ?> " side="student">
+                    <td width="20%" <?php echo ($mail['spm_from_teacher_id']&&!$mail['spm_is_new']? "class='unread'": ""); ?>><?php echo $this->teacher ?></td>
+                    <td width="50%" <?php echo ($mail['spm_from_teacher_id']&&!$mail['spm_is_new']? "class='unread'": ""); ?>><?php echo $mail['spm_subject'] ?></td>
+                    <td width="25%" <?php echo ($mail['spm_from_teacher_id']&&!$mail['spm_is_new']? "class='unread'": ""); ?>><?php echo $mail['spm_datetime'] ?></td>
+                    <td width="5%">
                         <?php if ($mail['spm_from_teacher_id']): ?>
-                        <img src="/i/mail_in.png" title="inbox"/>
+                        <img src="/i/mail_in.png" title="inbox" />
                         <?php else: ?>
                         <img src="/i/mail_out.png" title="outbox"/>
                         <?php endif;?>
@@ -180,43 +173,31 @@ property="media:height" content="579" /> <span property="media:type" content="ap
                         <?php endif; ?>
                     </td>
                 </tr>
-
                 <?php endforeach; ?>
                            <tr class="eachmessage">
                     <td></td><td></td><td></td><td></td>
                 </tr>
                 <?php else :?>
-                <tr><td colspan="4"><i>You have no messages in your box</i></td></tr>
+                <tr><td colspan="4"><i>אין לך עדיין הודעות ממרכז הלמידה</i></td></tr>
               <?php endif;?>
-        </table><br/><br/><br/>
-            <img id="newmaillink" src="/i/email.jpg" title="write new mail"/>
-                        <span id="newmailform" >
+        </table><br/>
+            <img id="newmaillink" src="/i/email.png" title="write new mail"/>
+                        <span id="newmailform">
                             <form method="post" action="/student/profile/my-profile/">
                             subject <input type="text" name="subject" id="mailsubj" /><br/><br/>
-                            <textarea name="mailbody" id="mailbody" cols="30" rows="5"></textarea><br/>
-                            <input type="submit" name="mailsend" id="mailsend" value="send"/>
+                            <textarea name="mailbody" id="mailbody" cols="30" rows="5"></textarea>
+                            <br/><input type="submit" name="mailsend" id="mailsend" value="send"/>
                             </form>
                         </span>
         </div>
     </div>
     <div class='video_link' id="youtube">
-        <?php if ($this->all6dvideos): ?>
-            <div id="videoDivInfo" video="<?php echo $this->all6dvideos[0]['v6ds_id'] ?>"></div>
-            <div id='videoDiv'></div>
-            <script type="text/javascript">
-                function receiveDuration(){
-                    player = document.getElementById("ytPlayer");
-                    alert(player.getDuration());
-                }
-            </script>
-        <?php else: ?>
             <?php if ($this->youtube):?>
                 <?php echo $this->youtube['vam_video_player2'] ?>
             <?php else :?>
                     <iframe title="YouTube video player" width="623" height="686"
-                    src="http://www.youtube.com/embed/ew9KuRkTt_Y" frameborder="0" allowfullscreen></iframe>
+                    src="http://www.youtube.com/embed/BjfCfIPP8ps" frameborder="0" allowfullscreen></iframe>
             <?php endif; ?>
-        <?php endif; ?>
     </div>
 </div>
      <div class="for_ie">

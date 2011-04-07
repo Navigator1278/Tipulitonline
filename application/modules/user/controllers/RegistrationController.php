@@ -57,6 +57,10 @@ class User_RegistrationController extends Zend_Controller_Action
                    $user->addAdditionalData($userId,$values);
                    $auth = Zend_Auth::getInstance();
                    $auth->getStorage()->write(array('u_email'=>$email,'u_id'=>$userId));
+                   $mailExchange = new Student_Model_MailExchange();
+                   //$text = "New <a href='/teacher/dashboard/view-student/stid/$userId/'>user</a> was registered";
+                   $mailExchange->sendNewUserInformation($userId);
+
                    $this->_redirect("/student/profile/my-profile/");
                }
            } else{

@@ -9,4 +9,5 @@ $(document).ready(function(){
 	$('#uploadavatar').click(function(){
 		$('#uploadavatarform').slideToggle();
 	});
-});
+
+ });

@@ -30,6 +30,28 @@ $('.eachmessage').mouseout(function(){
 	$(this).removeClass('currentmessage');
 });
 
+$('.eachmessage').click(function(){
+	var mailid  = $(this).attr('id');
+        var side = $(this).attr('side');
+        var numberofunreadmails = $("#numberofunreadmails").attr('q');
+        var currentclass = $(this).children(':first').hasClass('unread');
+        if (currentclass){
+            numberofunreadmails=numberofunreadmails-1;
+        }
+        $("#numberofunreadmails").attr('q',numberofunreadmails);
+        $("#numberofunreadmails").text(numberofunreadmails);
+        $(this).children().removeClass('unread');
+	$.ajax({
+		type:"POST",
+		url: "/student/profile/setreadflag/",
+			data: "mailid="+mailid+"&side="+side,
+			success: function(html){
+			},
+			error: function(html){
+			}
+		});
+});
+
 $('#course6d').click(function(){
 
 	if (confirm('A you sure to subscribe for the 6D course?')) {
@@ -43,7 +65,7 @@ $('#course6d').click(function(){
 			},
 			error: function(html){
 				alert('You were subscribed for the 6D course');
-			},
+			}
 		});
 	}
 });

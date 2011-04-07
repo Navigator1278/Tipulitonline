@@ -755,7 +755,7 @@ a:hover, a:focus {
 
 }
 
-#u_d_go, #edit, #p_object_send, #p_m_id_send, #c_u_submit, #Activte_6D, #Pause_6D, #uploadavatar, #Save, #mailsend {
+#u_d_go, #edit, #p_object_send, #p_m_id_send, #c_u_submit, #Activte_6D, #Pause_6D, #uploadavatar, #Save, #mailsend, #SaveProfile, #backbutton {
 	font-size: 14px;
 	color: #88711c;
 	border: none;
@@ -880,7 +880,7 @@ a:hover, a:focus {
 	padding: 0 0 15px;
 }
 
-#Activte_6D, #Pause_6D, #uploadavatar, #Save{
+#Activte_6D, #Pause_6D, #uploadavatar, #Save, #SaveProfile, #backbutton{
 	width: 81px;
 	height: 34px;
 	background: url(../i/butt_4.png) 0 0 no-repeat;
@@ -987,7 +987,7 @@ a:hover, a:focus {
 	top: 10px;
 	width: 780px;
 	overflow-y: scroll;
-	background-color : white;
+	background-color : #BEAA5A;
 		padding-right: 60px;
 }
 
@@ -1001,8 +1001,19 @@ a:hover, a:focus {
 }
 
 #mailtable{
-	width: 90%;
+	width: 95%;
+	font-size: 12px;
 	text-align : justify;
+	background-color : white;
+}
+
+#mailtable th{
+	background-color : #BEAA5A;
+	text-align : center;
+}
+#mailtable td{
+	border : 1px solid  #BEAA5A;
+	padding: 1px 4px 2px 2px;
 }
 
 .currentmessage{
@@ -1026,6 +1037,9 @@ a:hover, a:focus {
   border-right : thin solid Black;	
 }
 
+.unread{
+	font-weight: bold;
+}
 
 #newmaillink{
     cursor:pointer;
@@ -1046,6 +1060,27 @@ a:hover, a:focus {
 
 #vid1{
 margin-right: -110px;
+}
+
+#ava-label{
+	width: 100%;
+}
+
+#paginator{
+	width : 100%;
+	float: right;
+	text-align : center;
+}
+
+#allstudentstable{
+	width : 100%;	
+}
+
+.avatarbox{
+	padding-left:10px;
+}
+.databox{
+	vertical-align : top;
 }
 
 .for_ie {

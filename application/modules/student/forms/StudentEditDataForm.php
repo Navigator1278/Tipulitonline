@@ -55,8 +55,7 @@ class Student_Form_StudentEditDataForm {
         $gender->setDecorators($elementDecorators);
         $gender->setValue($data['u_sex_id']);
          if (isset ($data['u_sex_id'])) $gender->setValue($data['u_sex_id']);
-         if ($protection) $gender->setAttrib ('readonly', 'true');
-
+         if ($protection) $gender->setAttrib ('disabled', 'true');
         //birthday field: validation for yyyy-mm-dd input
         $birthday = new Zend_Form_Element_Text('datepicker', array(
             'size' => 10,
@@ -71,7 +70,8 @@ class Student_Form_StudentEditDataForm {
         for ($i=120;$i<=300;$i++) $heigth->addMultiOption($i,$i);
         $heigth->setDecorators($elementDecorators);
         if (isset ($data['uht_height'])) $heigth->setValue($data['uht_height']);
-        if ($protection) $heigth->setAttrib ('readonly', 'true');
+        if ($protection) $heigth->setAttrib ('disabled', 'true');
+
 
         //weight
         $weight = new Zend_Form_Element_Select('weight', array(
@@ -80,20 +80,20 @@ class Student_Form_StudentEditDataForm {
         for ($i=20;$i<=300;$i++) $weight->addMultiOption($i,$i);
         $weight->setDecorators($elementDecorators);
         if (isset ($data['uht_weight'])) $weight->setValue($data['uht_weight']);
-
+        
         //email field with validation
         $email = new Zend_Form_Element_Text('email',array(
         ));
         $email->addValidator(new Zend_Validate_EmailAddress());
-
-        if (!$protection){
-        $email->addValidator(new Zend_Validate_Db_NoRecordExists(array(
-                'table'=>'users','field'=>'u_email')));
-        }
+        echo "<pre>";
+        print_r($data);
+        echo "<pre>";
         $email->setDecorators($elementDecorators);
         if (isset ($data['u_email'])) $email->setValue($data['u_email']);
-        if ($protection) $email->setAttrib ('readonly', 'true');
-        
+        if ($protection) {
+            $email->setAttrib ('readonly', 'true');
+        }
+
         // password field
         $password1 = new Zend_Form_Element_Password('password1', array(
             'id' => 'pass',
@@ -277,12 +277,14 @@ class Student_Form_StudentEditDataForm {
         ));
        if ($data['uht_backashes']) $backashes->setValue($data['uht_backashes']);
        $backashes->setDecorators($elementDecorators);
+       if ($protection) $backashes->setAttrib ('disabled', 'true');
 
        $slippedDisk = new Zend_Form_Element_Radio('disc', array(
            'label' => '',
             'separator' =>'',
            'multiOptions' => array('Yes'=>'Yes', 'No'=>'No'),
         ));
+       if ($protection) $slippedDisk->setAttrib ('disabled', 'true');
        if ($data['uht_slipped_disk']) $slippedDisk->setValue($data['uht_slipped_disk']);
        $slippedDisk->setDecorators($elementDecorators);
 
@@ -290,6 +292,12 @@ class Student_Form_StudentEditDataForm {
         $generalQuestionsText2 = new Zend_Form_Element_Text('general2', array('id'=>'f_2'));
         $generalQuestionsText3 = new Zend_Form_Element_Text('general3', array('id'=>'f_3'));
         $generalQuestionsText1->setDecorators($elementDecorators);
+        if ($protection){
+            $generalQuestionsText1->setAttrib ('disabled', 'true');
+            $generalQuestionsText2->setAttrib ('disabled', 'true');
+            $generalQuestionsText3->setAttrib ('disabled', 'true');
+
+        }
         $generalQuestionsText2->setDecorators($elementDecorators);
         $generalQuestionsText3->setDecorators($elementDecorators);
          if (isset ($data['uht_general1'])) $generalQuestionsText1->setValue($data['uht_general1']);

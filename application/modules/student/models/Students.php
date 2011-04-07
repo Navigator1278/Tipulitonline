@@ -1,5 +1,7 @@
 <?php
 
+define('DIFFERENCE', 20);
+
 class Student_Model_Students extends Zend_Db_Table_Abstract{
 
     protected $_name = 'users';
@@ -49,6 +51,19 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
         }
 
         /*
+         * Getting number of unread messages of the student
+         */
+        public function getNumberUnreadMesagesStudent($id){
+             $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+            $sql = "SELECT count(*) q FROM privat_messages
+                    WHERE spm_is_new=0 AND spm_to_user_id=?";
+             $res = $db->fetchAll($sql,$id);
+             if ($res) return $res[0]['q'];
+                else return 0;
+        }
+
+
+        /*
          * assigning image uploaded to the student's record in the DB
          */
     public function uploadStudentAva($id,$ava){
@@ -74,6 +89,7 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
         public function updateStudentData($id, $data){
        
             $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+
             $userdata = array(
               'u_name' => $data['firstname'],
               'u_family_name' => $data['lastname'],
@@ -96,6 +112,7 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
 
             $userhealthdata = array(
                'uht_pregnant' => $data['pregnant'],
+               'uht_weight' => $data['weight'],
                'uht_pregnant_since' => $data['pregnantsince'],
                'uht_heart_or_pb' => $data['heartpressure'],
                'uht_diabetes' => $data['diabetes'],
@@ -189,9 +206,8 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
         }
 
 
-//____________________________________ Not used yet
         /*
-         * Getting current video for the student that he/she has to watch 
+         * Getting current paused video for the student that he/she has to watch
          */
         public function getCurrent6DVideoForUser($stid){
             $db = Zend_Db_Table_Abstract::getDefaultAdapter();
@@ -206,15 +222,54 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
              $res = $db->fetchAll($sql,$stid);
              if ($res) return $res[0]['v6ds_id'];
         }
-//__________________________________________
 
-        
+        /*
+         * checks if 6D isn't started (0), is started(1), over (2) or paused by the teacher(-1)
+         */
+        public function check6DStatus($stid){
+            
+            $db = Zend_Db_Table_Abstract::getDefaultAdapter();            
+            $sql = "SELECT * FROM video__6d_status
+                    WHERE v6ds_paused='Yes' AND v6ds_user_id=?";
+             $res = $db->fetchAll($sql,$stid);
+             if ($res) return -1;//the course was paused
+             $sql = "SELECT * FROM video__6d_status
+                    WHERE v6ds_video_id=6 AND v6ds_viewed='Yes' AND v6ds_user_id=?";
+             $res = $db->fetchAll($sql,$stid);
+             if ($res) return 2; //the course was finished
+             $sql = "SELECT * FROM video__6d_status
+                    WHERE v6ds_user_id=?";
+             $res = $db->fetchAll($sql,$stid);
+             if ($res) return 1;//the course was started
+             else  return 0; //is not started
+        }
+
+        /*
+         * Getting the last video viewed by the student
+         * This ID of this video will be used for sending feedback to the teacher
+         */
+        public function getLastFirstPlayerVideo($stid){
+            $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+            $sql = "SELECT v6ds_video_id, v6ds_timestamp FROM  video__6d_status
+                    WHERE v6ds_viewed='Yes' AND v6ds_user_id=?
+                    ORDER BY v6ds_timestamp DESC LIMIT 1";
+            $res1 = $db->fetchAll($sql,$stid);
+            $sql = "SELECT vam_video_player1, vam_timestamp FROM  video__all_movies
+                    WHERE vam_is_payed='Yes' AND vam_video_player2 IS NULL AND vam_user_id=?
+                    ORDER BY vam_timestamp DESC LIMIT 1";
+            $res2 = $db->fetchAll($sql,$stid);
+            if($res1[0]['v6ds_timestamp']>$res2[0]['vam_timestamp']) return $res1[0]['v6ds_video_id'];
+                else return $res2[0]['vam_video_player1'];
+        }
+
+
         /*
          * Getting all videos, posted to the student by the teacher through Kaltura-player
          */
         public function postKalturaVideoForUser($userId,$teacherId,$code){
             
             $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+            $code = trim($code);
             $data = array(
                'vam_id' => null,
               'vam_video_player1' => stripslashes($code),
@@ -235,6 +290,7 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
         public function postYouTubeVideoForUser($userId,$teacherId,$code){
 
             $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+            $code = trim($code);
             $data = array(
               'vam_id' => null,
               'vam_video_player1' => null,
@@ -303,6 +359,19 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
               'v6ds_viewed' => 'No',
             );
             $db->insert('video__6d_status', $data);
+
+            //sending an internal and an external emails to the student
+            $mailExchange = new Student_Model_MailExchange();
+            $text1 = "";
+            $text1 .= "Your 6D at tipulitonline was activated!<br/>";
+            $text1 .= "Now you can watch the first movie<br/>";
+            $text2 = "";
+            $text2 .= "Your 6D at tipulitonline was activated!<br/>";
+            $text2 .= "Please visit http://www.tipulitonline.co.il to watch the first movie of the course<br/>";
+            
+            //$mailExchange->sendMessageFromTeacherToStudent($userId, 1, 'Your 6D at tipulitonline was activated!', $text1);
+            //$mailExchange->sendExternalMailToStudent($userId, 'Your 6D at tipulitonline was activated!', $text2);
+
             return $data;
         }
 
@@ -327,7 +396,7 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
 
 
         /*
-         * changing the flag in the video table if student has  completely viewed the video
+         * changing the flag in the video table if student has  completely viewed the 6d-video
          * now the student can watch another one video
          */
         public function set6dVideoFlag($videoId){
@@ -338,6 +407,19 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
            );
            $db->update('video__6d_status', $data,"v6ds_id=$videoId");
         }
+
+        /*
+         * The same as for set6dVideoFlag but for not 6d videos
+         */
+        public function setVideoFlag($videoId){
+
+           $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+           $data = array(
+            'vam_is_payed' => 'Yes'
+           );
+           $db->update('video__all_movies', $data,"vam_id=$videoId");
+        }
+
 
         /*
          * sending the video to the student
@@ -377,11 +459,10 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
               * after that we check if 16 hours went by
               */
             $currentTime = time();
-            $difference = 20;
-            $pastTime = $currentTime - $difference;
+            $pastTime = $currentTime - DIFFERENCE;
             $currentTime = date('y-m-d H:i:s',$currentTime);
             $pastTime = date('y-m-d H:i:s',$pastTime);
-             $sql = "SELECT * FROM video__6d_status
+            $sql = "SELECT * FROM video__6d_status
                     WHERE v6ds_timestamp BETWEEN ? AND ? AND v6ds_user_id=? ORDER BY v6ds_video_id DESC";
              $res = $db->fetchAll($sql,array($pastTime,$currentTime,$userId));
              if ($res) return "TIME DIDNT GO BY!";
@@ -411,8 +492,43 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
           }
 
 
+          /*
+           * Defining students who should get an internal and an external mail about next video
+           */
+          public function sendMassMailsToAllStudents(){
+            
+            $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+            $pastTime = time() - DIFFERENCE;
+            $sql = "SELECT * FROM video__6d_status WHERE v6ds_notified='No'";
+            $res = $db->fetchAll($sql);
+            $mailExchange = new Student_Model_MailExchange();
+             foreach ($res as $k => $v) {
+                $pastTime = time() - DIFFERENCE;
+                if ($pastTime<strtotime($v['v6ds_timestamp'])) continue;//time didn't go by
+                if (($v['v6ds_paused']=='Yes')||($v['v6ds_viewed']=='No')) continue;//wasnt viewed or was paused
+                $currentVideo = $v['v6ds_video_id'];//current video number of the course
+                $nextVideo = $currentVideo+1;
+                if ($currentVideo>5) continue;
+                //sending an internal and an external emails to students
+                $text1 = "";
+                $text1 .= "Youve got the new 6d-video at tipulitonline<br/>";
+                $text1 .= "Now you can watch the video Nr. $nextVideo<br/>";
+                $text2 = "";
+                $text2 .= "Youve got the new 6d-video at tipulitonline<br/>";
+                $text2 .= "Please visit http://www.tipulitonline.co.il to watch the video Nr. $nextVideo of the course<br/>";
+                $mailExchange->sendMessageFromTeacherToStudent($v['v6ds_user_id'], 1, 'Youve got the new 6d-video at tipulitonline<br/>', $text1);
+                $mailExchange->sendExternalMailToStudent($v['v6ds_user_id'], 'Youve got the new 6d-video at tipulitonline<br/>', $text2);
+                //updating the table
+                $data = array(
+                    'v6ds_timestamp' => $v['v6ds_timestamp'],
+                    'v6ds_notified' => 'Yes',
+                );
+                $videoId = $v['v6ds_id'];
+                $db->update('video__6d_status', $data,"v6ds_id =$videoId");
+             }
+          }
 
-        /*
+          /*
          * getting all alerts from the student and showing them on the teacher's page
          */
         public function getStudentAlerts($stid){
@@ -424,4 +540,65 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
             $res = $db->fetchAll($sql,$stid);
             return $res;
         }
+
+        /*
+         * Getting all students in the DB
+         */
+        public function getAllStudents($page=1,$entriesPerPage=10){
+            $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+
+            if ($page==0) $page=1;
+            $offset = intval(($page-1)*$entriesPerPage);
+            $records = $entriesPerPage;
+            $sql = "SELECT * FROM users ORDER BY u_lastactivity DESC
+                    LIMIT $offset,$entriesPerPage";
+            $res = $db->fetchAll($sql);
+            return $res;
+        }
+
+        /*
+         * Getting only students which are currently online according to time difference (in seconds)
+         * Returning the array of student's IDs
+         */
+        public function getAllOnlineStudents($timeDifference=60){
+            $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+            $currentTime = time();
+            $pastTime = time() - $timeDifference;
+            $sql = 'SELECT * FROM users';
+            $res = $db->fetchAll($sql);
+            $onlineStudents = array();
+            foreach ($res as $k=>$v){
+                if (strtotime($v['u_lastactivity'])>$pastTime) $onlineStudents[] = $v['u_id'];
+            }
+            return $onlineStudents;
+        }
+
+        /*
+         * Getting all online teachers. if noone is online returning autoresponder
+         */
+        public function getAllOnlineTeachers($timeDifference=60){
+            $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+            $currentTime = time();
+            $pastTime = time() - $timeDifference;
+            $sql = 'SELECT * FROM teachers';
+            $res = $db->fetchAll($sql);
+            $onlineTeachers = array();
+            foreach ($res as $k=>$v){
+                if (strtotime($v['t_lastactivity'])>$pastTime) $onlineTeachers[] = $v['t_id'];
+            }
+            if ($onlineTeachers) return $onlineTeachers;
+                else return false;
+        }
+
+
+
+        public function getNumberOfPages($entriesPerPage=10){
+            
+            $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+            $sql = 'SELECT count(u_id) q FROM users';
+            $res = $db->fetchAll($sql);
+            $q = $res[0]['q'];
+            $numPages = ceil($q/$entriesPerPage);
+            return $numPages;
+            }
 }

@@ -14,7 +14,7 @@ class Student_Form_StudentUploadAvaForm extends Zend_Form{
             $filename = time().rand(1000,9999);
             $ava = new Zend_Form_Element_File('ava');
             $ava->setAttrib('width', 120);
-            $ava->setLabel('Upload your avatar (75x75 px)')
+            $ava->setLabel('Upload avatar (75x75 px)')
                     ->setDestination('avatars');
                 $ava->addFilter('Rename',
                 sprintf('ava%s.jpg', $filename, true));

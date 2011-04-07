@@ -179,6 +179,7 @@ class User_Form_UserSecondForm extends Zend_Form{
             'multiOptions' => array('Yes'=>'Yes'),
         ));
         $terms->setDecorators($this->elementCheckboxes);
+        $terms->addDecorator('Label',array('escape'=>false));
         $terms->addValidator(new User_Form_UserTermsConditionsValidator());
         $this->addElements(array($heartPressure,$diabetes,$migrene,$babies,$nosleep,
                             $digestion,$menopause,$sclorosies,$epilepsy,$cancer,$asthma,

@@ -7,10 +7,8 @@ class Student_ProfileController extends Zend_Controller_Action
     {
         # turn on application/layouts/scripts/student.phtml
         $this->_helper->layout->setLayout('student');
-
         $auth = Zend_Auth::getInstance();
         #if (!$auth->hasIdentity()) $this->_redirect ('/');
-        
     }
 
     public function indexAction()
@@ -44,9 +42,10 @@ class Student_ProfileController extends Zend_Controller_Action
             $this->view->kaltura = $student->getAllKalturaVideosForUser($sessionId);
             $this->view->youtube = $student->getAllYouTubeVideosForUser($sessionId);
             $this->view->all6dvideos = $student->getAll6DVideosForUser($sessionId);
-            $this->view->current6dvideo = $student->getCurrent6DVideoForUser($sessionId);
+            $this->view->status6d = $student->check6DStatus($sessionId);
             $mailExchange = new Student_Model_MailExchange();
             $mailSendForm = new Student_Form_StudentWriteNewMailForm();
+            $feedbackForm = new Student_Form_StudentFeedbackForm();
             $this->view->teacher = $mailExchange->getTeacherNameById(1);
             if ($this->getRequest()->getParam('mailsend')){
                 $mailExchange->sendMessageFromStudentToTeacher($sessionId,
@@ -54,7 +53,9 @@ class Student_ProfileController extends Zend_Controller_Action
                 $this->_redirect("/student/profile/my-profile/");
             }
             $this->view->mailform = $mailSendForm->getForm();
+            $this->view->feedbackform = $feedbackForm->getForm();
             $this->view->mails = $mailExchange->getAllMessagesFromTeacher($sessionId);
+            $this->view->unreadmessages = $student->getNumberUnreadMesagesStudent($sessionId);
         }
     }
 
@@ -138,12 +139,68 @@ class Student_ProfileController extends Zend_Controller_Action
     	if ($this->getRequest()->isXmlHttpRequest()) {
     		$videoId = $this->_request->getParam('videoid');
                 $userId = $this->_request->getParam('stid');
+                $course6d = $this->_request->getParam('course6d');
                 $student = new Student_Model_Students();
-                $student->set6dVideoFlag($videoId);
-                $student->send6dVideoToStudent($userId);
+                if ($course6d){
+                    $student->set6dVideoFlag($videoId);
+                    $student->send6dVideoToStudent($userId);
+                }
+                else {
+                    $student->setVideoFlag($videoId);
+                }
     	}
     	else echo "no AJAX";
     }
+
+    public function setreadflagAction(){
+
+    	if ($this->getRequest()->isXmlHttpRequest()) {
+    		$emailId = $this->_request->getParam('mailid');
+    		$side = $this->_request->getParam('side');
+                $mailExchange = new Student_Model_MailExchange();
+                $mailExchange->setReadEmailFlag($emailId,$side);
+    	}
+    	else echo "no AJAX";
+    }
+
+    public function sendfeedbackAction(){
+    	if ($this->getRequest()->isXmlHttpRequest()) {
+                $stid = $this->_request->getParam('stid');
+                $video = $this->_request->getParam('video');
+                $improvement = $this->_request->getParam('improvement');
+                $level = $this->_request->getParam('level');
+                $difficulty = $this->_request->getParam('difficulty');
+                $suggestions = $this->_request->getParam('suggestions');
+
+                $student = new Student_Model_Students();
+                $mailExchange = new Student_Model_MailExchange();
+                $video = $student->getLastFirstPlayerVideo($stid);
+                $mailExchange->sendFeedbackFromStudent($stid, $video, $improvement, $level, $difficulty, $suggestions);
+    	}
+    	else echo "no AJAX";
+    }
+
+    public function upgradeAccountAction(){
+        $teacher = new Teacher_Model_Teachers();
+        $this->view->paymentinfo = $teacher->getPaymentInfo();
+        $this->_helper->layout->setLayout('teacher');
+    }
+
+    /*
+     * chat action
+     */
+    public function chatAction(){
+        
+        $this->_helper->layout->setLayout('teacher');
+        $sessionData = Zend_Auth::getInstance()->getIdentity();
+        $sessionId = $sessionData['u_id'];
+        $user = new User_Model_Users();
+        //$user->resetAllChatRequestsStudent($sessionId);
+        $this->view->stid = $sessionId;
+        
+    }
+
+
 
 
     public function ajaxValidateProfileEditAction()

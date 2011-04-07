@@ -163,10 +163,11 @@ class User_Form_UserFirstForm extends Zend_Form{
         ));
 
         $terms = new Zend_Form_Element_Checkbox('terms', array(
-           'label' => 'אישור הסכמה לתנאים וההגבלות',
+           'label' => "<a target='new' href='http://tipulitonline.co.il/pages/takanon.html'>אישור הסכמה לתנאים וההגבלות</a>",
             'required' => 'true,'
         ));
         $terms->setDecorators($this->elementDecorators);
+        $terms->addDecorator('Label',array('escape'=>false));
         $terms->addValidator(new User_Form_UserTermsConditionsValidator());
 
         //submit the form

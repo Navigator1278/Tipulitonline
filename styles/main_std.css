@@ -84,6 +84,8 @@ input, select {
 
 textarea{
 	resize: none;
+     position: relative;
+     z-index: 99;
 }
 
 table {
@@ -470,11 +472,7 @@ background: url(../img/head-block.png) 0 0 no-repeat;
     left: 86px;
     position: absolute;
     width: 160px;
-}
 
-
-#sub-bottom-border{
-    cursor:pointer;	
 }
 
 .sub-block-border2{
@@ -588,7 +586,7 @@ background: url(../img/head-block.png) 0 0 no-repeat;
 }
 
 .sub-block-border3 .sub-bottom-border{
-        background: url("../img/vertical-right-bottom-border.png") repeat-y scroll 89% 0 transparent;
+   background: url("../img/vertical-right-bottom-border.png") repeat-y scroll 89% 0 transparent;
    height: 50%;
 }
 
@@ -625,9 +623,10 @@ background: url(../img/head-block.png) 0 0 no-repeat;
 }
 
 .sub-block-border3 .sub-bottom-border .sub-view-image{
-        background: url("../img/l-20.png") no-repeat scroll 0 0 transparent;
+   background: url("../img/6Dbanner.jpg") no-repeat scroll 0 0 transparent;
     height: 188px;
     width: 277px;
+	 cursor: pointer;	
 }
 
 .sub-view-image .input-title {
@@ -1011,22 +1010,38 @@ background: url(../img/head-block.png) 0 0 no-repeat;
 	top: 10px;
 	width: 580px;
 	overflow-y: scroll;
-	background-color : white;
+	background-color : #BEAA5A;
 	padding-right: 30px;
+	padding-bottom: 10px;
 }
 
 .mail-content-wrap .mail-block-title {
     color: #292929;
     float: right;
     font-family: Arial,Helvetica,sans-serif;
-    font-size: 24px;
+    font-size: 16px;
     margin-right: 10px;
     margin-top: 60px;
 }
 
 #mailtable{
-	width: 90%;
+	width: 95%;
+	font-size: 12px;
 	text-align : justify;
+	background-color : white;
+}
+th{
+	background-color : #BEAA5A;
+	text-align : center;
+}
+td{
+	border : 1px solid  #BEAA5A;
+	padding: 1px 4px 2px 2px;
+
+}
+
+#mailsubj{
+size: 100px;
 }
 
 .currentmessage{
@@ -1043,12 +1058,22 @@ background: url(../img/head-block.png) 0 0 no-repeat;
 	background: url(../i/butt_1.png) 0 0 no-repeat;
 }
 
+
+.nicEdit-selected {
+	background-color: white;
+}
+
 .eachmessage{
 	cursor:pointer;
 		border-top : thin solid Black;
 	border-left : thin solid Black;
   border-right : thin solid Black;	
 }
+
+.unread{
+	font-weight: bold;
+}
+
 
 #youtube{
 	text-align : center;
@@ -1064,21 +1089,23 @@ background: url(../img/head-block.png) 0 0 no-repeat;
 	color: blue;		
 }
 
-#course6d{
-    cursor:pointer;	
-}
-
 
 .mailbody{
 	border-bottom : thin solid Black;
 	border-left : thin solid Black;
    border-right : thin solid Black;	
+	background-color: white;
 }
 
 
-#vid1{
-margin-right: -110px;
+#vid1, #container{
+margin-right: -127px;
 }
+
+#chatrequest{
+color: red;
+}
+
 
 .for_ie {
            background: url("../img/footer.png") no-repeat scroll 68% 0 transparent;

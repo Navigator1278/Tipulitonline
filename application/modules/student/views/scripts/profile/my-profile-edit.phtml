@@ -1,4 +1,4 @@
-<div class="form_wrap">
+<div class="form_wrap" id="chat" person="student" personid="<?php echo $this->data['u_id']?>">
                     
 			<ul class="form_big">
                           <li style="width:150px;padding-right: 40px">
@@ -18,17 +18,16 @@
                                         <li class="form_big" >
                                             Last payment<br/>
                                             Last payment date<br/>
-      <a href="#"><img src="/i/r_button.png"></a>
+      <a href="/student/profile/upgrade-account/" target="new"><img src="/i/r_button.png"></a>
                                         </li>
 					<li  class="form_big">
                                         <form action="<?php echo $this->form->action ?>" method="post">
                                                         <b><?php echo $this->studentstatus ?> account</b> .................................. <b>ID: <?php echo $this->data['u_id']?></b> ...................................... <b><?php echo $this->data['u_name']?></b><br/><br/>
                                                         <div style="color:darkred">some other text goes here........................................................text.................</div><br/>
                                                         External E-mails?<?php echo $this->form->external ?>
-                                                        
                                                         <div style="float:right;">
-                                                            <a href="/student/profile/my-profile/"><input type="button" id="Activte_6D" value="Back"></a>
-							<input type="submit" id="Pause_6D" name="save" value="Save">
+                                                            <a href="/student/profile/my-profile/"><input type="button" value="Back"></a>
+							<input type="submit" name="save" value="Save">
                                                         </div>
 					</li>
 
@@ -231,7 +230,7 @@
 					<h2>שאלות כלליות :</h2>
 					<ul class="form_list">
 						<li>
-							<div class="input_wrap">
+							<div class="radio_text">
 									<?php echo $this->form->walk ?>
 							</div>
 							<p>האם ביכולתך ללכת בעצמך?</p>

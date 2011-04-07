@@ -83,7 +83,8 @@ class System_Model_SystemEmailValidation extends Zend_Db_Table_Abstract
         $body = $body."<br/>";
         $body = $body."צוות טיפולית אונליין";
 
-        $mail = new Zend_Mail();
+        $mail = new Zend_Mail('UTF-8');
+        $mail->setHeaderEncoding(Zend_Mime::ENCODING_BASE64);
         $mail->setBodyHtml($body)
                 ->setFrom("no-reply@tipulitonline.co.il", "טיפולית אונליין")
                 ->addTo($email)
@@ -131,7 +132,8 @@ class System_Model_SystemEmailValidation extends Zend_Db_Table_Abstract
         $body .= "<br/><br/>";
         $body .= "צוות טיפולית אונליין";
 
-        $mail = new Zend_Mail();
+       $mail = new Zend_Mail('UTF-8');
+       $mail->setHeaderEncoding(Zend_Mime::ENCODING_BASE64);
         $mail->setBodyHtml($body)
                 ->setFrom("no-reply@tipulitonline.co.il", "טיפולית אונליין")
                 ->addTo($email)

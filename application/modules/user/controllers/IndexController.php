@@ -28,10 +28,13 @@ class User_IndexController extends Zend_Controller_Action
                 $auth = Zend_Auth::getInstance();
                 $systemEmailValidation = new System_Model_SystemEmailValidation();
                 $userId = $systemEmailValidation->getId($email);
+                $user->increaseVisitsAmount($userId);
                 $auth->getStorage()->write(array('u_email'=>$email,'u_id'=>$userId, 'u_status'=>$status));
                 $this->_redirect("/student/profile/my-profile/");
              } elseif($status==2){
-                 $this->_redirect("/teacher/dashboard/index/");
+                $auth = Zend_Auth::getInstance();
+                $auth->getStorage()->write(array('t_email'=>$email,'t_id'=>1, 't_status'=>$status));
+                $this->_redirect("/teacher/dashboard/index/");
              }
              else {
                  echo "Sorry, no record found in the DB with such email und password";
@@ -40,4 +43,75 @@ class User_IndexController extends Zend_Controller_Action
              $this->view->loginform = $loginForm;
          }
     }
+
+    /*
+     * Updating the datetime of last activity, relevant for all users: teacher and students
+     */
+    public function updateactivityAction(){
+        if ($this->getRequest()->isXmlHttpRequest()) {
+            $person = $this->_request->getParam('person');
+            $personid = $this->_request->getParam('personid');
+            $user = new User_Model_Users();
+            if ($person=='student'){
+                $user->changeStudentActivityTime($personid);
+                echo Zend_Json::encode(array('status'=>'OK')); exit();
+            }else {
+                $user->changeTeacherActivityTime($personid);
+                echo Zend_Json::encode(array('status'=>'OK')); exit();
+            }
+    	}
+    	else echo "no AJAX";
+    }
+
+    /*
+     * Checking for new incoming events
+     */
+    public function checkactivityAction(){
+       if ($this->getRequest()->isXmlHttpRequest()) {
+            $person = $this->_request->getParam('person');
+            $personid = $this->_request->getParam('personid');
+            $otherpersonid = $this->_request->getParam('otherpersonid');
+            $user = new User_Model_Users();
+            if ($person=='student'){
+                $newMessages = $user->checkStudentsMessages($personid);
+            }else {
+                $newMessages = $user->checkStudentsMessages($otherpersonid);
+            }
+            if ($newMessages) {
+                    echo Zend_Json::encode($newMessages); exit();
+                }
+            else {
+                    echo Zend_Json::encode(''); exit();
+            }
+    	}
+    	else echo "no AJAX";
+    }
+
+    /*
+     * Adding the new chat-message
+     */
+    public function addnewchatmessageAction(){
+       if ($this->getRequest()->isXmlHttpRequest()) {
+
+           $person = $this->_request->getParam('person');
+           $personid = $this->_request->getParam('personid');
+           $ohterpersonid = $this->_request->getParam('otherpersonid');
+           $message = $this->_request->getParam('message');
+           $user = new User_Model_Users();
+           if ($person=='student'){
+                $student = new Student_Model_Students();
+                if ($student->getAllOnlineTeachers(60)){
+                    $user->addNewChatMessage($personid, null, null, 1, $message);
+                }
+                else {
+                    $user->addNewChatMessage(null,1,$personid,null,"Im currently offline. I will read your message by my next visit");
+                    $user->addNewChatMessage($personid, null, null, 1, $message);
+                }
+           }
+           else {
+               $user->addNewChatMessage(null, 1, $ohterpersonid, null, $message);
+           }
+       }
+    }
+
 }

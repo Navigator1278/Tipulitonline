@@ -1,0 +1,17 @@
+<div id="chat" person="teacher" personid="1"></div>
+<form method="post" action="/teacher/dashboard/upgrade-account-editor/">
+            <br/><br/><br/><br/>
+            <?php if ($this->savedflag): ?>
+                <div style="color:green">Data was saved. <a href="/teacher/dashboard/index/">Return</a> to the main page</div>
+            <?php endif;?>
+		<p>
+			<textarea id="editor1" name="editor1"><?php echo  $this->paymentinfo ?></textarea>
+			<script type="text/javascript">
+				CKEDITOR.replace( 'editor1' );
+			</script>
+		</p>
+		<p>
+			<input type="submit" name="send" value="Send"/>
+		</p>
+                <br/><br/><br/><br/><br/><br/>
+	</form>

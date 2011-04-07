@@ -1,0 +1,11 @@
+<div class="mail-content-wrap">
+<center>
+<h2>Chatting with <?php echo $this->studentname ?></h2>
+</center>
+<div class="mail-block"  style="background-color: white">
+﻿<div id="chat" person="teacher" personid="1" otherpersonid="<?php echo $this->stid ?>"></div>
+<div id="chatbox"></div>
+</div><br/>
+    <input type="text" id="chatinput" onkeypress="handleKeyPress(event)"/><br/>
+<input type="button" id="chatsubmit" value="Say"/>
+</div>

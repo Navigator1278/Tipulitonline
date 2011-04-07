@@ -1,1 +1,42 @@
-<br /><br /><center>View script for controller <b>Dashboard</b> and script/action name <b>index</b></center>
+<div class="mail-content-wrap" id="chat" person="teacher" personid="1">
+<?php if (!$this->allstudents) :?>
+    <h2>No Students registered</h2>
+<?php else: ?>
+    <table id="allstudentstable">
+    <?php $i=2 ?>
+    <?php foreach ($this->allstudents as $student): ?>
+        <?php if (($i++)%2==0): ?>
+            <tr>
+        <?php endif;?>
+                <td>
+                 <?php if (!isset ($student['u_picture'])): ?>
+                    <a href="/teacher/dashboard/view-student/stid/<?php echo $student['u_id']?>"><img src="/i/noava.gif" class="avatarbox" alt="ava"></a>
+                  <?php else: ?>
+                    <a href="/teacher/dashboard/view-student/stid/<?php echo $student['u_id']?>"><img src="<?php echo "/avatars/".$student['u_picture']?>" class="avatarbox" alt="ava"></a>
+                  <?php endif; ?>
+                </td>
+            <td class="databox">
+                  <?php echo $student['u_family_name']; ?>&nbsp;<?php echo $student['u_name']; ?><br/>
+                  <a href='mailto:<?php echo $student['u_email']?>'><?php echo $student['u_email']?></a><br/>
+                  <?php if (in_array($student['u_id'], $this->allonlinestudents)): ?>
+                    <span style="color: green">online<a href="/teacher/dashboard/chat/stid/<?php echo $student['u_id']?>" target="new"><img alt="start chat" src="/i/chat.png"/></a></span>
+                    <?php else: ?>
+                    <span style="color: red">offline<a href="/teacher/dashboard/chat/stid/<?php echo $student['u_id']?>" target="new"><img alt="start chat" src="/i/chat.png"/></a></span>
+                  <?php endif ?>
+            </td>
+        <?php if (($i%2)==0): ?>
+            </tr>
+        <?php endif;?>
+    <?php endforeach;?>
+     </table>
+    <div id="paginator">
+        <?php for ($i=1;$i<=$this->numpages;$i++): ?>
+            <?php if ($this->currentpage==$i): ?>
+            <b><?php echo $i ?></b>
+            <?php else: ?>
+            <a href = "/teacher/dashboard/index/page/<?php echo $i?>"><?php echo $i; ?></a>
+            <?php endif; ?>
+        <?php endfor; ?>
+<?php endif; ?>
+    </div>
+</div>

@@ -1,2 +1,462 @@
+				<div class="form_wrap">
+				<ul class="form_big">
+					<li class="e_echange">
+						<label for="Email_Echange">Email Echange</label>
 
-<br /><br /><center>View script for controller <b>Profile</b> and script/action name <b>index</b></center>
+						<textarea name="Email_Echange" id="Email_Echange" cols="30" rows="10">
+						</textarea>
+					</li>
+					<li class="alerts">
+						<label for="alerts">Alerts</label>
+                                                <div id="alerts">
+                                                <?php if ($this->alerts):?>
+                                                    <?php foreach ($this->alerts as $alert):?>
+                                                            <?php echo $alert['sat_type']?>
+                                                            <?php echo $alert['sa_timestamp']?><br/>
+                                                    <?php endforeach;?>
+                                                <?php endif;?>
+                                                </div>
+					</li>
+					<li class="u_details">
+
+						<div>
+							<label class="u_d_label" for="u_details">Upload User details:</label>
+							<input type="submit" id="u_d_go" value="Go">
+							<input type="text" name="u_details" id="u_details">
+						</div>
+						<dl>
+							<dt><img src="/i/img_t.png" alt="" /></dt>
+							<dd>
+
+								<ul>
+									<li>Number of Visits:</li>
+									<li>Registration Date:</li>
+									<li>Days from last login:</li>
+									<li>Status:</li>
+									<li>Total paid</li>
+
+									<li>Paid Date:</li>
+								</ul>
+							</dd>
+							<dd><input type="submit" name="edit" id="edit" value="Edit"></dd>
+						</dl>
+					</li>
+					<li class="paste">
+						<div>
+
+							<input type="submit" id="p_m_id_send" name="kalturasend" value="Send">
+							<label for="p_m_id">Paste Movi ID:</label>
+							<input type="text" name="p_m_id" id="p_m_id"
+                                                               stid ="<?php echo $this->stid ?>" teacherId="<?php echo $this->teacherId ?>">
+
+
+						</div>
+						<div>
+							<input type="button" id="p_object_send" value="Send">
+							<input type="submit" id="p_o_clear" value="Clear">
+							<label for="p_object">Paste Object:</label>
+
+							<textarea type="text" name="p_object" id="p_object" rows="20" cols="10">
+							</textarea>
+						</div>
+					</li>
+					<li class="change">
+
+						<div>
+							<input type="submit" id="c_u_submit" value="Change">
+							<label for="c_u_status">Change User Status:</label>
+
+							<select name="c_u_status" id="c_u_status">
+								<option>123132</option>
+							</select>
+						</div>
+						<div>
+							<input type="submit" id="Activte_6D" value="Activte 6D">
+							<input type="submit" id="Pause_6D" value="Pause 6D">
+						</div>
+					</li>
+				</ul>
+				<div class="form">
+                                    <form action="<?php echo $this->form->action ?>" method="post">
+					<ul class="form_list">
+                                            <input type="submit" id="Save" name="save" value="Save"/>
+						<li>
+							<?php echo $this->form->firstname ?>
+							<label for="name">שם פרטי:</label>
+						</li>
+						<li>
+							<?php echo $this->form->lastname ?>
+							<label for="lname">שם משפחה:</label>
+						</li>
+						<li>
+							<label class="birth">שנת לידה:
+                                                        <?php echo $this->form->datepicker ?>
+							</label>
+							<label for="sex">מין:</label>
+                                                        <?php echo $this->form->sex ?>
+						</li>
+
+						<li>
+							<label for="height">גובה:</label>
+                                                        <?php echo $this->form->heigth ?>
+							<label for="weight">משקל:</label>
+                                                        <?php echo $this->form->weight ?>
+						</li>
+						<li>
+							<?php echo $this->form->email ?>
+
+							<label for="email">אימייל:</label>
+						</li>
+						<li>
+							<?php echo $this->form->password1 ?>
+							<label for="pass">סיסמא</label>
+						</li>
+						<li>
+							<?php echo $this->form->password2 ?>
+
+							<label for="c_pass">אימות סיסמא</label>
+						</li>
+						<li>
+							<label for="state">מדינה:</label>
+							<?php echo $this->form->state ?>
+
+						</li>
+						<li>
+							<?php echo $this->form->address ?>
+							<label for="full_adr">כתובת מלאה:</label>
+						</li>
+						<li>
+							<p><strong>לנשים:</strong> האם את בהריון?</p>
+                                                        <?php echo $this->form->pregnant ?>
+						</li>
+
+						<li>
+							<label for="hz1">מספר חודשים שעברו מהלידה האחרונה: </label>
+                                                        <?php echo $this->form->pregnantsince ?>
+						</li>
+						<li class="other_stile">
+							<label for="obj">מהן המטרות שלך בתרגול איתנו?</label>
+                                                        <?php echo $this->form->objectives ?>
+						</li>
+					</ul>
+				</div>
+
+				<div class="form">
+					<h2>סמנו אם הינכם סובלים מ:</h2>
+					<ul class="form_list">
+
+						<li>
+							<label for="f_15">
+								<?php echo $this->form->heartpressure ?>
+								מחלת לב/ עורקים/ לחץ דם גבוה
+							</label>
+						</li>
+						<li>
+							<label for="f_16">
+								<?php echo $this->form->diabetes ?>
+
+								סכרת
+							</label>
+						</li>
+						<li>
+							<label for="f_17">
+								<?php echo $this->form->migrene ?>
+								מיגרנה כרונית
+							</label>
+						</li>
+						<li>
+
+							<label for="f_18">
+								<?php echo $this->form->babies ?>
+								בעיות פיריון
+							</label>
+						</li>
+						<li>
+							<label for="f_19">
+								<?php echo $this->form->nosleep ?>
+								הפרעות שינה
+							</label>
+
+						</li>
+						<li>
+							<label for="f_20">
+								<?php echo $this->form->digestion ?>
+								מעי רגיש או בעיות עיכול אחרות
+							</label>
+						</li>
+						<li>
+							<label for="f_21">
+
+								<?php echo $this->form->menopause ?>
+								תופעות גיל המעבר
+							</label>
+						</li>
+						<li>
+							<label for="f_22">
+								<?php echo $this->form->sclorosies ?>
+								טרשת נפוצה
+							</label>
+						</li>
+
+						<li>
+							<label for="f_23">
+								<?php echo $this->form->epilepsy ?>
+								אפילפסיה
+							</label>
+						</li>
+						<li>
+							<label for="f_24">
+								<?php echo $this->form->cancer ?>
+
+								סרטן
+							</label>
+						</li>
+						<li>
+							<label for="f_25">
+								<?php echo $this->form->asthma ?>
+								קוצר נשימה/ אסטמה
+							</label>
+						</li>
+						<li>
+
+							<label for="f_26">
+								<?php echo $this->form->artritis ?>
+								דלקת פרקים
+							</label>
+						</li>
+						<li>
+							<label for="f_27">
+								<?php echo $this->form->hernia ?>
+								הרניה (קילה)
+							</label>
+
+						</li>
+						<li>
+							<label for="f_28">
+								<?php echo $this->form->depression ?>
+								דכאון או חרדה
+							</label>
+						</li>
+						<li>
+							<label for="f_29">
+
+								<?php echo $this->form->headaches ?>
+								כאבי ראש או סחרחורות
+							</label>
+						</li>
+						<li>
+							<label for="f_30">
+								<?php echo $this->form->fatigue ?>
+								עייפות כרונית או פיברומיאלגיה
+							</label>
+						</li>
+
+						<li>
+							<label for="f_31">
+								<?php echo $this->form->injury ?>
+								פציעה או תאונה מהעבר
+							</label>
+						</li>
+						<li class="textarea_field">
+							<label for="f_32">הערות:</label>
+							<?php echo $this->form->injurytext ?>
+
+						</li>
+						<li>
+							<label for="f_33">
+								<?php echo $this->form->medication ?>
+								נוטלים תרופות או תוספים באופן קבוע. פירוט:
+							</label>
+							<?php echo $this->form->medicationtext ?>
+						</li>
+					</ul>
+
+				</div>
+				<div class="form">
+					<h2>שאלות כלליות :</h2>
+					<ul class="form_list">
+						<li>
+							<div class="input_wrap">
+									<?php echo $this->form->walk ?>
+							</div>
+							<p>האם ביכולתך ללכת בעצמך?</p>
+
+
+						</li>
+						<li>
+							<div class="input_wrap">
+								<?php echo $this->form->hands ?>
+							</div>
+							<p>מגבלה בשימוש בידיים ?</p>
+
+
+						</li>
+						<li>
+							<div class="input_wrap">
+                                                                 <?php echo $this->form->legs ?>
+							</div>
+							<p>מגבלה בשימוש ברגליים?</p>
+
+
+						</li>
+						<li>
+							<div class="input_wrap">
+                                                                 <?php echo $this->form->backashes ?>
+							</div>
+							<p>האם סובל/ת מכאבי גב או צוואר?</p>
+
+
+						</li>
+						<li>
+							<div class="input_wrap">
+                                                                 <?php echo $this->form->disc ?>
+							</div>
+							<p>האם יש לך פריצת דיסק או בלט?</p>
+
+
+						</li>
+						<li>
+							<?php echo $this->form->general1 ?>
+							<label for="f_1">אם כן באיזה חוליות?</label>
+						</li>
+						<li>
+							<?php echo $this->form->general2 ?>
+
+							<label for="f_2">פירוט או הערות :</label>
+						</li>
+						<li>
+							<?php echo $this->form->general3 ?>
+						</li>
+					</ul>
+					<h2>במסגרת התרגול ארצה להתמקד בעיקר ב:</h2>
+					<ul class="form_list">
+
+						<li>
+							<label for="f_4">
+								<?php echo $this->form->lowerback ?>
+								גב תחתון</label>
+
+						</li>
+						<li>
+							<label for="f_5">
+								<?php echo $this->form->upperback ?>
+
+								גב עליון
+							</label>
+
+						</li>
+						<li>
+							<label for="f_6">
+								<?php echo $this->form->neck ?>
+								כתפיים וצוואר
+							</label>
+
+						</li>
+
+						<li>
+							<label for="f_7">
+								<?php echo $this->form->feet ?>
+								כפות רגליים
+							</label>
+
+						</li>
+						<li>
+							<label for="f_8">
+								<?php echo $this->form->knees ?>
+
+								knees
+							</label>
+						</li>
+						<li>
+							<label for="f_9">
+								<?php echo $this->form->breath ?>
+								breath
+							</label>
+						</li>
+						<li>
+
+							<label for="f_10">
+								<?php echo $this->form->pelvis ?>
+								כפות ידיים
+							</label>
+						</li>
+						<li>
+							<label for="f_11">
+								<?php echo $this->form->wrists ?>
+								מרפקים
+							</label>
+
+						</li>
+						<li>
+							<label for="f_12">
+								<?php echo $this->form->ankles ?>
+								ראש
+							</label>
+						</li>
+						<li>
+							<label for="f_13">
+
+								<?php echo $this->form->head ?>
+								מצב מנטלי/ רגשי
+							</label>
+						</li>
+						<li class="textarea_field">
+							<label for="f_14">הערות :</label>
+							<?php echo $this->form->moreinfo ?>
+						</li>
+
+					</ul>
+				</div>
+                                    </form>
+
+				</div>
+    <div class="mail-content-wrap">
+        <div class="mail-block-title">
+הודעות ממרכז הלמידה
+        </div>
+        <div class="mail-block">
+            <table id="mailtable">
+                <th>From/To</th><th>Subject</th><th>Date</th>
+                <?php if ($this->mails): ?>
+                <?php foreach($this->mails as $mail): ?>
+                <tr class="eachmessage">
+                    <td width="20%"><?php echo $this->data['u_family_name'] ?></td>
+                    <td width="30%"><?php echo $mail['spm_subject'] ?></td>
+                    <td width="40%"><?php echo $mail['spm_datetime'] ?></td>
+                    <td width="10%">
+                        <?php if ($mail['spm_from_user_id']): ?>
+                        <img src="/i/mail_in.png" title="inbox"/>
+                        <?php else: ?>
+                        <img src="/i/mail_out.png" title="outbox"/>
+                        <?php endif;?>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="mailbody" colspan="4">
+                        <?php echo $mail['spm_body'] ?><br/>
+                        <?php if ($mail['spm_from_user_id']): ?>
+                        <div class="replylink"
+                           id="<?php echo $mail['spm_id']?>"
+                           subj="<?php echo $mail['spm_subject'] ?>">reply</div>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+
+                <?php endforeach; ?>
+                           <tr class="eachmessage">
+                    <td></td><td></td><td></td><td></td>
+                </tr>
+                <?php else :?>
+                <tr><td colspan="4"><i>You have no messages in your box</i></td></tr>
+              <?php endif;?>
+        </table><br/><br/><br/>
+            <img id="newmaillink" src="/i/email.jpg" title="write new mail"/>
+                        <span id="newmailform" >
+                            <form method="post" action="/teacher/dashboard/view-student/stid/<?php echo $this->stid ?>">
+                            subject <input type="text" name="subject" id="mailsubj" /><br/><br/>
+                            <textarea name="mailbody" id="mailbody" cols="30" rows="5"></textarea><br/>
+                            <input type="submit" name="mailsend" id="mailsend" value="send"/>
+                            </form>
+                        </span>
+        </div>
+    </div>
