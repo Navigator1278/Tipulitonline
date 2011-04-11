@@ -98,20 +98,26 @@ class User_IndexController extends Zend_Controller_Action
            $ohterpersonid = $this->_request->getParam('otherpersonid');
            $message = $this->_request->getParam('message');
            $user = new User_Model_Users();
+           $student = new Student_Model_Students();
            if ($person=='student'){
-                $student = new Student_Model_Students();
+               $user->resetAllChatRequestsStudent($personid);
                 if ($student->getAllOnlineTeachers(60)){
-                    $user->addNewChatMessage($personid, null, null, 1, $message);
+                    $user->addNewChatMessage($personid, null, null, 1, $message,1,0);
                 }
                 else {
-                    $user->addNewChatMessage(null,1,$personid,null,"Im currently offline. I will read your message by my next visit");
-                    $user->addNewChatMessage($personid, null, null, 1, $message);
+                    $user->addNewChatMessage($personid, null, null, 1, $message,1,0);
+                    $user->addNewChatMessage(null,1,$personid,null,"Im currently offline. I will read your message by my next visit",1,0);
                 }
            }
            else {
-               $user->addNewChatMessage(null, 1, $ohterpersonid, null, $message);
+                $user->resetAllChatRequestsTeacher($ohterpersonid);
+                if ($student->checkIfStudentOnline($ohterpersonid,60)){
+                    $user->addNewChatMessage(null, 1, $ohterpersonid, null, $message,1,1);
+                }
+                else {
+                    $user->addNewChatMessage(null, 1, $ohterpersonid, null, $message,0,1);
+                }
            }
        }
     }
-
 }

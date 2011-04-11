@@ -1,4 +1,15 @@
-<div class="mail-content-wrap" id="chat" person="teacher" personid="1">
+<div class="mail-content-wrap" id="chat" person="teacher" personid="1" isvisible="<?php echo $this->visibility ?>" style="height: 800px;">
+    <div id="invisiblemode">
+        <div id="invisiblestatus">
+            <?php if ($this->visibility): ?>
+                <b style='color:Green'>Visible</b>
+            <?php else: ?>
+                <b style='color:red'>Invisible</b>                
+            <?php endif; ?>
+        </div>
+        <a href="#" class="changevisibility" setvisibility="1"><img src="/i/teacheronline.png" alt="Visible"/></a>
+        <a href="#" class="changevisibility" setvisibility="0"><img src="/i/teacheroffline.png" alt="Invisible"/></a>
+    </div><br/>
 <?php if (!$this->allstudents) :?>
     <h2>No Students registered</h2>
 <?php else: ?>
@@ -16,7 +27,7 @@
                   <?php endif; ?>
                 </td>
             <td class="databox">
-                  <?php echo $student['u_family_name']; ?>&nbsp;<?php echo $student['u_name']; ?><br/>
+                  <?php echo $student['u_family_name']; ?>&nbsp;<?php echo $student['u_name']; ?> (<?php echo strtolower($student['u_ip_country']) ?>)<br/>
                   <a href='mailto:<?php echo $student['u_email']?>'><?php echo $student['u_email']?></a><br/>
                   <?php if (in_array($student['u_id'], $this->allonlinestudents)): ?>
                     <span style="color: green">online<a href="/teacher/dashboard/chat/stid/<?php echo $student['u_id']?>" target="new"><img alt="start chat" src="/i/chat.png"/></a></span>
@@ -39,4 +50,27 @@
         <?php endfor; ?>
 <?php endif; ?>
     </div>
+    <br><br>
+    <?php if($this->offlinemessages): ?>
+    <h3>You've received following messages when you were offline</h3><br/>
+    <div>
+        <table id="offlinemessagestable">
+        <?php foreach($this->offlinemessages as $offlinemessage): ?>
+            <tr>
+                <td><?php echo $offlinemessage['chat_message'] ?></td>
+                <td>&nbsp;</td>
+                <td>[<?php echo $offlinemessage['u_family_name']?>]</td>
+                <td><a href="/teacher/dashboard/chat/stid/<?php echo $offlinemessage['chat_from_user_id']?>"></a>
+                  <?php if (in_array($offlinemessage['chat_from_user_id'], $this->allonlinestudents)): ?>
+                    <span style="color: green">online<a href="/teacher/dashboard/chat/stid/<?php echo $offlinemessage['chat_from_user_id']?>" target="new"><img alt="start chat" src="/i/chat.png"/></a></span>
+                    <?php else: ?>
+                    <span style="color: red">offline<a href="/teacher/dashboard/chat/stid/<?php echo $offlinemessage['chat_from_user_id']?>" target="new"><img alt="start chat" src="/i/chat.png"/></a></span>
+                  <?php endif ?>
+
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        </table>
+    </div>
+    <?php endif;?>
 </div>

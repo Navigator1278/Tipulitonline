@@ -28,6 +28,9 @@ class Teacher_DashboardController extends Zend_Controller_Action
          $this->view->allstudents = $student->getAllStudents($currentPage, $entriesPerPage);
          $this->view->allonlinestudents = $student->getAllOnlineStudents();
          $this->view->currentpage = $currentPage;
+         $this->view->visibility = $teacher->checkTeacherVisibility(1);
+         $this->view->offlinemessages = $teacher->getAllOfflineMessages(1);
+         
          //echo '<pre>';
          //print_r($teacher->getAllOfflineMessages(92, 1));
          //echo '</pre>';
@@ -50,7 +53,6 @@ class Teacher_DashboardController extends Zend_Controller_Action
         $this->view->teacher = $mailExchange->getTeacherNameById(1);
         $this->view->stid = $stid;
         $this->view->alerts = $student->getStudentAlerts($stid);
-
         //changing the avatar of the student
         $uploadAvaForm = new Student_Form_StudentUploadAvaForm();
         $this->view->uploadavatarform = $uploadAvaForm;
@@ -147,7 +149,7 @@ class Teacher_DashboardController extends Zend_Controller_Action
      * chat window
      */
     public function chatAction(){
-        
+        $this->_helper->layout->setLayout('chat');
         $stid = $this->view->stid = $this->_getParam('stid'); //student's ID
         $teacher = new Teacher_Model_Teachers();
         $student = new Student_Model_Students();
@@ -156,5 +158,15 @@ class Teacher_DashboardController extends Zend_Controller_Action
         $this->view->studentname = $dataMain['u_name']." ".$dataMain['u_family_name'];
         $teacher->sendChatRequestToStudent($stid,1);
         $user->resetAllChatRequestsTeacher($stid);
+    }
+
+    public function changevisibilityAction(){
+     	if ($this->getRequest()->isXmlHttpRequest()) {
+    		$tid = $this->_request->getParam('tid');
+                $visibility = $this->_request->getParam('visibility');
+                $teacher = new Teacher_Model_Teachers();
+                $teacher->changeVisibility($tid, intval($visibility));
+                }
+    	else echo "no AJAX";
     }
 }

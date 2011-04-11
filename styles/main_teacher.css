@@ -1016,6 +1016,28 @@ a:hover, a:focus {
 	padding: 1px 4px 2px 2px;
 }
 
+
+#chattable{
+	font-size: 12px;
+	text-align : justify;
+	background-color : white;
+}
+
+#chattable th{
+	background-color : #BEAA5A;
+	text-align : center;
+}
+#chattable td{
+	padding: 1px 1px 2px 2px;
+}
+
+
+
+#myInstance1 {
+	border: 2px dashed #0000ff;
+}
+
+
 .currentmessage{
 	color: #a98e28;
 }
@@ -1072,8 +1094,15 @@ margin-right: -110px;
 	text-align : center;
 }
 
-#allstudentstable{
+#allstudentstable {
 	width : 100%;	
+}
+
+#offlinemessagestable{
+	width: 50%;
+}
+#offlinemessagestable td {
+	padding: 1px 4px 2px 2px;
 }
 
 .avatarbox{
@@ -1082,6 +1111,17 @@ margin-right: -110px;
 .databox{
 	vertical-align : top;
 }
+
+.smilebuttons{
+	width:27px;
+	height: 27px;
+	margin: 0;
+	padding: 0;
+}
+
+
+
+
 
 .for_ie {
            background: url("../img/footer.png") no-repeat scroll 68% 0 transparent;

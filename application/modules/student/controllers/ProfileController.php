@@ -191,11 +191,11 @@ class Student_ProfileController extends Zend_Controller_Action
      */
     public function chatAction(){
         
-        $this->_helper->layout->setLayout('teacher');
+        $this->_helper->layout->setLayout('chat');
         $sessionData = Zend_Auth::getInstance()->getIdentity();
         $sessionId = $sessionData['u_id'];
         $user = new User_Model_Users();
-        //$user->resetAllChatRequestsStudent($sessionId);
+        $user->resetAllChatRequestsStudent($sessionId);
         $this->view->stid = $sessionId;
         
     }

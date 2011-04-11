@@ -31,16 +31,16 @@
     <!-- Debug version: If using the debug version you can remove all the below js / css references -->
     <!--  <script type="text/javascript" src="/js/kultura/mwEmbed.js" ></script>  -->
         <script type="text/javascript"  src="/js/jquery-1.4.4.js"></script>
-        <script type="text/javascript"  src="/js/students.js"></script>
-        <script type="text/javascript" src="/js/mailexchange.js"></script>
-        <script type="text/javascript" src="/js/video.js"></script>
         <script type="text/javascript" src="/js/chat.js"></script>
         <script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
         <script src="/js/nicEdit-latest.js" type="text/javascript"></script>
         <script type="text/javascript">
         bkLib.onDomLoaded(function() {
-            new nicEditor().panelInstance('mailbody');
-        });
+            var chatArea = new nicEditor(
+                    { buttonList: ['bold', 'italic', 'strikethrough',
+                            'forecolor','fontSize', 'fontFamily','link'] })
+                    .panelInstance('chatinput');
+       });
         </script>
 </head>
 <body class="teacher">

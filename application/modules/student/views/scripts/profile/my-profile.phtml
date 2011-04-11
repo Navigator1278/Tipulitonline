@@ -16,8 +16,7 @@
             echo $this->studentMainData['u_name']." ".$this->studentMainData['u_family_name'];
             ?></b>
     <div class="sub-text">
-        <a href="/student/profile/chat/" target="new">chat with teacher</a>
-        <a href="/student/profile/chat/" target="new"><span id="chatrequest"></span></a>
+        
         <br/>
         .זהו ביקורך ה- 18 במרכז הלמידה<?php echo $this->studentMainData['u_visits_amount'] ?>
         <br/>
@@ -38,7 +37,9 @@
         <div class="sub-sub-block1">
             <div class="header">
             </div>
-            <div class="content">
+            
+            <div class="content" id="chatrequest">
+                <a href="/student/profile/chat/" target="new">Chat with teacher</a>
             </div>
             <div class="footer">
             </div>

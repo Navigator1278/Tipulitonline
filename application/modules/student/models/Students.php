@@ -574,9 +574,28 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
         }
 
         /*
+         * checking if the student is online
+         */
+
+        public function checkIfStudentOnline($stid, $timeDifference=60){
+
+            $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+            $currentTime = time();
+            $pastTime = time() - $timeDifference;
+            $select = $db->select()
+                    ->from('users')
+                     ->where("u_id=$stid");
+            $stmp = $select->query();
+            $res = $stmp->fetchAll();
+            if (strtotime($v['u_lastactivity'])>$pastTime) return $res[0];//returning students data if he is online at the moment
+                else return false;
+        }
+
+
+        /*
          * Getting all online teachers. if noone is online returning autoresponder
          */
-        public function getAllOnlineTeachers($timeDifference=60){
+        public function getAllOnlineTeachers($timeDifference=0){
             $db = Zend_Db_Table_Abstract::getDefaultAdapter();
             $currentTime = time();
             $pastTime = time() - $timeDifference;
