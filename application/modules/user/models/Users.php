@@ -159,7 +159,7 @@ class User_Model_Users extends Zend_Db_Table_Abstract{
     /*
      * Adding new chatmessage
      */
-    public function addNewChatMessage($fromUser=null, $fromTeacher=null, $toUser=null, $toTeacher=null, $message=""){
+    public function addNewChatMessage($fromUser=null, $fromTeacher=null, $toUser=null, $toTeacher=null, $message=" ", $isStudentOnline=0, $isTeacherOnline=0){
 
         $db = Zend_Db_Table_Abstract::getDefaultAdapter();
         $data = array(
@@ -169,6 +169,8 @@ class User_Model_Users extends Zend_Db_Table_Abstract{
             'chat_to_teacher_id' => $toTeacher,
             'chat_message' => $message,
             'chat_datetime' => null,
+            'chat_isread_s' => $isStudentOnline,
+            'chat_isread_t' => $isTeacherOnline,
         );
         return $db->insert('chat', $data);
     }

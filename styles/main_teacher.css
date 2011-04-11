@@ -1072,8 +1072,15 @@ margin-right: -110px;
 	text-align : center;
 }
 
-#allstudentstable{
+#allstudentstable {
 	width : 100%;	
+}
+
+#offlinemessagestable{
+	width: 50%;
+}
+#offlinemessagestable td {
+	padding: 1px 4px 2px 2px;
 }
 
 .avatarbox{
