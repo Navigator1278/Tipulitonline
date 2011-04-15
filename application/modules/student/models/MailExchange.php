@@ -43,7 +43,7 @@ class Student_Model_MailExchange extends Zend_Db_Table_Abstract{
           'spm_to_user_id' => null,
           'spm_to_teacher_id' => $teacherId,
           'spm_subject' => stripslashes(trim(strip_tags($subj))),
-          'spm_body' => stripslashes(trim(strip_tags($text,"<strong><p><em><u><font><img><span><a>"))),
+          'spm_body' => stripslashes(strip_tags($text,"<br><br/><br /><strong><p><em><u><font><img><span><a>")),
           'spm_datetime' => date('Y-m-d H:i:s'),
           'spm_is_new' => 0,
         );
@@ -125,21 +125,12 @@ class Student_Model_MailExchange extends Zend_Db_Table_Abstract{
         $username = $res[0]['u_name'];
         $userfamilyname = $res[0]['u_family_name'];
         $email = $res[0]['u_email'];
-        $body = "";
-        $body = $body."<br/>";
-        $body = $body."Hello $username $userfamilyname !!!";
-        $body = $body."<br/>";
-        $body = $body."You have got a new message at the web-site tipulitonline.co.il";
-        $body = $body."<br/>";
-        $body = $body."Subject of this email is: $subj";
-        $body = $body."<br/>";
-        $body = $body."The Body of this Email is: $text";
-        $body = $body."<br/>";
-        $mail = new Zend_Mail();
-        $mail->setBodyHtml($body)
+        $mail = new Zend_Mail('UTF-8');
+        $mail->setHeaderEncoding(Zend_Mime::ENCODING_BASE64);
+        $mail->setBodyHtml($text)
                 ->setFrom("no-reply@tipulitonline.co.il", "Admin")
                 ->addTo($email)
-                ->setSubject("You ve got new message at tipulitonline.co.il");
+                ->setSubject($subj);
        // $mail->send();
   }
 
@@ -173,23 +164,23 @@ class Student_Model_MailExchange extends Zend_Db_Table_Abstract{
         $db->insert('system__alerts', $alert);
 
         $body = "";
-        $body = $body."<br/>";
+        $body = $body."<br/>";  
         $body = $body."You've got following feedback from $studentName $studentLastName according to the video: $video:";
-        $body = $body."<br/>";
+        $body = $body."<br/><br/>";
         $body = $body."Improvement: $improvement";
         $body = $body."<br/>";
         $body = $body."Difficulty: $level";
-        $body = $body."<br/>";
+        $body = $body."<br/><br/>";
         $body = $body."His comments to the difficulty: $difficulty";
         $body = $body."<br/>";
         $body = $body."His suggestions: $suggestions";
-        $body = $body."<br/>";
+        $body = $body."<br/><br/>";
         $mail = new Zend_Mail();
         $mail->setBodyHtml($body)
                 ->setFrom("no-reply@tipulitonline.co.il", "Feedback from $studentLastName")
                 ->addTo($teacherMail['t_email'])
                 ->setSubject("You ve got new feedback from student at tipulitonline.co.il");
         //$mail->send();
-        $this->sendMessageFromStudentToTeacher($stid, 1, "Feedback", $body);
+        $this->sendMessageFromStudentToTeacher($stid, 1, "משוב על תרגול", $body);
   }
 }

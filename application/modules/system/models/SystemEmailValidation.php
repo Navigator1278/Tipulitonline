@@ -64,17 +64,17 @@ class System_Model_SystemEmailValidation extends Zend_Db_Table_Abstract
 
     public function sendMail($email, $code){
         $body = "";
-        $body = $body."<br/>";
-        $body = $body."Heשלום רב,<br/>";
+        $body = $body."<p align='right' dir='RTL'>";
+        $body = $body."eשלום רב,";
         $body = $body."ברוכים הבאים לטיפולית אונליין";
         $body = $body."מייל זה נשלח באופן אוטומטי לאחר מילוי פרטים אישיים באתר tipulitonline.co.il ";
         $body = $body."בכדי להמשיך את תהליך הרישום לחצו על הלינק הבא:";
         $body = $body."<br/><a href='";
-        $body = $body."http://www.tipulitonline.co.il/user/registration/validate-email/email/".$email."/code/".$code."";
+        $body = $body."http://www.lc.tipulitonline.co.il/user/registration/validate-email/email/".$email."/code/".$code."";
         $body = $body."'>VALIDATE</a>.<br/>";
         $body = $body."<br/>";
         $body = $body."או העתיקו את שורת הכתובת הבאה לדפדפן בשביל להמשיך את תהליך הרישום למערכת:<br/>";
-        $body = $body."www.tipulitonline.co.il/user/registration/validate-email/email/".$email."/code/".$code."<br>";
+        $body = $body."www.lc.tipulitonline.co.il/user/registration/validate-email/email/".$email."/code/".$code."<br>";
         $body = $body."אל תענו לכתובת מייל זו – היא נשלחה באופן אוטומטי. במידה ונתקלתם בבעיה בתהליך";
         $body = $body."<br/>";
         $body = $body."הרישום פנו אלינו בטלפון: 03-6470326 לצוות טיפולית אונליין.";
@@ -82,7 +82,7 @@ class System_Model_SystemEmailValidation extends Zend_Db_Table_Abstract
         $body = $body."בברכה,";
         $body = $body."<br/>";
         $body = $body."צוות טיפולית אונליין";
-
+        $body = $body."</p>";
         $mail = new Zend_Mail('UTF-8');
         $mail->setHeaderEncoding(Zend_Mime::ENCODING_BASE64);
         $mail->setBodyHtml($body)
@@ -92,13 +92,13 @@ class System_Model_SystemEmailValidation extends Zend_Db_Table_Abstract
         $mail->send();
     }
 
-    public function sendWelcomeMail($email,$username){
+    public function sendWelcomeMail($email,$username, $userId){
 
-        $body = "";
-        $body .= "$username";
+        $body = $body."<p align='right' dir='RTL'>";
+        $body .= " $username ";
         $body .= "שלום";
         $body .= "<br/>";
-        $body .= "אנו מודים לך על הצטרפותך למרכז הלמידה והתרגול של טיפולית אונליין. הצוות שלנו ייצור ";
+        $body .= "ברוכים הבאים לטיפולית אונליין. מייל זה נשלח באופן אוטומטי לאחר מילוי פרטים אישיים באתר ";
         $body .= "<br/>";
         $body .= "עימך קשר בזמן הקרוב בכדי להתאים לך תרגול יוגה אישי.";
         $body .= "<br/><br/>";
@@ -123,15 +123,17 @@ class System_Model_SystemEmailValidation extends Zend_Db_Table_Abstract
         $body .= "מוזמנים לתרגל בקביעות ולהיעזר במרכז הלמידה.";
         $body .= "<br/><br/>";
         $body .= "צוות טיפולית אונליין עומד לרשותך במייל: ";
-        $body .= "<a href='info@tiupulitonline.co.il'>info@tiupulitonline.co.il</a>";
+        $body .= "<a href='info@tipulitonline.co.il'>info@tipulitonline.co.il</a>";
         $body .= "<br/>";
         $body .= "כתובת האינטרנט שלנו היא: ";
-        $body .= "<a href='http://www.tipulitonline.co.il'></a>'";
+        $body .= "<a href='http://www.tipulitonline.co.il'>tipulitonline.co.il</a>'";
         $body .= "<br/><br/>";
         $body .= "בברכה,";
         $body .= "<br/><br/>";
         $body .= "צוות טיפולית אונליין";
-
+        $body = $body."</p>";
+       $mailExchange = new Student_Model_MailExchange();
+       $mailExchange->sendMessageFromTeacherToStudent($userId, 1, 'ברוכים הבאים לטיפולית אונליין', $body);
        $mail = new Zend_Mail('UTF-8');
        $mail->setHeaderEncoding(Zend_Mime::ENCODING_BASE64);
         $mail->setBodyHtml($body)

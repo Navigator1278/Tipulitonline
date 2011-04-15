@@ -8,7 +8,7 @@
                  <a href="#"><img src="<?php echo "/avatars/".$this->data['u_picture']?>"></a>
           <?php endif ?>
     
-                  <input type="button" id="uploadavatar" value="Avatar"/>
+                  <input type="button" id="uploadavatar" value="תמונה"/>
                   <div id="uploadavatarform">
                       <?php
                         echo $this->uploadavatarform;
@@ -16,18 +16,20 @@
                   </div>
 					</li>
                                         <li class="form_big" >
-                                            Last payment<br/>
-                                            Last payment date<br/>
+                                            <br/>
+                                            <br/>
       <a href="/student/profile/upgrade-account/" target="new"><img src="/i/r_button.png"></a>
                                         </li>
 					<li  class="form_big">
                                         <form action="<?php echo $this->form->action ?>" method="post">
-                                                        <b><?php echo $this->studentstatus ?> account</b> .................................. <b>ID: <?php echo $this->data['u_id']?></b> ...................................... <b><?php echo $this->data['u_name']?></b><br/><br/>
-                                                        <div style="color:darkred">some other text goes here........................................................text.................</div><br/>
-                                                        External E-mails?<?php echo $this->form->external ?>
+                                                        <?php if ($this->status6d==1): ?>
+                                                            <b>רישום לקורס שישה מפגשים</b>
+                                                        <?php endif; ?>
+                                                        <b><?php echo $this->data['u_name']." ".$this->data['u_family_name']?></b><br/><br/>
+                                                        לקבלת עותק לתיבת מייל חיצונית <?php echo $this->form->external ?><br/>
                                                         <div style="float:right;">
-                                                            <a href="/student/profile/my-profile/"><input type="button" value="Back"></a>
-							<input type="submit" name="save" value="Save">
+                                                            <a href="/student/profile/my-profile/"><input type="button" value="חזרה"></a>
+							<input type="submit" name="save" value="לשמירה">
                                                         </div>
 					</li>
 
@@ -318,13 +320,13 @@
 							<label for="f_8">
 								<?php echo $this->form->knees ?>
 
-								knees
+								ברכיים
 							</label>
 						</li>
 						<li>
 							<label for="f_9">
 								<?php echo $this->form->breath ?>
-								breath
+								נשימה
 							</label>
 						</li>
 						<li>

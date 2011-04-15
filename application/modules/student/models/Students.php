@@ -90,11 +90,12 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
        
             $db = Zend_Db_Table_Abstract::getDefaultAdapter();
 
+            $date_elements  = explode("/",$data['datepicker']);
+            $data['datepicker'] = $date_elements[2]."-".$date_elements[1]."-".$date_elements[0];
             $userdata = array(
               'u_name' => $data['firstname'],
               'u_family_name' => $data['lastname'],
               'u_email' => $data['email'],
-              'u_sex_id' => $data['sex'],
               'u_date_of_birth' => $data['datepicker'],
               'u_status_id' => 4,
               'u_state_id' => $data['state'],
@@ -105,6 +106,8 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
               'u_objectives' => $data['objectives'],
               'u_external_emails' => $data['external'],
             );
+
+            if(isset ($data['sex'])) $userdata['u_sex_id']=$data['sex'];
 
             if ($data['password1']){
                 $userdata['u_password'] = $data['password1'];
@@ -137,8 +140,6 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
                'uht_walk' => $data['walk'],
                'uht_hands' => $data['hands'],
                'uht_sit' => $data['legs'],
-               'uht_backashes' => $data['backashes'],
-               'uht_slipped_disk' => $data['disc'],
                'uht_general1' => $data['general1'],
                'uht_general2' => $data['general2'],
                'uht_general3' => $data['general3'],
@@ -154,6 +155,8 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
                'uht_wrists' => $data['wrists'],
                'uht_more_info' => $data['moreinfo'],
             );
+            if(isset ($data['backashes'])) $userhealthdata['uht_backashes']=$data['backashes'];
+            if(isset ($data['disc'])) $userhealthdata['uht_slipped_disk']=$data['disc'];
 
             $db->update('users', $userdata,"u_id=$id");
             $db->update('user__health_table', $userhealthdata,"uht_user_id=$id");
@@ -362,15 +365,51 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
 
             //sending an internal and an external emails to the student
             $mailExchange = new Student_Model_MailExchange();
-            $text1 = "";
-            $text1 .= "Your 6D at tipulitonline was activated!<br/>";
-            $text1 .= "Now you can watch the first movie<br/>";
-            $text2 = "";
-            $text2 .= "Your 6D at tipulitonline was activated!<br/>";
-            $text2 .= "Please visit http://www.tipulitonline.co.il to watch the first movie of the course<br/>";
-            
-            //$mailExchange->sendMessageFromTeacherToStudent($userId, 1, 'Your 6D at tipulitonline was activated!', $text1);
-            //$mailExchange->sendExternalMailToStudent($userId, 'Your 6D at tipulitonline was activated!', $text2);
+            $text = "";
+            $text .= "שלום רב,";
+            $text .= "<br/><br/>";
+            $text .= 'אנו שמחים להודיעך שקורס ששת המפגשים נפתח בעבורך במרכז הלמידה של "טיפולית ';
+            $text .= "<br/>";
+            $text .= "אונליין\". אורך כל תרגול הוא כ – 20 דק'  למשך שישה שיעורים. הקורס בנוי בהדרגה וכל ";
+            $text .= "<br/>";
+            $text .= "שיעור מתבסס על שיעור קודם.";
+            $text .= "<br/><br/>";
+            $text .= "צפו בסרטון ההדרכה ותרגלו את כולו, כך יחכה לכם התרגול הבא יום למחרת. להשגת מירב ";
+            $text .= "<br/>";
+            $text .= "היעילות, תרגלו את הקורס במשך <b>6 ימים רצופים – יום אחרי יום </b>אם ניתן. בכל פעם ";
+            $text .= "<br/>";
+            $text .= "תשלח אליכם במייל הודעה. ";
+            $text .= "<br/><br/>";
+            $text .= "לפני שאתם מתחילים לתרגל <b>עליכם לצפות בסרטון בנגן המדיה התחתון </b>במרכז הלמידה";
+            $text .= "<br/>";
+            $text .= "שם מחכה לכם סרטון הדרכה על הנחיות לתרגול בבית. אז תוכלו לקבוע את הסביבה והזמן ";
+            $text .= "<br/>";
+            $text .= "הנוחים לכם ולהכין אתכם לתרגול בבית.";
+            $text .= "<br/><br/>";
+            $text .= "<a href='http://lc.tipulitonline.co.il/'>כניסה למרכז הלמידה</a>";
+            $text .= "<br/><br/>";
+            $text .= "לידיעתכם:";
+            $text .= "<br/>";
+            $text .= "1 השתתפות בקורס היא בהסכמה לתקנון עליו הסכמתם עם הרישום למרכז הלמידה.";
+            $text .= "<br/>";
+            $text .= "2 במידה והתרגול גורם לכם לכאב, הפסיקו לתרגל את התרגול המסוים. תרגלו רק מה ";
+            $text .= "<br/>";
+            $text .= "שנוח לכם. בצעו את ההרפיה הסופית <b>ובסיום התרגול פנו אלינו</b>. נסייע לכם להתאים";
+            $text .= "<br/>";
+            $text .= "תרגול עבורכם.";
+            $text .= "<br/>";
+            $text .= "3 אם חשתם שהקורס קל מדי או קשה מדי, תנו לנו משוב באמצעות מרכז הלמידה ונשמח ";
+            $text .= "להתאים לכם תרגול אישי מותאם לצרכיכם.";
+            $text .= "<br/><br/>";
+            $text .= "בברכת שלום,";
+            $text .= "<br/><br/>";
+            $text .= "<br/>";
+            $text .= "צוות טיפולית אולניין";
+            $text .= "<br/>";
+            $text .= "<a href='http://lc.tipulitonline.co.il/'>www.tipulitonline.co.il</a>";
+            $text .= "<br/>";
+            //$mailExchange->sendMessageFromTeacherToStudent($userId, 1, 'קורס נפתח עבורך – שנה את חייך ב – 20 דק', $text);
+            //$mailExchange->sendExternalMailToStudent($userId, 'קורס נפתח עבורך – שנה את חייך ב – 20 דק', $text);
 
             return $data;
         }
@@ -510,14 +549,141 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
                 $nextVideo = $currentVideo+1;
                 if ($currentVideo>5) continue;
                 //sending an internal and an external emails to students
-                $text1 = "";
-                $text1 .= "Youve got the new 6d-video at tipulitonline<br/>";
-                $text1 .= "Now you can watch the video Nr. $nextVideo<br/>";
-                $text2 = "";
-                $text2 .= "Youve got the new 6d-video at tipulitonline<br/>";
-                $text2 .= "Please visit http://www.tipulitonline.co.il to watch the video Nr. $nextVideo of the course<br/>";
-                $mailExchange->sendMessageFromTeacherToStudent($v['v6ds_user_id'], 1, 'Youve got the new 6d-video at tipulitonline<br/>', $text1);
-                $mailExchange->sendExternalMailToStudent($v['v6ds_user_id'], 'Youve got the new 6d-video at tipulitonline<br/>', $text2);
+
+                if ($currentVideo==1){
+                    $subject = "תרגול מס' 2 מוכן בשבילך";
+                    $text = "";
+                    $text .= "שלום רב,";
+                    $text .= "<br/><br/>";
+                    $text .= "לאחר שצפית ותרגלת את השיעור הראשון אנו פונים לתרגול השני. כפי שראית, התרגול";
+                    $text .= "<br/>";
+                    $text .= "שניתן לך הוא רך ומעמיק. זהו קורס ריפוי עצמי, המשפר איכות החיים ומעודד רגיעה. זהו ";
+                    $text .= "<br/>";
+                    $text .= "קורס נפלא לפתוח איתו את היום ואנו ממליצים לפנות זמן ולתרגל אותו <b>בבוקר</b>";
+                    $text .= "<br/><br/>";
+                    $text .= "אנו מזכירים להודיע לנו על כל קושי או כאב המופיעים בזמן התרגול. <b>התרגול אינו אמור </b>";
+                    $text .= "<br/>";
+                    $text .= "<b>לגרום לכאב אבל עשוי לעורר מאמץ של עבודה עם הגוף</b>– להבדיל בין כאב למאמץ נכון  ";
+                    $text .= "<br/>";
+                    $text .= "זוהי אחת מהתובנות שמתרגל יוגה לומד בעצמו. במידה וקיים קושי להבדיל ביניהם, פנו ";
+                    $text .= "<br/>";
+                    $text .= "<br/><br/>";
+                    $text .= "<a href='http://lc.tipulitonline.co.il/'>כניסה למרכז הלמידה</a>";
+                    $text .= "<br/><br/>";
+                    $text .= "בברכת שלום,";
+                    $text .= "<br/><br/>";
+                    $text .= "<br/>";
+                    $text .= "צוות טיפולית אולניין";
+                    $text .= "<br/>";
+                    $text .= "<a href='http://lc.tipulitonline.co.il/'>www.tipulitonline.co.il</a>";
+                    $text .= "<br/>";
+
+                } elseif($currentVideo==2){
+                    $subject = "תרגול מס' 3 מוכן בשבילך";
+                    $text = "";
+                    $text .= "שלום לך,";
+                    $text .= "<br/><br/>";
+                    $text .= "<a href='http://lc.tipulitonline.co.il/'>כניסה למרכז הלמידה</a>";
+                    $text .= "<br/><br/>";
+                    $text .= 'היום נשים לב לקשר שבין תנועה לנשימה. היום גם נכיר את תנוחה בשם "כלב מסתכל ';
+                    $text .= "<br/>";
+                    $text .= 'למטה". זוהי תנוחת מפתח ביוגה המחזקת ומגמישה את כל הגוף. מתרגלים אותה מתחילים ';
+                    $text .= "<br/>";
+                    $text .= "ומתקדמים כאחד.";
+                    $text .= "<br/><br/>";
+                    $text .= "<b>אנו מזכירים לכם להודיע לנו על כל קושי או כאב שחשים בזמן התרגול. </b>";
+                    $text .= "<br/><br/>";
+                    $text .= "במרכז הלמידה שלנו יש גם תרגלי נשימה, שליטה אנרגטית (פראניאמה) והרפיה בצפייה ";
+                    $text .= "<br/>";
+                    $text .= "חופשית ללא תשלום. כמו כן יש מידע אודות עקרונות היוגה ושילובה בחיים. אפשר ומומלץ ";
+                    $text .= "<br/>";
+                    $text .= "לתרגל תרגולים אלה במקביל לקורס.";
+                    $text .= "<br/><br/>";
+                    $text .= "בברכת שלום,";
+                    $text .= "<br/><br/>";
+                    $text .= "<br/>";
+                    $text .= "צוות טיפולית אולניין";
+                    $text .= "<br/>";
+                    $text .= "<a href='http://lc.tipulitonline.co.il/'>www.tipulitonline.co.il</a>";
+                    $text .= "<br/>";
+                } elseif($currentVideo==3){
+                    $subject = "תרגול מס' 4 מוכן בשבילך";
+                    $text = "";
+                    $text .= "הקורס נבנה שלב אחרי שלב על מנת לשפר תחושה טובה בגוף, להרפות מקומות בהם ";
+                    $text .= "<br/>";
+                    $text .= "הצטבר מתח ולהניע אנרגיית חיים (פראנה – Prana) לאורך הגוף. היוגה ייחודית בכך שהיא ";
+                    $text .= "<br/>";
+                    $text .= "מלווה עקרונות של מודעות, נשימה נכונה וריכוז יחד עם תנועות ותנוחות המרגיעות ";
+                    $text .= "<br/>";
+                    $text .= "ומרפאות.";
+                    $text .= "<br/><br/>";
+                    $text .= "<b>אם הגעת עד הלום, עשה/י מאמץ להשלים את הקורס עד סופו.</b>אפשר להרגיש בשינוי ";
+                    $text .= "<br/>";
+                    $text .= "המצטבר יום אחרי יום.";
+                    $text .= "<br/><br/>";
+                    $text .= "<a href='http://lc.tipulitonline.co.il/'>כניסה למרכז הלמידה</a>";
+                    $text .= "<br/><br/>";
+                    $text .= "בברכת שלום,";
+                    $text .= "<br/><br/>";
+                    $text .= "<br/>";
+                    $text .= "צוות טיפולית אולניין";
+                    $text .= "<br/>";
+                    $text .= "<a href='http://lc.tipulitonline.co.il/'>www.tipulitonline.co.il</a>";
+                    $text .= "<br/>";
+                } elseif($currentVideo==4){
+                    $subject = "תרגול מס' 5 מוכן בשבילך";
+                    $text = "";
+                    $text .= "אם תרגלת יום אחרי יום השינוי כבר מתרחש. הגוף מגיב טוב כאשר מטפלים בו במסירות ";
+                    $text .= "<br/>";
+                    $text .= "ובעדינות. תרגול הקורס הפעם מגיע להעמקה גדלה יותר בתנועות אפקטיביות הפותחות את ";
+                    $text .= "<br/>";
+                    $text .= "בית החזה ומשפרות את הקשר שבין האגן לרגליים. אלו הם שני החלקים המשמעותיים ";
+                    $text .= "<br/>";
+                    $text .= "ביותר לתנועה שלנו במרחב. נתרגל היום במסירות ובהעמקה. ננשום עם התנועות ונהיה ";
+                    $text .= "<br/>";
+                    $text .= "קשובים למצב הגוף.";
+                    $text .= "<br/><br/>";
+                    $text .= "<b>אם הגעת עד הלום, עשה מאמץ והשלם את הקורס.</b>אפשר להרגיש בשינוי אם הוא ";
+                    $text .= "<br/>";
+                    $text .= "מצטבר יום אחרי יום.";
+                    $text .= "<br/><br/>";
+                    $text .= "<a href='http://lc.tipulitonline.co.il/'>כניסה למרכז הלמידה</a>";
+                    $text .= "<br/><br/>";
+                    $text .= "<br/>";
+                    $text .= "צוות טיפולית אולניין";
+                    $text .= "<br/>";
+                    $text .= "<a href='http://lc.tipulitonline.co.il/'>www.tipulitonline.co.il</a>";
+                    $text .= "<br/>";
+                } elseif($currentVideo==5){
+                    $subject = "תרגול מס' 6 מוכן בשבילך";
+                    $text = "זהו התרגול המסכם של הקורס. אנו מברכים אותך שהגעת לשלב זה. אם תרגלת יום אחרי ";
+                    $text .= "יום, צברת תרגול מצטבר והרגלת את עצמך להקדיש זמן ליוגה. זהו אינו דבר של מה-בכך.";
+                    $text .= "<br/><br/>";
+                    $text .= "מרכז הלמידה שלנו יאפשר לך להמשיך להעמיק ביוגה וליצוק תרגול מתקדם יותר לזמן";
+                    $text .= "<br/>";
+                    $text .= "שפינית במהלך היום. גופך יודה לך ואיכות חייך תמשיך להשתפר. אין כמו היוגה לתחזוקת";
+                    $text .= "<br/>";
+                    $text .= "גוף שוטפת ולהכינו לאתגרי החיים.";
+                    $text .= "<br/><br/>";
+                    $text .= "<b>נשמח לשמוע ממך איך היה הקורס, חוויות שעברת, המלצות ובקשות.</b>";
+                    $text .= "<br/>";
+                    $text .= "אנו עומדים לשירותך להמשך התרגול שלך במרכז הלמידה. את/ה מוזמן/ת לבחור חבילת";
+                    $text .= "<br/>";
+                    $text .= "תרגול המתאימה לצרכיך במרכז הלמידה ולהמשיך לתרגל עימנו.";
+                    $text .= "<br/><br/>";
+                    $text .= "<a href='http://lc.tipulitonline.co.il/'>כניסה למרכז הלמידה</a>";
+                    $text .= "<br/><br/>";
+                    $text .= "<br/>";
+                    $text .= "צוות טיפולית אולניין";
+                    $text .= "<br/>";
+                    $text .= "<a href='http://lc.tipulitonline.co.il/'>www.tipulitonline.co.il</a>";
+                    $text .= "<br/>";
+
+                }
+                
+
+                $mailExchange->sendMessageFromTeacherToStudent($v['v6ds_user_id'], 1, $subject, $text);
+                $mailExchange->sendExternalMailToStudent($v['v6ds_user_id'], $subject, $text);
                 //updating the table
                 $data = array(
                     'v6ds_timestamp' => $v['v6ds_timestamp'],
@@ -526,7 +692,7 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
                 $videoId = $v['v6ds_id'];
                 $db->update('video__6d_status', $data,"v6ds_id =$videoId");
              }
-          }
+          }//end massmailfunc
 
           /*
          * getting all alerts from the student and showing them on the teacher's page
@@ -574,9 +740,28 @@ class Student_Model_Students extends Zend_Db_Table_Abstract{
         }
 
         /*
+         * checking if the student is online
+         */
+
+        public function checkIfStudentOnline($stid, $timeDifference=60){
+
+            $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+            $currentTime = time();
+            $pastTime = time() - $timeDifference;
+            $select = $db->select()
+                    ->from('users')
+                     ->where("u_id=$stid");
+            $stmp = $select->query();
+            $res = $stmp->fetchAll();
+            if (strtotime($v['u_lastactivity'])>$pastTime) return $res[0];//returning students data if he is online at the moment
+                else return false;
+        }
+
+
+        /*
          * Getting all online teachers. if noone is online returning autoresponder
          */
-        public function getAllOnlineTeachers($timeDifference=60){
+        public function getAllOnlineTeachers($timeDifference=0){
             $db = Zend_Db_Table_Abstract::getDefaultAdapter();
             $currentTime = time();
             $pastTime = time() - $timeDifference;

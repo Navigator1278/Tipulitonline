@@ -81,7 +81,7 @@ $(document).ready(function(){
 		var suggestions = $("#suggestion").val();
 		var video = $("#videoDivInfo").attr('video');
 		if (!level&&!improvement&&!suggestions&&!difficulty){
-			alert('Suggestion was not sent! Please fill at least one field ');
+			alert('המשוב אינו נשלח. יש לענות לפחות על אחת מהשאלות');
 			return;
 		}
 		$("#suggestion").val('');

@@ -14,6 +14,7 @@ class User_RegistrationController extends Zend_Controller_Action
 
     public function firstFormAction()
     {
+        $this->view->headTitle('טופס רישום');
         $userFirstForm = new User_Form_UserFirstForm();
         if ($this->getRequest()->getParam('submit')){
             if (!$userFirstForm->isValid($_POST)){
@@ -34,6 +35,7 @@ class User_RegistrationController extends Zend_Controller_Action
     public function secondFormAction()
     {
        $this->_helper->layout->setLayout('second_form');
+        $this->view->headTitle('שאלון רפואי');
        $email = $this->getRequest()->getParam('email');
        $emailValidation = new System_Model_SystemEmailValidation();
        $userId = $emailValidation->getId($email);
@@ -51,7 +53,7 @@ class User_RegistrationController extends Zend_Controller_Action
                } else {
                   // success
                    $username = $emailValidation->getNameByEmail($email);
-                   //$emailValidation->sendWelcomeMail($email,$username);
+                   //$emailValidation->sendWelcomeMail($email,$username,$userId);
                    $values = $userSecondForm->getValues();
                    $user = new User_Model_UserHealthTable();
                    $user->addAdditionalData($userId,$values);
@@ -60,7 +62,6 @@ class User_RegistrationController extends Zend_Controller_Action
                    $mailExchange = new Student_Model_MailExchange();
                    //$text = "New <a href='/teacher/dashboard/view-student/stid/$userId/'>user</a> was registered";
                    $mailExchange->sendNewUserInformation($userId);
-
                    $this->_redirect("/student/profile/my-profile/");
                }
            } else{

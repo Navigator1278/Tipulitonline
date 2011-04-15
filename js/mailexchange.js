@@ -54,17 +54,17 @@ $('.eachmessage').click(function(){
 
 $('#course6d').click(function(){
 
-	if (confirm('A you sure to subscribe for the 6D course?')) {
+	if (confirm('האם ברצונך להירשם לקורס ששת המפגשים D6 ?')) {
 	var stid = $(this).attr('stid');
 	$.ajax({
 		type:"POST",
 		url: "/student/profile/subscribecourse/",	
 			data: "stid="+stid,
 			success: function(html){
-				alert('You were subscribed for the 6D course successfuly');
+				alert('בקשתך לרישום התקבלה במערכת');
 			},
 			error: function(html){
-				alert('You were subscribed for the 6D course');
+				alert('בקשתך לרישום התקבלה במערכת');
 			}
 		});
 	}

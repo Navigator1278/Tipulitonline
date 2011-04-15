@@ -1,8 +1,8 @@
 ﻿<div class="side_block" id="chat" person="student" personid="<?php echo $this->stid ?>">
     <div class="sub">
         <div class="sub-left">
-            <a href="/student/profile/upgrade-account/" target="new"><img src="/i/r_button.png"></a>
-            <a href="/student/profile/my-profile-edit/">Edit Your Profile</a>
+            <a href="/student/profile/upgrade-account/" target="new"><img src="/i/r_button.png"></a><br/>
+            <b><a href="/student/profile/my-profile-edit/">עדכון נתונים לתלמיד </a></b>
         </div>
         <div class="sub-right">
           <?php if (!isset ($this->studentMainData['u_picture'])): ?>
@@ -16,18 +16,12 @@
             echo $this->studentMainData['u_name']." ".$this->studentMainData['u_family_name'];
             ?></b>
     <div class="sub-text">
-        <a href="/student/profile/chat/" target="new">chat with teacher</a>
-        <a href="/student/profile/chat/" target="new"><span id="chatrequest"></span></a>
-        <br/>
-        .זהו ביקורך ה- 18 במרכז הלמידה<?php echo $this->studentMainData['u_visits_amount'] ?>
-        <br/>
 
-        .עד כה צברת 35 שעות תרגול<div id="numberofunreadmails" q="<?php echo $this->unreadmessages ?>"><?php echo $this->unreadmessages ?></div>
         <br/>
-        יש לך 2 הודעות חדשות בתיבת הדואר
+        זהו ביקורך ה- <b align="right" dir="RTL"><?php echo $this->studentMainData['u_visits_amount'] ?></b> במרכז הלמידה.
         <br/>
-        עד כה צברת 46 בונוסים
-        <br/><br/>
+        עד כה צברת <span align="right" dir="RTL" id="numberofunreadmails" q="<?php echo $this->unreadmessages ?>"  style="font-weight: bold"><?php echo $this->unreadmessages ?></span> שעות תרגול.
+        <br/>
     </div>
     <div class="sub-block-border1">
     </div>
@@ -38,7 +32,9 @@
         <div class="sub-sub-block1">
             <div class="header">
             </div>
-            <div class="content">
+            
+            <div class="content" id="chatrequest" align="center" dir="RTL">
+                <a href="/student/profile/chat/" target="new">צ'אט עם מדריך אונליין</a>
             </div>
             <div class="footer">
             </div>
@@ -51,25 +47,25 @@
         <div class="sub-sub-block2">
         </div>
         <div class="content-block">
-                        <div class="sub-header">
+                        <div class="sub-header" >
                             משוב על התרגול
                         </div>
                         <br/>
                         <strong>האם חווית שיפור או הקלה</strong><br/>
-improvements
+
                         <div class="radio_new"><input type="radio" name="improvement" value="Yes"/></div>
-                        <div class="radio_text">Yes</div>
+                        <div class="radio_text">כן</div>
 
                         <div class="radio_new"><input type="radio" name="improvement" value="No"/></div>
-                        <div class="radio_text">No</div><br/><br/>
+                        <div class="radio_text">לא</div><br/><br/>
 
                         <strong>האם התרגול היה:</strong><br/>
 
                         <div class="radio_new"><input type="radio" name="level" value="Hard"/></div>
-                        <div class="radio_text">Hard</div>
+                        <div class="radio_text">קשה</div>
 
                         <div class="radio_new"><input type="radio" name="level" value="Suitable"/></div>
-                        <div class="radio_text">Mid</div>
+                        <div class="radio_text">מתאים</div>
 
                         <div class="radio_new"><input type="radio" name="level" value="Easy"/></div>
                         <div class="radio_text">Easy</div>
@@ -77,10 +73,10 @@ improvements
         </div>
     </div>
     <div class="sub-block-border3">
-        <div class="sub-top">
-                        <div class="sub-top-content">
+        <div class="sub-top" align="right" dir="rtl">
+                        <div class="sub-top-content" align="right" dir="rtl">
 
-                            ?האם חווית בעיה בתרגול
+האם חווית בעיה בתרגול?
                             <br/> <textarea class="sub_textarea" id="difficult"></textarea><br/>
                             
                             האם יש לך הצעות לשיפור
@@ -94,17 +90,7 @@ improvements
       </div>
         <div class="sub-bottom-border" id="sub-bottom-border">
             <div class="sub-bottom-border-block">
-                <div class="sub-bottom-top"></div>
-                <div class="sub-bottom-body">
-                    <div class="sub-bot-content">
-                        <strong>מאמר השבוע</strong><br><br>
-                        “על הקשר בין נחיריים לאישיות” <br>
-                        לקריאת המאמר <br><br>
-                        <strong>מונח השבוע</strong><br><br>
-                        <a href="/">טאפאס - חום . קיראו עוד</a>
-                    </div>
-                </div>
-                <div class="sub-bottom-bottom"></div>
+                <img src="/i/notice.gif" alt="notice"/>
             </div>
             <?php if (!$this->all6dvideos): ?>
             <div class="sub-view-image" id="course6d" stid ="<?php echo $this->stid ?>">
@@ -116,10 +102,6 @@ improvements
             </div>
 
             </div>
-            <div class="bottom-shape"><div class="text-bottom-shape">
-שלחו >
-                </div></div>
-<div class="bottom-shape-like"></div>
         </div>
 
     </div>
@@ -148,13 +130,13 @@ improvements
         </div>
         <div class="mail-block">
             <table id="mailtable">
-                <th>From</th><th>Subject</th><th>Date</th><th></th>
+                <th>מאת</th><th>נושא</th><th>תאריך ושעה</th><th></th>
                 <?php if ($this->mails): ?>
                 <?php foreach($this->mails as $mail): ?>
                 <tr class="eachmessage" id="<?php echo $mail['spm_id'] ?> " side="student">
                     <td width="20%" <?php echo ($mail['spm_from_teacher_id']&&!$mail['spm_is_new']? "class='unread'": ""); ?>><?php echo $this->teacher ?></td>
                     <td width="50%" <?php echo ($mail['spm_from_teacher_id']&&!$mail['spm_is_new']? "class='unread'": ""); ?>><?php echo $mail['spm_subject'] ?></td>
-                    <td width="25%" <?php echo ($mail['spm_from_teacher_id']&&!$mail['spm_is_new']? "class='unread'": ""); ?>><?php echo $mail['spm_datetime'] ?></td>
+                    <td width="25%" <?php echo ($mail['spm_from_teacher_id']&&!$mail['spm_is_new']? "class='unread'": ""); ?>><?php echo date("d/m/Y h:i:s", strtotime($mail['spm_datetime'])) ?></td>
                     <td width="5%">
                         <?php if ($mail['spm_from_teacher_id']): ?>
                         <img src="/i/mail_in.png" title="inbox" />
@@ -184,9 +166,11 @@ improvements
             <img id="newmaillink" src="/i/email.png" title="write new mail"/>
                         <span id="newmailform">
                             <form method="post" action="/student/profile/my-profile/">
-                            subject <input type="text" name="subject" id="mailsubj" /><br/><br/>
-                            <textarea name="mailbody" id="mailbody" cols="30" rows="5"></textarea>
-                            <br/><input type="submit" name="mailsend" id="mailsend" value="send"/>
+                             נושא <input type="text" name="subject" id="mailsubj" style="width:300px;"/><br/><br/>
+                             <div style="width:420px; background-color: #fff">
+                            <textarea name="mailbody" id="mailbody" cols="50" rows="5"></textarea>
+                            </div>
+                            <br/><input type="submit" name="mailsend" id="mailsend" value="שלחו"/>
                             </form>
                         </span>
         </div>

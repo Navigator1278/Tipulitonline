@@ -55,14 +55,13 @@ class Student_Form_StudentEditDataForm {
         $gender->setDecorators($elementDecorators);
         $gender->setValue($data['u_sex_id']);
          if (isset ($data['u_sex_id'])) $gender->setValue($data['u_sex_id']);
-         if ($protection) $gender->setAttrib ('disabled', 'true');
+         if ($protection) $gender->setAttrib ('readonly', 'true');
         //birthday field: validation for yyyy-mm-dd input
         $birthday = new Zend_Form_Element_Text('datepicker', array(
             'size' => 10,
         ));
         $birthday->setDecorators($elementDecorators);
-        $birthday->addValidator(new Zend_Validate_Date());
-        if (isset ($data['u_date_of_birth'])) $birthday->setValue($data['u_date_of_birth']);
+        if (isset ($data['u_date_of_birth'])) $birthday->setValue(date("d/m/Y",strtotime($data['u_date_of_birth'])));
         if ($protection) $birthday->setAttrib ('readonly', 'true');
 
         //heigth
@@ -75,7 +74,7 @@ class Student_Form_StudentEditDataForm {
 
         //weight
         $weight = new Zend_Form_Element_Select('weight', array(
-            'label' => 'שקל',
+            'label' =>'',
           ));
         for ($i=20;$i<=300;$i++) $weight->addMultiOption($i,$i);
         $weight->setDecorators($elementDecorators);
@@ -85,9 +84,6 @@ class Student_Form_StudentEditDataForm {
         $email = new Zend_Form_Element_Text('email',array(
         ));
         $email->addValidator(new Zend_Validate_EmailAddress());
-        echo "<pre>";
-        print_r($data);
-        echo "<pre>";
         $email->setDecorators($elementDecorators);
         if (isset ($data['u_email'])) $email->setValue($data['u_email']);
         if ($protection) {
@@ -125,7 +121,7 @@ class Student_Form_StudentEditDataForm {
 
         $pregnant = new Zend_Form_Element_Radio('pregnant', array(
             'separator' =>'',
-            'multioptions' => array('Yes'=>'Yes','No'=>'No'),
+            'multioptions' => array('Yes'=>'לא','No'=>'כן'),
         ));
         $pregnant->setDecorators($elementDecorators);
         if (($data['uht_pregnant'])) $pregnant->setValue($data['uht_pregnant']);
@@ -249,7 +245,7 @@ class Student_Form_StudentEditDataForm {
        $walk = new Zend_Form_Element_Radio('walk', array(
            'label' => '',
            'separator' =>'',
-           'multiOptions' => array('Yes'=>'Yes', 'No'=>'No'),
+           'multiOptions' => array('Yes'=>'כן', 'No'=>'לא'),
         ));
        if ($data['uht_walk']) $walk->setValue($data['uht_walk']);
        $walk->setDecorators($elementDecorators);
@@ -257,7 +253,7 @@ class Student_Form_StudentEditDataForm {
        $hands = new Zend_Form_Element_Radio('hands', array(
            'label' => '',
             'separator' =>'',
-           'multiOptions' => array('Yes'=>'Yes', 'No'=>'No'),
+           'multiOptions' => array('Yes'=>'כן', 'No'=>'לא'),
         ));
        if ($data['uht_hands']) $hands->setValue($data['uht_hands']);
        $hands->setDecorators($elementDecorators);
@@ -265,7 +261,7 @@ class Student_Form_StudentEditDataForm {
        $legs = new Zend_Form_Element_Radio('legs', array(
            'label' => '',
             'separator' =>'',
-           'multiOptions' => array('Yes'=>'Yes', 'No'=>'No'),
+           'multiOptions' => array('Yes'=>'כן', 'No'=>'לא'),
         ));
        if ($data['uht_sit']) $legs->setValue($data['uht_sit']);
        $legs->setDecorators($elementDecorators);
@@ -273,7 +269,7 @@ class Student_Form_StudentEditDataForm {
        $backashes = new Zend_Form_Element_Radio('backashes', array(
            'label' => '',
            'separator' =>'',
-           'multiOptions' => array('Yes'=>'Yes', 'No'=>'No'),
+           'multiOptions' => array('Yes'=>'כן', 'No'=>'לא'),
         ));
        if ($data['uht_backashes']) $backashes->setValue($data['uht_backashes']);
        $backashes->setDecorators($elementDecorators);
@@ -282,7 +278,7 @@ class Student_Form_StudentEditDataForm {
        $slippedDisk = new Zend_Form_Element_Radio('disc', array(
            'label' => '',
             'separator' =>'',
-           'multiOptions' => array('Yes'=>'Yes', 'No'=>'No'),
+           'multiOptions' => array('Yes'=>'כן', 'No'=>'לא'),
         ));
        if ($protection) $slippedDisk->setAttrib ('disabled', 'true');
        if ($data['uht_slipped_disk']) $slippedDisk->setValue($data['uht_slipped_disk']);
@@ -293,11 +289,11 @@ class Student_Form_StudentEditDataForm {
         $generalQuestionsText3 = new Zend_Form_Element_Text('general3', array('id'=>'f_3'));
         $generalQuestionsText1->setDecorators($elementDecorators);
         if ($protection){
-            $generalQuestionsText1->setAttrib ('disabled', 'true');
-            $generalQuestionsText2->setAttrib ('disabled', 'true');
-            $generalQuestionsText3->setAttrib ('disabled', 'true');
-
+            $generalQuestionsText1->setAttrib ('readonly', 'true');
+            $generalQuestionsText2->setAttrib ('readonly', 'true');
+            $generalQuestionsText3->setAttrib ('readonly', 'true');
         }
+        
         $generalQuestionsText2->setDecorators($elementDecorators);
         $generalQuestionsText3->setDecorators($elementDecorators);
          if (isset ($data['uht_general1'])) $generalQuestionsText1->setValue($data['uht_general1']);

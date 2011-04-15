@@ -97,35 +97,35 @@ class User_Form_UserSecondForm extends Zend_Form{
        $walk = new Zend_Form_Element_Radio('walk', array(
            'label' => '',
            'separator' =>'',
-           'multiOptions' => array('Yes'=>'Yes', 'No'=>'No'),
+           'multiOptions' => array('Yes'=>'כן', 'No'=>'לא'),
         ));
        $walk->setDecorators($elementDecorators);
 
        $hands = new Zend_Form_Element_Radio('hands', array(
            'label' => '',
             'separator' =>'',
-           'multiOptions' => array('Yes'=>'Yes', 'No'=>'No'),
+           'multiOptions' => array('Yes'=>'כן', 'No'=>'לא'),
         ));
        $hands->setDecorators($elementDecorators);
 
        $legs = new Zend_Form_Element_Radio('legs', array(
            'label' => '',
             'separator' =>'',
-           'multiOptions' => array('Yes'=>'Yes', 'No'=>'No'),
+           'multiOptions' => array('Yes'=>'כן', 'No'=>'לא'),
         ));
        $legs->setDecorators($elementDecorators);
 
        $backashes = new Zend_Form_Element_Radio('backashes', array(
            'label' => '',
            'separator' =>'',
-           'multiOptions' => array('Yes'=>'Yes', 'No'=>'No'),
+           'multiOptions' => array('Yes'=>'כן', 'No'=>'לא'),
         ));
        $backashes->setDecorators($elementDecorators);
 
        $slippedDisk = new Zend_Form_Element_Radio('disc', array(
            'label' => '',
             'separator' =>'',
-           'multiOptions' => array('Yes'=>'Yes', 'No'=>'No'),
+           'multiOptions' => array('Yes'=>'כן', 'No'=>'לא'),
         ));
        $slippedDisk->setDecorators($elementDecorators);
 

@@ -44,6 +44,11 @@ class User_IndexController extends Zend_Controller_Action
          }
     }
 
+    public function logoutAction(){
+        Zend_Auth::getInstance()->clearIdentity();
+        $this->_redirect('');
+    }
+
     /*
      * Updating the datetime of last activity, relevant for all users: teacher and students
      */
@@ -98,20 +103,48 @@ class User_IndexController extends Zend_Controller_Action
            $ohterpersonid = $this->_request->getParam('otherpersonid');
            $message = $this->_request->getParam('message');
            $user = new User_Model_Users();
+           $student = new Student_Model_Students();
            if ($person=='student'){
-                $student = new Student_Model_Students();
+               $user->resetAllChatRequestsStudent($personid);
                 if ($student->getAllOnlineTeachers(60)){
-                    $user->addNewChatMessage($personid, null, null, 1, $message);
+                    $user->addNewChatMessage($personid, null, null, 1, $message,1,0);
                 }
                 else {
-                    $user->addNewChatMessage(null,1,$personid,null,"Im currently offline. I will read your message by my next visit");
-                    $user->addNewChatMessage($personid, null, null, 1, $message);
+                    $user->addNewChatMessage($personid, null, null, 1, $message,1,0);
+                    $user->addNewChatMessage(null,1,$personid,null,"Im currently offline. I will read your message by my next visit",1,0);
                 }
            }
            else {
-               $user->addNewChatMessage(null, 1, $ohterpersonid, null, $message);
+                $user->resetAllChatRequestsTeacher($ohterpersonid);
+                if ($student->checkIfStudentOnline($ohterpersonid,60)){
+                    $user->addNewChatMessage(null, 1, $ohterpersonid, null, $message,1,1);
+                }
+                else {
+                    $user->addNewChatMessage(null, 1, $ohterpersonid, null, $message,0,1);
+                }
            }
        }
     }
 
+    public function passwordRecoveryAction(){
+        $this->_helper->layout()->disableLayout();
+        $email = $this->getRequest()->getParam('email');
+        $user = new User_Model_Users();
+        $recoveryForm = new User_Form_UserPasswordRecoveryForm();
+        if ($this->getRequest()->getParam('recover')){
+            if (!$recoveryForm->isValid($_POST)){
+                $this->view->recoveryform = $recoveryForm;
+            }
+            else{
+                 // success
+                $user = new User_Model_Users();
+                $user->recoverPasswordUser($email);
+                echo "Password have been sent";
+            }
+        } else {
+             $this->view->recoveryform = $recoveryForm;
+         }
+    }
+
+    
 }

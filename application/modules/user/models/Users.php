@@ -4,6 +4,13 @@ class User_Model_Users extends Zend_Db_Table_Abstract{
 
     protected $_name = 'users';
 
+    private function resolveUserCountry($ip){
+
+        $userLocation = new User_Model_UserLocation();
+        return $userLocation->getCountry($ip);
+    }
+
+
     public function addUser($data){
 
         /*
@@ -12,12 +19,15 @@ class User_Model_Users extends Zend_Db_Table_Abstract{
          */
         
         $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+        $resolveLocation =$this->resolveUserCountry($_SERVER['REMOTE_ADDR']);
         $userdata = array(
           'u_id' => null,
           'u_name' => $data['firstname'],
           'u_family_name' => $data['familyname'],
           'u_sex_id' => $data['sex'],
           'u_status_id' => 5,
+          'u_ip' => $_SERVER['REMOTE_ADDR'],
+          'u_ip_country' => $resolveLocation['countryName'],
           'u_registraion_date' => date('Y-m-d'),
           'u_address' => $data['address'],
           'u_state_id' => 1,
@@ -26,7 +36,7 @@ class User_Model_Users extends Zend_Db_Table_Abstract{
           'u_password' => $data['password1'],
           'u_email' => $data['email'],
           'u_date_of_birth' => $data['datepicker'],
-          'u_external_emails' => $data['external'],
+          'u_external_emails' => 'Yes',
           'u_visits_amount' => 1,
           'u_picture' => $data['userimage'],
           'u_registration_stamp' => '3333',
@@ -159,16 +169,41 @@ class User_Model_Users extends Zend_Db_Table_Abstract{
     /*
      * Adding new chatmessage
      */
-    public function addNewChatMessage($fromUser=null, $fromTeacher=null, $toUser=null, $toTeacher=null, $message=""){
+    public function addNewChatMessage($fromUser=null, $fromTeacher=null, $toUser=null, $toTeacher=null, $message=" ", $isStudentOnline=0, $isTeacherOnline=0){
 
         $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+
+        $replaceFrom = array( //replaces smiles
+            "[:cool:]", "[:dont:]","[:evil:]","[:good:]","[:love:]","[:sad:]",
+            "[:saint:]", "[:scared:]","[:suspend:]","[:ugly:]","[:music:]","[:lucky:]","[:wink:]",
+            "<br>"
+        );
+        $replaceTo = array(
+            "<img src='/i/smiles/cool.gif' alt='cool'/>",
+            "<img src='/i/smiles/dont.gif' alt='dont'/>",
+            "<img src='/i/smiles/evil.gif' alt='evil'/>",
+            "<img src='/i/smiles/good.gif' alt='good'/>",
+            "<img src='/i/smiles/love.gif' alt='love'/>",
+            "<img src='/i/smiles/sad.gif' alt='sad'/>",
+            "<img src='/i/smiles/saint.gif' alt='saint'/>",
+            "<img src='/i/smiles/scared.gif' alt='scared'/>",
+            "<img src='/i/smiles/suspend.gif' alt='suspend'/>",
+            "<img src='/i/smiles/ugly.gif' alt='ugly'/>",
+            "<img src='/i/smiles/music.gif' alt='music'/>",
+            "<img src='/i/smiles/lucky.gif' alt='lucky'/>",
+            "<img src='/i/smiles/wink.gif' alt='wink'/>",
+            "",
+        );
+
         $data = array(
             'chat_from_user_id' => $fromUser,
             'chat_from_teacher_id' => $fromTeacher,
             'chat_to_user_id' => $toUser,
             'chat_to_teacher_id' => $toTeacher,
-            'chat_message' => $message,
+            'chat_message' => stripslashes(str_replace($replaceFrom, $replaceTo, $message)),
             'chat_datetime' => null,
+            'chat_isread_s' => $isStudentOnline,
+            'chat_isread_t' => $isTeacherOnline,
         );
         return $db->insert('chat', $data);
     }
@@ -196,5 +231,31 @@ class User_Model_Users extends Zend_Db_Table_Abstract{
         );
         return $db->update('chat', $data, "chat_to_user_id=$id OR chat_from_user_id=$id");
     }
+
+
+    /*
+     * Password recovery
+     */
+    public function recoverPasswordUser($email){
+
+        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+        $select = $db->select()
+                    ->from('users')
+                    ->where("u_email='$email'");
+        $stmp = $select->query();
+        $res = $stmp->fetchAll();
+        $password = $res[0]['u_password'];
+        $body = "";
+        $body .= "You have requested password recovery function<br/>";
+        $body .= "Your password is: $password";
+        $mail = new Zend_Mail('UTF-8');
+        $mail->setHeaderEncoding(Zend_Mime::ENCODING_BASE64);
+        $mail->setBodyHtml($body)
+                ->setFrom("no-reply@tipulitonline.co.il","")
+                ->addTo($email)
+                ->setSubject("Password reminder");
+        $mail->send();
+    }
+
 
 }

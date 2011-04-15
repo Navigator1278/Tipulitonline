@@ -3,8 +3,7 @@
 					<li class="e_echange">
 						<label for="Email_Echange">Email Echange</label>
 
-						<textarea name="Email_Echange" id="Email_Echange" cols="30" rows="10">
-						</textarea>
+						<textarea name="Email_Echange" id="Email_Echange" cols="30" rows="10"></textarea>
 					</li>
 					<li class="alerts">
 						<label for="alerts">Alerts</label>
@@ -35,16 +34,15 @@
                                                         </dt>
 							<dd>
 								<ul>
-									<li>Number of Visits:</li>
-									<li>Registration Date:</li>
-									<li>Days from last login:</li>
-									<li>Status:</li>
+									<li>Number of Visits: <?php echo $this->data['u_visits_amount'];?></li>
+                                                                        <li>Registration Date: <?php echo date("d/m/Y",strtotime($this->data['u_registraion_date']));?></li>
+									<li>Days from last login: <?php echo $this->daysregistered ?></li>
+                                                                        <li>Status: <span id='currentstatus'><?php echo $this->currentstatus ?></span></li>
 									<li>Total paid</li>
-
 									<li>Paid Date:</li>
 								</ul>
 							</dd>
-                  <input type="button" id="uploadavatar" value="Avatar"/>
+                  <input type="button" id="uploadavatar" value="תמונה"/>
                   <div id="uploadavatarform">
                       <?php
                         echo $this->uploadavatarform;
@@ -61,7 +59,7 @@
                                                                 $('#p_m_id_send').attr('disabled','true');
                                                             </script>
                                                         <?php endif; ?>
-							<label for="p_m_id">Paste Movi ID:</label>
+							<label for="p_m_id">Paste MovieID:</label>
 							<input type="text" name="p_m_id" id="p_m_id"
                                                                stid ="<?php echo $this->stid ?>" teacherId="<?php echo $this->teacherId ?>">
                                                         
@@ -71,9 +69,7 @@
 							<input type="button" id="p_object_send" value="Send">
 							<input type="submit" id="p_o_clear" value="Clear">
 							<label for="p_object">Paste Object:</label>
-
-							<textarea type="text" name="p_object" id="p_object" rows="20" cols="10">
-							</textarea>
+							<textarea type="text" name="p_object" id="p_object" rows="20" cols="10"></textarea>
 						</div>
 					</li>
 					<li class="change">
@@ -83,7 +79,9 @@
 							<label for="c_u_status">Change User Status:</label>
 
 							<select name="c_u_status" id="c_u_status">
-								<option>123132</option>
+                                                                <?php foreach ($this->allstatuses as $status): ?>
+								<option value="<?php echo $status['us_id'] ?>"><?php echo $status['us_type'] ?></option>
+                                                                <?php endforeach; ?>
 							</select>
 						</div>
 						<div>
@@ -105,7 +103,7 @@
 							<label for="lname">שם משפחה:</label>
 						</li>
 						<li>
-							<label class="birth">שנת לידה:
+							<label class="birth">משקל:
                                                         <?php echo $this->form->datepicker ?>
 							</label>
 							<label for="sex">מין:</label>
@@ -154,6 +152,9 @@
 							<label for="obj">מהן המטרות שלך בתרגול איתנו?</label>
                                                         <?php echo $this->form->objectives ?>
 						</li>
+                                                <li>
+                                                                                                                                לקבלת עותק לתיבת מייל חיצונית <?php echo $this->form->external ?><br/>
+                                                </li>
 					</ul>
 				</div>
 
@@ -432,13 +433,13 @@
         </div><br/>
         <div class="mail-block">
             <table id="mailtable">
-                <th>From/To</th><th>Subject</th><th>Date</th><th></th>
+                <th>מאת</th><th>נושא</th><th>תאריך ושעה</th><th></th>
                 <?php if ($this->mails): ?>
                 <?php foreach($this->mails as $mail): ?>
                 <tr class="eachmessage" id="<?php echo $mail['spm_id'] ?> " side="teacher" <?php echo ($mail['spm_from_user_id']? "class='unread'": ""); ?>>
-                    <td width="20%" <?php echo ($mail['spm_from_user_id']&&!$mail['spm_is_new']? "class='unread'": ""); ?>><?php echo $this->data['u_family_name'] ?></td>
+                    <td width="20%" <?php echo ($mail['spm_from_user_id']&&!$mail['spm_is_new']? "class='unread'": ""); ?>><?php echo $this->data['u_family_name'] ?> <?php echo $this->data['u_name'] ?></td>
                     <td width="30%" <?php echo ($mail['spm_from_user_id']&&!$mail['spm_is_new']? "class='unread'": ""); ?>><?php echo $mail['spm_subject'] ?></td>
-                    <td width="40%" <?php echo ($mail['spm_from_user_id']&&!$mail['spm_is_new']? "class='unread'": ""); ?>><?php echo $mail['spm_datetime'] ?></td>
+                    <td width="40%" <?php echo ($mail['spm_from_user_id']&&!$mail['spm_is_new']? "class='unread'": ""); ?>><?php echo date("d/m/Y h:i:s", strtotime($mail['spm_datetime'])) ?></td>
                     <td width="10%"> 
                         <?php if ($mail['spm_from_user_id']): ?>
                         <img src="/i/mail_in.png" title="inbox"/>
@@ -469,8 +470,10 @@
             <img id="newmaillink" src="/i/email.png" title="write new mail"/>
                         <span id="newmailform" >
                             <form method="post" action="/teacher/dashboard/view-student/stid/<?php echo $this->stid ?>">
-                            subject <input type="text" name="subject" id="mailsubj" /><br/><br/>
-                            <textarea name="mailbody" id="mailbody" cols="30" rows="5"></textarea><br/>
+                            subject <input type="text" name="subject" id="mailsubj" style="width:300px;"/><br/><br/>
+                            <div style="width:420px; background-color: #fff">
+                            <textarea name="mailbody" id="mailbody" cols="50" rows="5"></textarea>
+                            </div><br/>
                             <input type="submit" name="mailsend" id="mailsend" value="send"/>
                             </form>
                         </span>

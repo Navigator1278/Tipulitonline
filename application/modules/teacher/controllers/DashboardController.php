@@ -28,9 +28,9 @@ class Teacher_DashboardController extends Zend_Controller_Action
          $this->view->allstudents = $student->getAllStudents($currentPage, $entriesPerPage);
          $this->view->allonlinestudents = $student->getAllOnlineStudents();
          $this->view->currentpage = $currentPage;
-         //echo '<pre>';
-         //print_r($teacher->getAllOfflineMessages(92, 1));
-         //echo '</pre>';
+         $this->view->visibility = $teacher->checkTeacherVisibility(1);
+         $this->view->offlinemessages = $teacher->getAllOfflineMessages(1);
+        
     }
 
     public function viewStudentAction()
@@ -50,7 +50,6 @@ class Teacher_DashboardController extends Zend_Controller_Action
         $this->view->teacher = $mailExchange->getTeacherNameById(1);
         $this->view->stid = $stid;
         $this->view->alerts = $student->getStudentAlerts($stid);
-
         //changing the avatar of the student
         $uploadAvaForm = new Student_Form_StudentUploadAvaForm();
         $this->view->uploadavatarform = $uploadAvaForm;
@@ -88,6 +87,13 @@ class Teacher_DashboardController extends Zend_Controller_Action
         }
          $this->view->mailform = $mailSendForm->getForm();
          $this->view->mails = $mailExchange->getAllMessagesFromTeacher($stid);
+
+         //dealing with statuses
+         $teacher = new Teacher_Model_Teachers();
+         $this->view->allstatuses = $teacher->getAllStatuses();
+         $this->view->currentstatus = $teacher->getStudentStatus($stid);
+
+         $this->view->daysregistered = $teacher->calculateDaysDifference($dataAll['u_lastactivity']);
 
         // end of dealing with the saving student's details updated by the teacher
     }
@@ -147,7 +153,7 @@ class Teacher_DashboardController extends Zend_Controller_Action
      * chat window
      */
     public function chatAction(){
-        
+        $this->_helper->layout->setLayout('chat');
         $stid = $this->view->stid = $this->_getParam('stid'); //student's ID
         $teacher = new Teacher_Model_Teachers();
         $student = new Student_Model_Students();
@@ -157,4 +163,26 @@ class Teacher_DashboardController extends Zend_Controller_Action
         $teacher->sendChatRequestToStudent($stid,1);
         $user->resetAllChatRequestsTeacher($stid);
     }
+
+    public function changevisibilityAction(){
+     	if ($this->getRequest()->isXmlHttpRequest()) {
+    		$tid = $this->_request->getParam('tid');
+                $visibility = $this->_request->getParam('visibility');
+                $teacher = new Teacher_Model_Teachers();
+                $teacher->changeVisibility(1, intval($visibility));
+                }
+    	else echo "no AJAX";
+    }
+
+    public function changestatusAction(){
+     	if ($this->getRequest()->isXmlHttpRequest()) {
+    		$stid = $this->_request->getParam('stid');
+                $statusId = $this->_request->getParam('statusid');
+                $teacher = new Teacher_Model_Teachers();
+                $teacher->changeStudentStatus($stid, $statusId);
+                }
+    	else echo "no AJAX";
+    }
+
+    
 }

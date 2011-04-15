@@ -7,7 +7,10 @@ class Student_ProfileController extends Zend_Controller_Action
     {
         # turn on application/layouts/scripts/student.phtml
         $this->_helper->layout->setLayout('student');
+        $this->view->headTitle('מרכז למידה');
         $auth = Zend_Auth::getInstance();
+        $student = new Student_Model_Students();
+        $student->sendMassMailsToAllStudents();
         #if (!$auth->hasIdentity()) $this->_redirect ('/');
     }
 
@@ -68,7 +71,10 @@ class Student_ProfileController extends Zend_Controller_Action
     {
         # ОБЯЗАТЕЛЬНАЯ ПРОВЕРКА на то, что юзер залогинен. если нет - пересылвать его на /student/profile/view-student/id/{$user_id}
         // action body
+
+
         $this->_helper->layout->setLayout('teacher');
+        $this->view->headTitle('עמוד מידע');
         $sessionData = Zend_Auth::getInstance()->getIdentity();
         $id = $this->_getParam('id');
 
@@ -89,8 +95,12 @@ class Student_ProfileController extends Zend_Controller_Action
             $dataHealth = $student->getStudentHealthData($sessionData['u_id']);
             $dataAll = $dataHealth+$dataMain;
             $this->view->data = $dataAll;
+            echo "<pre>";
+            print_r($dataAll);
+            echo "</pre>";
             $studentForm = Student_Form_StudentEditDataForm::getForm($dataAll,1);
             $this->view->studentstatus = $student->getStudentStatus($sessionData['u_id']);
+            $this->view->status6d = $student->check6DStatus(intval($sessionData['u_id']));
             $this->view->form = $studentForm;
             if ($this->getRequest()->getParam('uploadavatar')){
                 if ($uploadAvaForm->isValid($_POST)){
@@ -108,9 +118,7 @@ class Student_ProfileController extends Zend_Controller_Action
             } else{
                 // success
                 $student->updateStudentData($sessionData['u_id'], $_POST);
-                $dataMain = $student->getStudentMainData(intval($sessionData['u_id']));
-                $dataHealth = $student->getStudentHealthData($sessionData['u_id']);
-                $dataAll = $dataHealth+$dataMain;
+                $this->_redirect("/student/profile/my-profile/");
             }
         } else{
                 $this->view->form = $studentForm;
@@ -184,18 +192,19 @@ class Student_ProfileController extends Zend_Controller_Action
         $teacher = new Teacher_Model_Teachers();
         $this->view->paymentinfo = $teacher->getPaymentInfo();
         $this->_helper->layout->setLayout('teacher');
+        $this->view->headTitle('שדרוג חשבון');
     }
 
     /*
      * chat action
      */
     public function chatAction(){
-        
-        $this->_helper->layout->setLayout('teacher');
+        $this->_helper->layout->setLayout('chat');
+        $this->view->headTitle("צ'אט עם מדריך אונליין");
         $sessionData = Zend_Auth::getInstance()->getIdentity();
         $sessionId = $sessionData['u_id'];
         $user = new User_Model_Users();
-        //$user->resetAllChatRequestsStudent($sessionId);
+        $user->resetAllChatRequestsStudent($sessionId);
         $this->view->stid = $sessionId;
         
     }

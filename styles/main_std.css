@@ -1074,6 +1074,12 @@ size: 100px;
 	font-weight: bold;
 }
 
+.mail-block-title{
+	float: left;
+	width: 100%;
+	font-weight: bold;
+	text-align: center;
+}
 
 #youtube{
 	text-align : center;
@@ -1099,13 +1105,17 @@ size: 100px;
 
 
 #vid1, #container{
-margin-right: -127px;
+margin-right: -131px;
 }
 
 #chatrequest{
 color: red;
 }
 
+#chatrequestimg{
+	width:72px;
+	height: 78px;
+}
 
 .for_ie {
            background: url("../img/footer.png") no-repeat scroll 68% 0 transparent;
