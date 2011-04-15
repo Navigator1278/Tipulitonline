@@ -27,12 +27,21 @@ $(document).ready(function () {
     });
     });
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> f69db4ff50b1366aebe1f70af8feed3881dd14fb
     $(".smilebuttons").click(function(){
         var smilecode = $(this).attr('smilecode');
         var currentval = nicEditors.findEditor('chatinput').getContent();
         nicEditors.findEditor('chatinput').setContent(currentval + smilecode);
         
     });
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 67f0acfa69eefcffd7e3b2899a0c71c9c886d7d3
+>>>>>>> f69db4ff50b1366aebe1f70af8feed3881dd14fb
 
 });
 
@@ -102,12 +111,24 @@ function CheckActivity() {
 	success:function(data){
             if (data!=""){
                         var newmessagesflag = 0;
+<<<<<<< HEAD
                         var output = "<table id='chattable'>";
+=======
+<<<<<<< HEAD
+                        var output = "<table id='chattable'>";
+=======
+                        var output = '';
+>>>>>>> 67f0acfa69eefcffd7e3b2899a0c71c9c886d7d3
+>>>>>>> f69db4ff50b1366aebe1f70af8feed3881dd14fb
                         var auth ="Auth";
                         $.each(data, function(i, val) {
                              if (val.chat_from_user_id) auth="<b style='color:red'>student</b>";
                              if (val.chat_from_teacher_id) auth="<b style='color:blue'>teacher</b>";
                              if (val.chat_isread_s==0) newmessagesflag=1;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> f69db4ff50b1366aebe1f70af8feed3881dd14fb
                              output = output + "<tr><td> [" + auth + "]: "+ "</td><td>" + val.chat_message;
                              if (val.chat_message=='New chat request'){
                                 output = output + " at " + val.chat_datetime + "<td></tr>";
@@ -117,6 +138,7 @@ function CheckActivity() {
                              }
                         });
                          output = output + "</table><br/><br/><br/><br/>";
+<<<<<<< HEAD
                    $("#chatbox").html(output);
                    if (newmessagesflag==1){
                         $("#chatrequest").html("<center><a href='/student/profile/chat/' target='new'><img align='center' width='72px' height='79px' alt='new chat-message' src='/i/chatmessage.gif'/><b>לצ'אט עם מדריך אונליין</b><br/><b>לחץ כאן</b></a></center>");
@@ -127,6 +149,23 @@ function CheckActivity() {
                 }
             else {
                         $("#chatrequest").html("<a href='/student/profile/chat/' target='new'>צ'אט עם מדריך אונליין</a>");
+=======
+=======
+                             output = output + "<br/>" + val.chat_message + " :[" + auth + "] " + val.chat_datetime ;
+                         });
+                         output = output + "<br/><br/><br/><br/>";
+>>>>>>> 67f0acfa69eefcffd7e3b2899a0c71c9c886d7d3
+                   $("#chatbox").html(output);
+                   if (newmessagesflag==1){
+                        $("#chatrequest").html("<a href='/student/profile/chat/' target='new'><img alt='new chat-message' src='/i/chatmessage.gif'/><b>Alert: chat request</b></a>");
+                   }
+                   else {
+                        $("#chatrequest").html("<a href='/student/profile/chat/' target='new'>Chat with teacher</a>");
+                   }
+                }
+            else {
+                        $("#chatrequest").html("<a href='/student/profile/chat/' target='new'>Chat with teacher</a>");
+>>>>>>> f69db4ff50b1366aebe1f70af8feed3881dd14fb
                 
             }
 	},
@@ -136,6 +175,24 @@ function CheckActivity() {
     });
     
       $(".chat-block").scrollTop($(".chat-block").get(0).scrollHeight);
+}
+
+function getCaretPos(obj)
+{
+  obj.focus();
+ 
+  if(obj.selectionStart) return obj.selectionStart;//Gecko
+  else if (document.selection)//IE
+  {
+    var sel = document.selection.createRange();
+    var clone = sel.duplicate();
+    sel.collapse(true);
+    clone.moveToElementText(obj);
+    clone.setEndPoint('EndToEnd', sel);
+    return clone.text.length;
+  }
+
+  return 0;
 }
 
 function getCaretPos(obj)

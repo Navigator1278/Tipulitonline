@@ -125,6 +125,7 @@ class User_IndexController extends Zend_Controller_Action
            }
        }
     }
+<<<<<<< HEAD
 
     public function passwordRecoveryAction(){
         $this->_helper->layout()->disableLayout();
@@ -147,4 +148,6 @@ class User_IndexController extends Zend_Controller_Action
     }
 
     
+=======
+>>>>>>> f69db4ff50b1366aebe1f70af8feed3881dd14fb
 }

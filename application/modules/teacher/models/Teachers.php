@@ -94,8 +94,15 @@ class Teacher_Model_Teachers extends Zend_Db_Table_Abstract{
                     ->where("t_id=$tid");
         $stmp = $select->query();
         $res = $stmp->fetchAll();
+<<<<<<< HEAD
         if (!$res) return false;
         if ($res[0]['t_visible']==1) return true;
+=======
+        echo "res=";
+        print_r($res);
+        if (!$res) return false;
+        if ($res['']['t_visible'==1]) return true;
+>>>>>>> f69db4ff50b1366aebe1f70af8feed3881dd14fb
             else return false;
     }
 
@@ -104,6 +111,7 @@ class Teacher_Model_Teachers extends Zend_Db_Table_Abstract{
         $data = array(
             't_visible' => $visibility,
         );
+<<<<<<< HEAD
         $db->update('teachers', $data, "t_id=$tid");
     }
 
@@ -152,5 +160,11 @@ class Teacher_Model_Teachers extends Zend_Db_Table_Abstract{
         
         return intval((time() - strtotime($fromDate))/86400);
     }
+=======
+        $db->update('teachers', $data,$t_id=$tid);
+    }
+
+
+>>>>>>> f69db4ff50b1366aebe1f70af8feed3881dd14fb
    
 }

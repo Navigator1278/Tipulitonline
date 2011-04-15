@@ -30,7 +30,14 @@ class Teacher_DashboardController extends Zend_Controller_Action
          $this->view->currentpage = $currentPage;
          $this->view->visibility = $teacher->checkTeacherVisibility(1);
          $this->view->offlinemessages = $teacher->getAllOfflineMessages(1);
+<<<<<<< HEAD
         
+=======
+         
+         //echo '<pre>';
+         //print_r($teacher->getAllOfflineMessages(92, 1));
+         //echo '</pre>';
+>>>>>>> f69db4ff50b1366aebe1f70af8feed3881dd14fb
     }
 
     public function viewStudentAction()
@@ -169,6 +176,7 @@ class Teacher_DashboardController extends Zend_Controller_Action
     		$tid = $this->_request->getParam('tid');
                 $visibility = $this->_request->getParam('visibility');
                 $teacher = new Teacher_Model_Teachers();
+<<<<<<< HEAD
                 $teacher->changeVisibility(1, intval($visibility));
                 }
     	else echo "no AJAX";
@@ -185,4 +193,10 @@ class Teacher_DashboardController extends Zend_Controller_Action
     }
 
     
+=======
+                $teacher->changeVisibility($tid, intval($visibility));
+                }
+    	else echo "no AJAX";
+    }
+>>>>>>> f69db4ff50b1366aebe1f70af8feed3881dd14fb
 }

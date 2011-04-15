@@ -199,8 +199,13 @@ class Student_ProfileController extends Zend_Controller_Action
      * chat action
      */
     public function chatAction(){
+<<<<<<< HEAD
         $this->_helper->layout->setLayout('chat');
         $this->view->headTitle("צ'אט עם מדריך אונליין");
+=======
+        
+        $this->_helper->layout->setLayout('chat');
+>>>>>>> f69db4ff50b1366aebe1f70af8feed3881dd14fb
         $sessionData = Zend_Auth::getInstance()->getIdentity();
         $sessionId = $sessionData['u_id'];
         $user = new User_Model_Users();
